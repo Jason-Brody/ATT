@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ATT.Scripts.DataFetch
+namespace ATT.Scripts.PayLoads
 {
     public class PayloadsDownloaderModel
     {
@@ -12,12 +12,9 @@ namespace ATT.Scripts.DataFetch
 
         public string Password { get; set; }
 
-        public string CookieUrl { get; set; }
-
         public string DownloadUrl { get; set; }
 
-        public List<string> MessageIds { get; set; }
+        public int DownloadPatchSize { get; set; } = 100;
 
-        public string ZipFileName { get; set; }
     }
 }

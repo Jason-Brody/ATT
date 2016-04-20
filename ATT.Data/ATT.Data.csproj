@@ -56,8 +56,8 @@
   <ItemGroup>
     <Compile Include="AttDbContext.cs" />
     <Compile Include="Class1.cs" />
-    <Compile Include="TimeConverter.cs" />
     <Compile Include="EDIKeys.cs" />
+    <Compile Include="TimeConverter.cs" />
     <Compile Include="IDocNumbers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

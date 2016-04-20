@@ -61,6 +61,7 @@
     <Compile Include="PayLoads\PayloadsDownloaderModel.cs" />
     <Compile Include="PayLoads\PayloadsDownloader.cs" />
     <Compile Include="FileConfig.cs" />
+    <Compile Include="PayLoads\PayloadsOutput.cs" />
     <Compile Include="SAPGui\EDIKeyTask.cs" />
     <Compile Include="SAPGui\EDIKeyDataModel.cs" />
     <Compile Include="SAPGui\EDIKeyOutput.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="SAPGui\SAPLoginModel.cs" />
     <Compile Include="Tools.cs" />
     <Compile Include="SAPGui\UIHelper.cs" />
+    <Compile Include="Zip\Unzip.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="SAPFEWSELib">

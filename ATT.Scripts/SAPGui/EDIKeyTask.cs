@@ -12,18 +12,17 @@ using System.Threading.Tasks;
 namespace ATT.Scripts.SAPGui
 {
     [Script("Get EDI Keys")]
-    public class EDIKeyTask : IScriptRunner<EDIKeyDataModel>
+    public class EDIKeyTask : ScriptBase<EDIKeyDataModel>
     {
         private EDIKeyDataModel _data;
         private EDIKeyOutput _output;
         private ATT.Data.AttDbContext db;
 
-        public void SetInputData(EDIKeyDataModel data, IProgress<ProgressInfo> MyProgress)
-        {
+        public override void SetInputData(EDIKeyDataModel data) {
             this._data = data;
-            Environment.CurrentDirectory = @"C:\ATT";
             _output = new EDIKeyOutput();
         }
+
 
         [Step(Id = 1, Name = "Login to SAP")]
         public void Login()
@@ -132,9 +131,10 @@ namespace ATT.Scripts.SAPGui
 
                     if(File.Exists(_output.EDIKeyFile))
                     {
-                        var ediKeys = Tools.GetDataEntites<ATT.Data.EDIKeys>(_output.EDIKeyFile);
+                        var ediKeys = Tools.GetDataEntites<ATT.Data.EDIKeys>(_output.EDIKeyFile,"|");
                         if(ediKeys!=null && ediKeys.Count>0)
                         {
+                            ediKeys.ForEach(k => k.CreateDt = DateTime.UtcNow);
                             using (db = new Data.AttDbContext())
                             {
                                 db.EDIKeys.AddRange(ediKeys);
@@ -150,5 +150,7 @@ namespace ATT.Scripts.SAPGui
                 
             }
         }
+
+        
     }
 }

@@ -9,75 +9,31 @@ using System.Net;
 using Young.Data;
 using ATT.Scripts;
 using System.Transactions;
-
+using System.Data.SqlClient;
+using ATT.Scripts.SAPGui;
+using ATT.Scripts.PayLoads;
+using ScriptRunner.Interface;
 namespace ATT
 {
     public class Class1
     {
         public static void Main()
         {
-            int i = int.Parse(Console.ReadLine());
-            Random rd = new Random();
-            using (var dbEntity = new ATT.Data.AttDbContext())
-            {
-                dbEntity.Database.Log += (s) => Console.WriteLine(s);
-
-                using (var dbTransaction = dbEntity.Database.BeginTransaction(System.Data.IsolationLevel.Serializable))
-                {
-                    
-
-                    var keys = dbEntity.EDIKeys.Where(c => c.StatusId < i).ToList();
-                    foreach (var k in keys)
-                    {
-                        k.StatusId = rd.Next(1000, 2000);
-                        Task.Delay(20).Wait();
-                    }
-                    dbEntity.SaveChanges();
-                    dbTransaction.Commit();
-                }
-
-                
-            }
-            
 
 
 
 
+            PayloadsDownloaderModel m = new PayloadsDownloaderModel();
+            m.DownloadUrl = "http://sapxip-ent.sapnet.hpecorp.net:50000/hp.com~com.hp.pi.core.web/svc/event/downloadPayloads";
+            m.Username = "21746957";
+            m.Password = "Ojo@8gat";
+            m.DownloadPatchSize = 20;
 
-
-            //    var edikeys = Tools.GetDataEntites<ATT.Data.EDIKeys>(@"C:\ATT\MessageDownloads\EDIArchiveKey_APF_57784172-c4c9-4282-b472-ea746080a5d0.txt", "|");
-            //ATT.Data.AttDbContext db = new Data.AttDbContext();
-            //db.EDIKeys.AddRange(edikeys);
-            //db.SaveChanges();
-
-            //var data = ExcelHelper.Current.Open("ATT.xlsx").ReadAll();
-            //ATT.Scripts.SAPGui.EDIKeyDataModel dataModel = new Scripts.SAPGui.EDIKeyDataModel();
-          
-            //dataModel.Interfaces = data.Tables["Interfaces"].ToList<ATT.Scripts.SAPGui.SAPInterface>();
-            //dataModel.CompanyCodes = data.Tables["CompanyCodes"].ToList<ATT.Scripts.SAPGui.CompanyCode>();
-            //dataModel.DocTypes = data.Tables["DocumentTypes"].ToList<ATT.Scripts.SAPGui.DocType>();
-
-            //dataModel.Address = "saplh1-ent.sapnet.hpecorp.net";
-            //dataModel.UserName = "21746957";
-            //dataModel.Password = "Ojo@1gat7";
-            //dataModel.Client = "100";
-            //dataModel.Language = "EN";
-            //dataModel.StartDate = "18.04.2016";
-            //dataModel.EndDate = "18.04.2016";
-            //dataModel.StartTime = 1;
-            //dataModel.Interval = 2;
-            //dataModel.InterfaceCount = 1;
-
-            //ATT.Scripts.SAPGui.EDIKeyTask t = new ATT.Scripts.SAPGui.EDIKeyTask();
-            //ScriptRunner.Interface.ScriptEngine<ATT.Scripts.SAPGui.EDIKeyDataModel> script = new ScriptRunner.Interface.ScriptEngine<ATT.Scripts.SAPGui.EDIKeyDataModel>(t);
-            //script.Run(dataModel);
-            
-
-
+            ScriptEngine<PayloadsDownloader, PayloadsDownloaderModel> script = new ScriptEngine<PayloadsDownloader, PayloadsDownloaderModel>();
+            script.Run(m);
 
 
            
-
 
 
             //SAPAutomation.SAPLogon logon = new SAPAutomation.SAPLogon();
@@ -88,9 +44,29 @@ namespace ATT
         }
 
 
-        public static void Test(int a)
+        public static void EDIKeyTask()
         {
-            Console.WriteLine(a);
+            var data = ExcelHelper.Current.Open("ATT.xlsx").ReadAll();
+            EDIKeyDataModel dataModel = new EDIKeyDataModel();
+
+            dataModel.Interfaces = data.Tables["Interfaces"].ToList<SAPInterface>();
+            dataModel.CompanyCodes = data.Tables["CompanyCodes"].ToList<CompanyCode>();
+            dataModel.DocTypes = data.Tables["DocumentTypes"].ToList<DocType>();
+
+            dataModel.Address = "saplh1-ent.sapnet.hpecorp.net";
+            dataModel.UserName = "21746957";
+            dataModel.Password = "Ojo@1gat7";
+            dataModel.Client = "100";
+            dataModel.Language = "EN";
+            dataModel.StartDate = "20.04.2016";
+            dataModel.EndDate = "20.04.2016";
+            dataModel.StartTime = 1;
+            dataModel.Interval = 2;
+            dataModel.InterfaceCount = 1;
+
+
+            ScriptEngine<EDIKeyTask, EDIKeyDataModel> script = new ScriptEngine<EDIKeyTask, EDIKeyDataModel>();
+            script.Run(dataModel);
         }
     }
 }

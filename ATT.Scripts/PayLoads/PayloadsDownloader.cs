@@ -2,22 +2,28 @@
 using ScriptRunner.Interface.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace ATT.Scripts.DataFetch
+namespace ATT.Scripts.PayLoads
 {
     [Script("Payloads Download Script")]
-    public class PlayloadsDownloader:IScriptRunner<PayloadsDownloaderModel>
+    public class PayloadsDownloader : ScriptBase<PayloadsDownloaderModel>
     {
         private PayloadsDownloaderModel _data;
+        private PayloadsOutput _output;
 
-        public void SetInputData(PayloadsDownloaderModel data, IProgress<ProgressInfo> MyProgress)
-        {
+        public PayloadsDownloader() {
+            _output = new PayloadsOutput();
+        }
+
+        public override void SetInputData(PayloadsDownloaderModel data) {
             this._data = data;
         }
 
@@ -50,37 +56,78 @@ namespace ATT.Scripts.DataFetch
         //    }
         //}
 
-        [Step(Id =1, Name ="Download XML Files")]
+        [Step(Id = 1, Name = "Download XML Files")]
+        public void Download() {
+            List<ATT.Data.EDIKeys> edikeys = null;
 
-        public void Download()
-        {
-
-            HttpWebRequest request = HttpWebRequest.Create(_data.DownloadUrl) as HttpWebRequest;
-            request.Credentials = new NetworkCredential(_data.Username, _data.Password);
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
-            string postData = "msgids=";
-            foreach(var msgId in _data.MessageIds)
-            {
-                postData += msgId + Environment.NewLine;
+            using (var db = new ATT.Data.AttDbContext()) {
+                edikeys = db.Database.SqlQuery<ATT.Data.EDIKeys>("exec SP_GetEDIKeys @num", new SqlParameter("num", _data.DownloadPatchSize)).ToList();
             }
 
-            postData += "&lastVersion=false&fullEnvelope=false";
-            var data = Encoding.ASCII.GetBytes(postData);
+            if (edikeys.Count > 0) {
 
-            using (var stream = request.GetRequestStream())
-            {
-                stream.Write(data, 0, data.Length);
-            }
+                WebClient client = new WebClient();
+                client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+                client.Credentials = new NetworkCredential(_data.Username, _data.Password);
+               
+                
 
-            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                //HttpWebRequest request = HttpWebRequest.Create(_data.DownloadUrl) as HttpWebRequest;
+                //request.Credentials = new NetworkCredential(_data.Username, _data.Password);
+                //request.Method = "POST";
+                //request.ContentType = "application/x-www-form-urlencoded";
+                string postData = "msgids=";
 
-            using (var responseStream = response.GetResponseStream())
-            {
-                using (var fs = File.OpenWrite(_data.ZipFileName))
-                {
-                    responseStream.CopyTo(fs);
+                foreach (var edikey in edikeys) {
+                    postData += edikey.EDIKey + Environment.NewLine;
                 }
+
+
+              
+
+                postData += "&lastVersion=false&fullEnvelope=false";
+
+               
+
+                client.UploadProgressChanged += (s, e) => {
+                    Console.WriteLine(e.ProgressPercentage);
+                };
+
+                client.UploadDataCompleted += (s, e) => {
+                    Console.WriteLine("Complete");
+                };
+
+                
+                byte[] result = client.UploadData(_data.DownloadUrl, "POST", System.Text.Encoding.UTF8.GetBytes(postData));
+                var f = Path.Combine(_output.WorkDir, $"{edikeys.Last().Id.ToString()}.zip");
+                if (File.Exists(f)) {
+                    File.Delete(f);
+                }
+
+                MemoryStream ms = new MemoryStream(result);
+                using (var fs = File.OpenWrite(f)) {
+                    ms.CopyTo(fs);
+                }
+
+                //var data = Encoding.ASCII.GetBytes(postData);
+
+                //using (var stream = request.GetRequestStream()) {
+                //    stream.Write(data, 0, data.Length);
+                //}
+
+                ///// Need to add codes if file can't be downloaded
+                //HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+
+                //using (var responseStream = response.GetResponseStream()) {
+                //    var f = Path.Combine(_output.WorkDir,  $"{edikeys.Last().Id.ToString()}.zip");
+                //    if (File.Exists(f)) {
+                //        File.Delete(f);
+                //    }
+                //    using (var fs = File.OpenWrite(f)) {
+                //        responseStream.CopyTo(fs);
+                //    }
+
+                //}
             }
         }
 

@@ -11,9 +11,8 @@ namespace ATT.Scripts
     {
         protected string _workDir;
 
-        public FileConfig(string WorkFolder)
-        {
-            _workDir = Path.Combine(Environment.CurrentDirectory, WorkFolder);
+        public FileConfig(string WorkFolder) {
+            _workDir = Path.Combine(@"C:\ATT", WorkFolder);
             if (!Directory.Exists(_workDir))
                 Directory.CreateDirectory(_workDir);
         }

@@ -19,6 +19,24 @@ namespace ATT.Data
         [StringLength(50)]
         public string EDIKey { get; set; }
 
-        public int? StatusId { get; set; }
+        [StringLength(50)]
+        public string IDocType { get; set; }
+
+        [StringLength(50)]
+        public string Awsys { get; set; }
+
+        public bool IsProcess { get; set; }
+
+        public bool IsDownload { get; set; }
+
+        public bool IsTransformed { get; set; }
+
+        public bool IsSend { get; set; }
+
+        public DateTime? CreateDt { get; set; }
+
+        public DateTime? DownloadDt { get; set; }
+
+        public DateTime? SentDt { get; set; }
     }
 }
