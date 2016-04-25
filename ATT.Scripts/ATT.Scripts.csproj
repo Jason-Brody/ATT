@@ -47,6 +47,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,18 +59,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PayLoads\PayloadsDownloaderModel.cs" />
-    <Compile Include="PayLoads\PayloadsDownloader.cs" />
+    <Compile Include="GetMessageId\GUIShareData.cs" />
+    <Compile Include="PayloadsDownloadAndUpdate\PayloadsTransform.cs" />
+    <Compile Include="PayloadsDownloadAndUpdate\PayloadsTransformData.cs" />
+    <Compile Include="PayloadsDownload\PayloadsShareData.cs" />
+    <Compile Include="PayloadsUpload\PayloadsUploader.cs" />
+    <Compile Include="PayloadsUpload\PayloadsUploaderData.cs" />
+    <Compile Include="GlobalConfig.cs" />
+    <Compile Include="PayloadsUpdate\PayloadsUpdateData.cs" />
+    <Compile Include="PayloadsDownload\PayloadsDownloaderData.cs" />
+    <Compile Include="PayloadsDownload\PayloadsDownloader.cs" />
     <Compile Include="FileConfig.cs" />
-    <Compile Include="PayLoads\PayloadsOutput.cs" />
-    <Compile Include="SAPGui\EDIKeyTask.cs" />
-    <Compile Include="SAPGui\EDIKeyDataModel.cs" />
-    <Compile Include="SAPGui\EDIKeyOutput.cs" />
+    <Compile Include="PayloadsUpdate\PayloadsUpdate.cs" />
+    <Compile Include="GetMessageId\MSGIDTask.cs" />
+    <Compile Include="GetMessageId\MSGIDTaskData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SAPGui\SAPLoginModel.cs" />
+    <Compile Include="GetMessageReport\MSGID_Report.cs" />
+    <Compile Include="GetMessageReport\MSGID_ReportData.cs" />
+    <Compile Include="SAPLoginData.cs" />
+    <Compile Include="ATTDate.cs" />
+    <Compile Include="ITGTrack\ITGTrack.cs" />
+    <Compile Include="ITGTrack\ITGTrackData.cs" />
     <Compile Include="Tools.cs" />
-    <Compile Include="SAPGui\UIHelper.cs" />
-    <Compile Include="Zip\Unzip.cs" />
+    <Compile Include="UIHelper.cs" />
+    <Compile Include="UserInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="SAPFEWSELib">
@@ -101,6 +114,10 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

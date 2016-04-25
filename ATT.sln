@@ -42,6 +42,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{B1D2ACC5-8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATT.Scripts", "ATT.Scripts\ATT.Scripts.csproj", "{120F9B8F-EB97-44A0-8F30-E6692A65ECB2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{9BAD54EC-15FA-4B75-9161-8D0C12E7E54E}"
+	ProjectSection(SolutionItems) = preProject
+		\\15.107.22.79\att\IDOC\SQL\createtables.sql = \\15.107.22.79\att\IDOC\SQL\createtables.sql
+		\\15.107.22.79\att\IDOC\SQL\load.sql = \\15.107.22.79\att\IDOC\SQL\load.sql
+		\\15.107.22.79\att\IDOC\SQL\load_itg.sql = \\15.107.22.79\att\IDOC\SQL\load_itg.sql
+		\\15.107.22.79\att\IDOC\SQL\loadmd.sql = \\15.107.22.79\att\IDOC\SQL\loadmd.sql
+		\\15.107.22.79\att\IDOC\SQL\remove.sql = \\15.107.22.79\att\IDOC\SQL\remove.sql
+		\\15.107.22.79\att\IDOC\SQL\selectcount.sql = \\15.107.22.79\att\IDOC\SQL\selectcount.sql
+		\\15.107.22.79\att\IDOC\SQL\selectresult.sql = \\15.107.22.79\att\IDOC\SQL\selectresult.sql
+		\\15.107.22.79\att\IDOC\SQL\transfer.sql = \\15.107.22.79\att\IDOC\SQL\transfer.sql
+		\\15.107.22.79\att\IDOC\SQL\updatecreated.sql = \\15.107.22.79\att\IDOC\SQL\updatecreated.sql
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATTWorkFlow", "ATTWorkFlow\ATTWorkFlow.csproj", "{B649184F-BE1C-40B1-8602-F59A2677EC14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATT.Robot", "ATT.Robot\ATT.Robot.csproj", "{D90B7B0B-7A8B-4201-8503-4EB1600F09EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,8 +81,19 @@ Global
 		{120F9B8F-EB97-44A0-8F30-E6692A65ECB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{120F9B8F-EB97-44A0-8F30-E6692A65ECB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{120F9B8F-EB97-44A0-8F30-E6692A65ECB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B649184F-BE1C-40B1-8602-F59A2677EC14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B649184F-BE1C-40B1-8602-F59A2677EC14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B649184F-BE1C-40B1-8602-F59A2677EC14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B649184F-BE1C-40B1-8602-F59A2677EC14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D90B7B0B-7A8B-4201-8503-4EB1600F09EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D90B7B0B-7A8B-4201-8503-4EB1600F09EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D90B7B0B-7A8B-4201-8503-4EB1600F09EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D90B7B0B-7A8B-4201-8503-4EB1600F09EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9BAD54EC-15FA-4B75-9161-8D0C12E7E54E} = {B1D2ACC5-8A59-4C49-997F-BAC3596C4732}
 	EndGlobalSection
 EndGlobal
