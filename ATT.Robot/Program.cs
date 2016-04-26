@@ -22,16 +22,28 @@ namespace ATT.Robot
 
         static void Main(string[] args) {
 
-           
+
+            ATTTask t;
+            int taskId;
 
             if (args.Count() == 0) {
+                
+                foreach(var item in Enum.GetNames(typeof(ATTTask))) {
+                    Console.WriteLine("{0} -- {1}", (int)Enum.Parse(typeof(ATTTask),item)  ,item);
+                }
+                Console.Write("Please choose task:");
+                int taskType = int.Parse(Console.ReadLine());
+                t = (ATTTask)Enum.ToObject(typeof(ATTTask), taskType);
+                Console.WriteLine("{0} -- {1}",taskType, t);
+                Console.Write("Please choose a task id:");
+                taskId = int.Parse(Console.ReadLine());
 
-                ExitWithMsg("Error, No task find", 15);
-                return;
+            } else {
+                t = (ATTTask)Enum.Parse(typeof(ATTTask), args[0]);
+                taskId = int.Parse(args[1]);
             }
-
-            ATTTask t = (ATTTask)Enum.Parse(typeof(ATTTask), args[0]);
-            RunScript(t, int.Parse(args[1]));
+            
+            RunScript(t, taskId);
         }
 
         static void ExitWithMsg(string Msg, int secondsToDelay = 10) {
@@ -62,7 +74,7 @@ namespace ATT.Robot
                         DownloadAndUpdatePayloads();
                         break;
                     case ATTTask.DownloadPayloads:
-                        DownloadPayloads();
+                        DownloadPayloads(TaskId);
                         break;
                     case ATTTask.UpdatePayloads:
                         UpdatePayloads(TaskId);

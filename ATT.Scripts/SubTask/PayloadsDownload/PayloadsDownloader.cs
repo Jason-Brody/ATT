@@ -19,16 +19,11 @@ namespace ATT.Scripts
     {
         [Step(Id = 1, Name = "Download XML Files")]
         public void Download() {
-            List<MsgIDs> edikeys = null;
+            Console.WriteLine(_data.TaskId);
+            List<MsgID> edikeys = null;
 
             using (var db = new ATT.Data.AttDbContext()) {
-
                 edikeys = db.MsgIds.Where(m => m.TaskId == _data.TaskId).ToList();
-                //var taskId = new SqlParameter("taskId", System.Data.SqlDbType.Int) { Direction = System.Data.ParameterDirection.Output };
-                //edikeys = db.Database.SqlQuery<MsgIDs>("exec SP_GetMsgIds @num,@taskId output", 
-                //    new SqlParameter("num", _data.DownloadPatchSize),
-                //    taskId).ToList();
-                //_data.TaskId = int.Parse(taskId.Value.ToString());
             }
 
             if (edikeys.Count > 0) {
@@ -50,7 +45,7 @@ namespace ATT.Scripts
                 postData += "&lastVersion=false&fullEnvelope=false";
 
                 byte[] result = downloadFile(client, postData);
-                var f = Path.Combine(_data.WorkFolder, $"{edikeys.Last().TaskId.Value.ToString()}.zip");
+                var f = Path.Combine(_data.WorkFolder, $"{_data.TaskId.ToString()}.zip");
                 if (File.Exists(f)) {
                     File.Delete(f);
                 }

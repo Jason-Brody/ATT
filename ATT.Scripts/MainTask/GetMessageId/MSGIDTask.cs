@@ -129,7 +129,7 @@ namespace ATT.Scripts
 
 
                             if (File.Exists(_data.EDIKeyFile)) {
-                                var msgIds = Tools.GetDataEntites<MsgIDs>(_data.EDIKeyFile, "|");
+                                var msgIds = Tools.GetDataEntites<MsgID>(_data.EDIKeyFile, "|");
                                 if (msgIds != null && msgIds.Count > 0) {
                                     msgIds.ForEach(k => { k.CreateDt = DateTime.UtcNow; k.InterfaceId = i.Id; });
                                     using (db = new Data.AttDbContext()) {

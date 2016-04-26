@@ -52,7 +52,7 @@ namespace ATT
             d1.Password = "Ojo@1gat7";
             d1.Client = "100";
             d1.Language = "EN";
-            d1.Start = new ATTDate(2016, 4, 25, 0);
+            d1.Start = new ATTDate(2016, 4, 26, 0);
             d1.Interval = 2;
             d1.InterfaceCount = 1;
             AddTask(d1, ATTTask.GetMessageId);
@@ -61,6 +61,12 @@ namespace ATT
             AddTask(d2, ATTTask.UpdatePayloads);
 
             PayloadsUploaderData d3 = new PayloadsUploaderData();
+            d3.UserName = "21746957";
+            d3.Password = "Ojo@6gat";
+            d3.Host = "pi-itg-01-idoc.sapnet.hpecorp.net";
+            d3.Port = 63100;
+            d3.ProxyHost = "web-proxy.austin.hp.com";
+            d3.ProxyHostPort = 8080;
             AddTask(d3, ATTTask.UploadPayloads);
 
             MSGID_ReportData d4 = new MSGID_ReportData();
@@ -69,7 +75,7 @@ namespace ATT
             d4.Password = "Ojo@6gat";
             d4.Client = "020";
             d4.Language = "EN";
-            d4.Start = new ATTDate(2016, 4, 13, 8);
+            d4.Start = new ATTDate(2016, 4, 26, 0);
             AddTask(d4, ATTTask.GetMessageReport);
 
             PayloadsDownloaderData d5 = new PayloadsDownloaderData();
@@ -78,10 +84,10 @@ namespace ATT
             d5.Password = "Ojo@8gat";
             AddTask(d5, ATTTask.DownloadPayloads);
 
-            PayloadsTransformData d6 = new PayloadsTransformData();
-            d6.DownloadUrl = "http://sapxip-ent.sapnet.hpecorp.net:50000/hp.com~com.hp.pi.core.web/svc/event/downloadPayloads";
-            d6.UserName = "21746957";
-            d6.Password = "Ojo@8gat";
+            PayloadsData d6 = new PayloadsData();
+            d6.DownloadData = d5;
+            d6.UpdateData = d2;
+            d6.UploadData = d3;
             AddTask(d6, ATTTask.DownloadAndTransform);
         }
     }

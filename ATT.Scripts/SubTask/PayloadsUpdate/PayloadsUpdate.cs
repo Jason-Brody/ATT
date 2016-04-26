@@ -18,8 +18,7 @@ namespace ATT.Scripts
     [Script("Transform XML file from pro to itg")]
     public class PayloadsUpdate : ScriptBase<PayloadsUpdateData>
     {
-        private string _sourceFolder;
-        private string _targetFolder;
+       
 
         private Dictionary<string, EDIKeyTemp> dic = null;
 
@@ -33,25 +32,19 @@ namespace ATT.Scripts
 
         [Step(Id = 1, Name = "Unzip the file")]
         public void UnzipFile() {
-            string folder = Path.Combine(_data.WorkFolder, _data.TaskId.ToString());
-            string file = folder + ".zip";
-            _sourceFolder = Path.Combine(folder, "Source");
-            _targetFolder = Path.Combine(folder, "Target");
-
-            GlobalConfig.CreateDirectory(_sourceFolder);
-            GlobalConfig.CreateDirectory(_targetFolder);
-
+           
+            string file = _data.TaskFolder + ".zip";
             FileInfo f = new FileInfo(file);
             _downloadDt = f.CreationTimeUtc;
 
-            ZipFile.ExtractToDirectory(file, _sourceFolder);
+            ZipFile.ExtractToDirectory(file, _data.SourceFolder);
             File.Delete(file);
         }
 
         [Step(Id = 2, Name = "Get EDIKey Info from file")]
         public void GetEDIKeyInfo() {
             dic = new Dictionary<string, EDIKeyTemp>();
-            foreach (var f in Directory.GetFiles(_sourceFolder)) {
+            foreach (var f in Directory.GetFiles(_data.SourceFolder)) {
                 string keyId = FetchFileName(f);
                 dic.Add(keyId, getDocInfo(f));
             }
@@ -141,10 +134,10 @@ namespace ATT.Scripts
 
         }
 
-        private void transformFile(IEnumerable<Data.VW_EDITransFormConfig> Configs, MsgIDs k) {
+        private void transformFile(IEnumerable<Data.VW_EDITransFormConfig> Configs, MsgID k) {
 
-            var sourceFile = Path.Combine(_sourceFolder, $"{k.MsgId}.xml");
-            var targetFile = Path.Combine(_targetFolder, $"{k.MsgId}.xml");
+            var sourceFile = Path.Combine(_data.SourceFolder, $"{k.MsgId}.xml");
+            var targetFile = Path.Combine(_data.TargetFolder, $"{k.MsgId}.xml");
 
             if (k.IsNeedTransform != null) {
                 if(k.IsNeedTransform.Value == true) {
@@ -165,8 +158,6 @@ namespace ATT.Scripts
                         k.IsTransformed = true;
                         k.TransformDt = DateTime.UtcNow;
                     }
-                }else {
-                    File.Copy(sourceFile, targetFile);
                 }
             }
         }

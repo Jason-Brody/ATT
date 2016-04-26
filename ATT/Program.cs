@@ -73,10 +73,19 @@ namespace ATT
         public static void Main() {
 
 
+            SampleFill();
+
+            PayloadsUploader p = new PayloadsUploader();
+            PayloadsUploaderData d = new PayloadsUploaderData();
+            d.UserName = "21746957";
+            d.Password = "Ojo@6gat";
+            d.SetTaskId(3014);
+            p.SetInputData(d);
+            
+            p.Upload();
 
 
 
-        
             var exeFile = Path.Combine(@"E:\GitHub\SAPTestCenter\ATT\ATT.Robot\bin\Debug", "ATT.Robot.exe");
             ProcessStartInfo psInfo = new ProcessStartInfo();
             psInfo.FileName = exeFile;

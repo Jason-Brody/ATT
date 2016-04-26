@@ -26,6 +26,11 @@ namespace ATT.Scripts
             UIHelper.Login(_data);
         }
 
+        [Step(Id =2,Name ="Check and Set User Config")]
+        public void SetUserConfig() {
+            UIHelper.CheckUserConfig();
+        }
+
         [Step(Id = 2, Name = "Get Message Ids")]
         public void GetMessageId() {
 
@@ -39,9 +44,9 @@ namespace ATT.Scripts
 
 
             // Fill Control/Status Record Search
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-LOW").Text = _data.GetStart().ToString("MM/dd/yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-LOW").Text = _data.GetStart().ToString("dd.MM.yyyy");
             
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-HIGH").Text = _data.GetEnd().ToString("MM/dd/yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-HIGH").Text = _data.GetEnd().ToString("dd.MM.yyyy");
 
 
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CRETIM-LOW").Text = _data.GetStart().ToString("HH:mm:ss");

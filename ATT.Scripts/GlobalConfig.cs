@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScriptRunner.Interface;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,13 +12,20 @@ namespace ATT.Scripts
     {
         public static readonly string WorkDir = @"C:\ATT";
 
+        public static void BindingStepInfo(IStepProcess script) {
+            script.BeforeStepExecution += s => Console.WriteLine($"{s.Name} is Running.");
+            script.AfterStepExecution += s => Console.WriteLine($"{s.Name} is Complete");
+
+        }
+
         static GlobalConfig() {
             CreateDirectory(WorkDir);
         }
 
-        public static void CreateDirectory(string dir) {
+        public static string CreateDirectory(string dir) {
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
+            return dir;
         }
 
         public static string GetGuid() {

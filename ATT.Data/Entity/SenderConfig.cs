@@ -8,9 +8,13 @@ namespace ATT.Data.Entity
 
     public partial class SenderConfig
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int? SourceId { get; set; }
+        [Key]
+        [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int SourceId { get; set; }
 
         [StringLength(50)]
         public string system { get; set; }
@@ -24,7 +28,10 @@ namespace ATT.Data.Entity
         [StringLength(255)]
         public string pfolder { get; set; }
 
-        public int? IDocTypeId { get; set; }
+        [Key]
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int IDocTypeId { get; set; }
 
         [StringLength(100)]
         public string senderinterface { get; set; }

@@ -16,7 +16,7 @@ namespace ATT.Data
 
         public virtual DbSet<IDocNumbers_ITG> IDocNumbers_ITG { get; set; }
 
-        public virtual DbSet<MsgIDs> MsgIds { get; set; }
+        public virtual DbSet<MsgID> MsgIds { get; set; }
         public virtual DbSet<IDocType> IDocTypes { get; set; }
         public virtual DbSet<ParameterConfig> ParameterConfigs { get; set; }
         public virtual DbSet<ProAwsy> ProAwsys { get; set; }
@@ -33,6 +33,27 @@ namespace ATT.Data
         public virtual DbSet<TaskDataConfigs> TaskDataConfigs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+            modelBuilder.Entity<ProAwsy>()
+                .HasMany(e => e.MsgIDs)
+                .WithOptional(e => e.ProAwsy)
+                .HasForeignKey(e => e.ProAwsysId);
+                
+
+            modelBuilder.Entity<IDocType>()
+              .HasMany(e => e.MsgIDs)
+              .WithOptional(e => e.IDocType)
+              .HasForeignKey(e => e.IDocTypeId);
+
+            modelBuilder.Entity<IDocType>()
+                .HasMany(e => e.SenderConfigs)
+                .WithRequired(e => e.IDocType)
+                .HasForeignKey(e => e.IDocTypeId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<IDocType>()
+                .HasMany(e => e.XPathConfigs)
+                .WithOptional(e => e.IDocType)
+                .HasForeignKey(e => e.IDocTypeId);
 
             modelBuilder.Entity<SAPInterfaces>()
                 .HasMany(e => e.SAPCompanyCodes)
@@ -44,20 +65,26 @@ namespace ATT.Data
                 .WithOptional(e => e.SAPInterfaces)
                 .HasForeignKey(e => e.InterfaceId);
 
-            modelBuilder.Entity<ProAwsy>()
-                .HasMany(e => e.EDIKeys)
-                .WithOptional(e => e.ProAwsy)
-                .HasForeignKey(e => e.ProAwsysId);
+            modelBuilder.Entity<Source>()
+                .HasMany(e => e.ProAwsys)
+                .WithOptional(e => e.Source)
+                .HasForeignKey(e => e.SourceId);
 
-            modelBuilder.Entity<ProAwsy>()
-                .HasMany(e => e.ParameterConfigs)
-                .WithOptional(e => e.ProAwsy)
-                .HasForeignKey(e => e.ProAwsysId);
+            modelBuilder.Entity<Source>()
+                .HasMany(e => e.SenderConfigs)
+                .WithRequired(e => e.Source)
+                .HasForeignKey(e => e.SourceId)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<XNode>()
                 .HasMany(e => e.ParameterConfigs)
                 .WithOptional(e => e.XNode)
                 .HasForeignKey(e => e.NodeId);
+
+            modelBuilder.Entity<XNode>()
+                .HasMany(e => e.XPathConfigs)
+                .WithOptional(e => e.XNode)
+                .HasForeignKey(e => e.XNodeId);
         }
     }
 }

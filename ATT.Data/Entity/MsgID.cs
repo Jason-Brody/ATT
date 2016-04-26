@@ -6,7 +6,7 @@ namespace ATT.Data.Entity
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
     using Young.Data.Attributes;
-    public partial class MsgIDs
+    public partial class MsgID
     {
         public int Id { get; set; }
 

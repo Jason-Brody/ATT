@@ -9,9 +9,8 @@ namespace ATT.Data.Entity
     public partial class IDocType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public IDocType()
-        {
-            EDIKeys = new HashSet<MsgIDs>();
+        public IDocType() {
+            MsgIDs = new HashSet<MsgID>();
             SenderConfigs = new HashSet<SenderConfig>();
             XPathConfigs = new HashSet<XPathConfig>();
         }
@@ -22,7 +21,7 @@ namespace ATT.Data.Entity
         public string Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MsgIDs> EDIKeys { get; set; }
+        public virtual ICollection<MsgID> MsgIDs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SenderConfig> SenderConfigs { get; set; }

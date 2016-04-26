@@ -62,7 +62,7 @@
     <Compile Include="Entity\SAPDocTypes.cs" />
     <Compile Include="Entity\SAPInterfaces.cs" />
     <Compile Include="Converters\TimeStampConverter.cs" />
-    <Compile Include="Entity\MsgIDs.cs" />
+    <Compile Include="Entity\MsgID.cs" />
     <Compile Include="Entity\IDocType.cs" />
     <Compile Include="Entity\ParameterConfig.cs" />
     <Compile Include="Entity\ProAwsy.cs" />
