@@ -41,6 +41,8 @@ namespace ATT.Robot
             PayloadsUploaderData d = GetConfigData<PayloadsUploaderData>();
             ScriptEngine<PayloadsUploader, PayloadsUploaderData> script = new ScriptEngine<PayloadsUploader, PayloadsUploaderData>();
             BindingStepInfo(script);
+            d.SetTaskId(TaskId);
+            script.StepProgress.ProgressChanged += (s, e) => { Console.WriteLine($"{e.Msg} sent,{e.Current} of {e.Total} finished,TaskId:{TaskId}"); };
             script.Run(d);
         }
 

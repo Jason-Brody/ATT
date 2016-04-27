@@ -16,11 +16,16 @@ namespace ATT.Scripts
 {
     public class PayloadsUploader:ScriptBase<PayloadsUploaderData>
     {
-        
+        private ATTLog _log;
+        public override void Initial() {
+            _log = new ATTLog(_data);
+        }
 
         [Step(Id =1,Name ="Upload payload to XI")]
         public void Upload() {
+           
             using(var db = new AttDbContext()) {
+                
                 var msgIds = db.MsgIds.Include(m=>m.ProAwsy).Where(m => m.TaskId == _data.TaskId 
                 && m.IsNeedTransform == true 
                 && m.IsSend == false
@@ -30,38 +35,66 @@ namespace ATT.Scripts
                 var senderConfigs = db.SenderConfigs.Where(c => iDocTypeIds.Contains(c.IDocTypeId) && SourceIds.Contains(c.SourceId)).ToList();
                 ProgressInfo info = new ProgressInfo(1, msgIds.Count, "");
                 foreach(var item in msgIds) {
-                    send(item,senderConfigs);
+                    _log.WriteLog(_data.UploadLog + "MsgID:"+item.MsgId, LogType.Normal);
+                    var senderConfig = senderConfigs.Where(c => c.IDocTypeId == item.IDocTypeId && c.SourceId == item.ProAwsy.SourceId).First();
+                    
+                        send(item, senderConfig);
+                    
+                   
                     item.IsSend = true;
                     item.SentDt = DateTime.UtcNow;
                     info.Msg = item.MsgId;
                     _stepReporter.Report(info);
                     info.Current++;
+                    _log.WriteLog(_data.UploadLog + "MsgID:" + item.MsgId, LogType.Success);
                 }
+                _log.WriteLog(_data.UpdateMsgLog, LogType.Normal);
                 db.SaveChanges();
-            }
-        }
-
-        private void send(MsgID item,List<SenderConfig> configs) {
-            var senderConfig = configs.Where(c => c.IDocTypeId == item.IDocTypeId && c.SourceId == item.ProAwsy.SourceId).First();
-            var url = buildUrl(senderConfig);
-            var request = createWebRequest(url);
-            var postXml = getPayload(item.MsgId);
-            using(var stream = request.GetRequestStream()) {
-                postXml.Save(stream);
-            }
-            HttpWebResponse resp = request.GetResponse() as HttpWebResponse;
-        }
-
-        private void loopSend(HttpWebRequest request,MsgID item,int retryCount=10) {
-            try {
-                HttpWebResponse resp = request.GetResponse() as HttpWebResponse;
-            }
-            catch (Exception ex) {
-                if (retryCount == 0)
-                    throw ex;
-                loopSend(request, item, retryCount--);
+                _log.WriteLog(_data.UpdateMsgLog, LogType.Success);
             }
            
+        }
+
+        private HttpStatusCode send(MsgID item,SenderConfig senderConfig,int retryCount = 50) {
+            try {
+                var url = buildUrl(senderConfig);
+                var request = createWebRequest(url);
+                var postXml = getPayload(item.MsgId);
+                using (var stream = request.GetRequestStream()) {
+                    postXml.Save(stream);
+                }
+                HttpWebResponse resp = request.GetResponse() as HttpWebResponse;
+                return resp.StatusCode;
+            }
+            catch (Exception ex) {
+                if(retryCount == 0) {
+                    throw ex;
+                }else {
+                    retryCount--;
+                    _log.WriteLog($"Fail to Upload Message:{item.MsgId},Retry {50 - retryCount}", LogType.Fail);
+                }
+                Task.Delay(3000).Wait();
+                return send(item, senderConfig, retryCount);
+            }
+           
+        }
+
+        private HttpWebResponse loopSend(HttpWebRequest request,MsgID item,int retryCount=100) {
+            try {
+                HttpWebResponse resp = request.GetResponse() as HttpWebResponse;
+                return resp;
+            }
+            catch (Exception ex) {
+                if (retryCount == 0) {
+                    throw ex;
+                }else {
+                    retryCount--;
+                    _log.WriteLog($"Fail to Upload,Retry {100-retryCount}", LogType.Fail);
+                }
+            }
+            Task.Delay(5000).Wait();
+            return loopSend(request, item, retryCount);
+
         }
 
         private XmlDocument getPayload(string msgId) {

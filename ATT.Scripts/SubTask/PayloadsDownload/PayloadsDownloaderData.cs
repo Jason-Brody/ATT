@@ -18,7 +18,10 @@ namespace ATT.Scripts
 
         public string Password { get; set; }
 
-        
+        public string GetTaskIdLog { get; } = "Get Download Task";
 
+        public string DownloadFileLog { get; } = "Download File";
+
+       
     }
 }

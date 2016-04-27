@@ -14,5 +14,18 @@ namespace ATT.Scripts
 
         public string XPath_OTC_rec_type { get; } = "//OTC_rec_type";
 
+        public string UnzipLog { get; } = "Unzip the file";
+
+        public string AnalysisLog { get; } = "Analysis the XML file";
+
+        public string UploadLog { get; } = "Upload the doc info to DB";
+
+        public string GetXPathConfigLog { get; } = "Get XPath Config from DB";
+
+        public string UpdateTransformConfigLog { get; } = "Update Transform Config";
+
+        public string TransformLog { get; } = "Transform the XML File";
+
+
     }
 }

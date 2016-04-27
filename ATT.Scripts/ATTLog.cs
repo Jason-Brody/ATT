@@ -15,16 +15,22 @@ namespace ATT.Scripts
         public ATTLog(PayloadsShareData d) {
             this.data = d;
         }
-       
-        public void WriteLog(string msg) {
-            string file = data.TaskFolder + ".txt";
-            string time = DateTime.UtcNow.ToString("yyyy.MM.dd HH:mm:ss");
-            string message = $"{msg} TaskId:[{data.TaskId}] time:[{time}]"; 
-            using(var fs = new FileStream(file, FileMode.OpenOrCreate)) {
-                StreamWriter sw = new StreamWriter(fs);
-                sw.WriteLine(message);
-                sw.Close();
-            } 
+
+        public void WriteLog(string msg, LogType tp) {
+
+            if (tp != LogType.Normal) {
+                string file = Path.Combine(data.TaskFolder, $"{data.TaskId}.txt");
+                string time = DateTime.UtcNow.ToString("yyyy.MM.dd HH:mm:ss");
+                string message = $"{tp.ToString()}------{msg} TaskId:[{data.TaskId}] time:[{time}]";
+                Console.WriteLine(message);
+                using (var fs = new FileStream(file, FileMode.Append)) {
+                    StreamWriter sw = new StreamWriter(fs);
+                    sw.WriteLine(message);
+                    sw.Close();
+                }
+            }
+
+          
         }
 
         

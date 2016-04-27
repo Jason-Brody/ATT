@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ATTLog.cs" />
+    <Compile Include="LogType.cs" />
     <Compile Include="MainTask\GetMessageId\GUIShareData.cs" />
     <Compile Include="MainTask\Payloads\Payloads.cs" />
     <Compile Include="MainTask\Payloads\PayloadsData.cs" />
