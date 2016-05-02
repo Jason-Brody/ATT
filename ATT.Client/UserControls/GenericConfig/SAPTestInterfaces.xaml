@@ -1,0 +1,62 @@
+﻿<uc:ConfigBase x:Class="ATT.Client.UserControls.GenericConfig.SAPTestInterfaces" x:TypeArguments="da:SAPInterfaces"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ATT.Client.UserControls.GenericConfig"
+             xmlns:uc="clr-namespace:ATT.Client.UserControls.GenericConfig"
+             xmlns:da ="clr-namespace:ATT.Data.Entity;assembly=ATT.Data"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="500"/>
+        </Grid.ColumnDefinitions>
+        <ListView ItemsSource="{Binding}" x:Name="lv_Interfaces">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Interface" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Message Function" DisplayMemberBinding="{Binding MsgFunction}"/>
+                    <GridViewColumn Header="Partner Number" DisplayMemberBinding="{Binding PartnerNumber}"/>
+                    <!--<GridViewColumn Header="Doc Type Counts" DisplayMemberBinding="{Binding SAPDocTypes.Count}"/>
+                    <GridViewColumn Header="Company Codes Count" DisplayMemberBinding="{Binding SAPCompanyCodes.Count}"/>-->
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <GroupBox Header="Doc Types">
+                <ListView ItemsSource="{Binding ElementName=lv_Interfaces,Path=SelectedItem.SAPDocTypes}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                            <GridViewColumn Header="Doc Type" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="Interface" DisplayMemberBinding="{Binding SAPInterfaces.Name}"/>
+                            <GridViewColumn Header="Partner Number" DisplayMemberBinding="{Binding SAPInterfaces.PartnerNumber}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </GroupBox>
+            <GroupBox Header="Company Codes" Grid.Row="1">
+                <ListView ItemsSource="{Binding ElementName=lv_Interfaces,Path=SelectedItem.SAPCompanyCodes}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                            <GridViewColumn Header="Company Code" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="Interface" DisplayMemberBinding="{Binding SAPInterfaces.Name}"/>
+                            <GridViewColumn Header="Partner Number" DisplayMemberBinding="{Binding SAPInterfaces.PartnerNumber}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+               
+            </GroupBox>
+
+            
+        </Grid>
+    </Grid>
+</uc:ConfigBase>

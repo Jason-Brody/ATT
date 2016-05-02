@@ -16,48 +16,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTest", "WebTest\WebTest.csproj", "{D8A480CF-E736-4DD1-8CE9-C433B89A4E52}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{B1D2ACC5-8A59-4C49-997F-BAC3596C4732}"
-	ProjectSection(SolutionItems) = preProject
-		\\15.107.22.79\att\IDOC\Tasks\0_CreateTablesSQL.bat = \\15.107.22.79\att\IDOC\Tasks\0_CreateTablesSQL.bat
-		\\15.107.22.79\att\IDOC\Tasks\0_UpdateMD.bat = \\15.107.22.79\att\IDOC\Tasks\0_UpdateMD.bat
-		\\15.107.22.79\att\IDOC\Tasks\1_GetMessageID.bat = \\15.107.22.79\att\IDOC\Tasks\1_GetMessageID.bat
-		\\15.107.22.79\att\IDOC\Tasks\2_UpdateTableMessageID.bat = \\15.107.22.79\att\IDOC\Tasks\2_UpdateTableMessageID.bat
-		\\15.107.22.79\att\IDOC\Tasks\3_GenerateMessageIDfiles.bat = \\15.107.22.79\att\IDOC\Tasks\3_GenerateMessageIDfiles.bat
-		\\15.107.22.79\att\IDOC\Tasks\4_DownloadPayloadsfromPI.bat = \\15.107.22.79\att\IDOC\Tasks\4_DownloadPayloadsfromPI.bat
-		\\15.107.22.79\att\IDOC\Tasks\4_DownloadPayloadsfromXI.bat = \\15.107.22.79\att\IDOC\Tasks\4_DownloadPayloadsfromXI.bat
-		\\15.107.22.79\att\IDOC\Tasks\5_UnzipPI.bat = \\15.107.22.79\att\IDOC\Tasks\5_UnzipPI.bat
-		\\15.107.22.79\att\IDOC\Tasks\5_UnzipXI.bat = \\15.107.22.79\att\IDOC\Tasks\5_UnzipXI.bat
-		\\15.107.22.79\att\IDOC\Tasks\5_UpdateDownloadedPI.bat = \\15.107.22.79\att\IDOC\Tasks\5_UpdateDownloadedPI.bat
-		\\15.107.22.79\att\IDOC\Tasks\5_UpdateDownloadedXI.bat = \\15.107.22.79\att\IDOC\Tasks\5_UpdateDownloadedXI.bat
-		\\15.107.22.79\att\IDOC\Tasks\6_MovefilesfromPItoIN.bat = \\15.107.22.79\att\IDOC\Tasks\6_MovefilesfromPItoIN.bat
-		\\15.107.22.79\att\IDOC\Tasks\6_MovefilesfromXItoIN.bat = \\15.107.22.79\att\IDOC\Tasks\6_MovefilesfromXItoIN.bat
-		\\15.107.22.79\att\IDOC\Tasks\7_Transform.bat = \\15.107.22.79\att\IDOC\Tasks\7_Transform.bat
-		\\15.107.22.79\att\IDOC\Tasks\8_UploadToTesting.bat = \\15.107.22.79\att\IDOC\Tasks\8_UploadToTesting.bat
-		\\15.107.22.79\att\IDOC\Tasks\ACC_DOCUMENT.vbs = \\15.107.22.79\att\IDOC\Tasks\ACC_DOCUMENT.vbs
-		\\15.107.22.79\att\IDOC\Tasks\IDOCTypePI.vbs = \\15.107.22.79\att\IDOC\Tasks\IDOCTypePI.vbs
-		\\15.107.22.79\att\IDOC\Tasks\IDOCTypeXI.vbs = \\15.107.22.79\att\IDOC\Tasks\IDOCTypeXI.vbs
-		\\15.107.22.79\att\IDOC\Tasks\replace.vbs = \\15.107.22.79\att\IDOC\Tasks\replace.vbs
-		\\15.107.22.79\att\IDOC\Tasks\SourceSystemPI.vbs = \\15.107.22.79\att\IDOC\Tasks\SourceSystemPI.vbs
-		\\15.107.22.79\att\IDOC\Tasks\SourceSystemXI.vbs = \\15.107.22.79\att\IDOC\Tasks\SourceSystemXI.vbs
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATT.Scripts", "ATT.Scripts\ATT.Scripts.csproj", "{120F9B8F-EB97-44A0-8F30-E6692A65ECB2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{9BAD54EC-15FA-4B75-9161-8D0C12E7E54E}"
-	ProjectSection(SolutionItems) = preProject
-		\\15.107.22.79\att\IDOC\SQL\createtables.sql = \\15.107.22.79\att\IDOC\SQL\createtables.sql
-		\\15.107.22.79\att\IDOC\SQL\load.sql = \\15.107.22.79\att\IDOC\SQL\load.sql
-		\\15.107.22.79\att\IDOC\SQL\load_itg.sql = \\15.107.22.79\att\IDOC\SQL\load_itg.sql
-		\\15.107.22.79\att\IDOC\SQL\loadmd.sql = \\15.107.22.79\att\IDOC\SQL\loadmd.sql
-		\\15.107.22.79\att\IDOC\SQL\remove.sql = \\15.107.22.79\att\IDOC\SQL\remove.sql
-		\\15.107.22.79\att\IDOC\SQL\selectcount.sql = \\15.107.22.79\att\IDOC\SQL\selectcount.sql
-		\\15.107.22.79\att\IDOC\SQL\selectresult.sql = \\15.107.22.79\att\IDOC\SQL\selectresult.sql
-		\\15.107.22.79\att\IDOC\SQL\transfer.sql = \\15.107.22.79\att\IDOC\SQL\transfer.sql
-		\\15.107.22.79\att\IDOC\SQL\updatecreated.sql = \\15.107.22.79\att\IDOC\SQL\updatecreated.sql
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATTWorkFlow", "ATTWorkFlow\ATTWorkFlow.csproj", "{B649184F-BE1C-40B1-8602-F59A2677EC14}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATT.Robot", "ATT.Robot\ATT.Robot.csproj", "{D90B7B0B-7A8B-4201-8503-4EB1600F09EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATT.Client", "ATT.Client\ATT.Client.csproj", "{C61F3171-D945-4917-8F1F-9A2EC171D560}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +57,10 @@ Global
 		{D90B7B0B-7A8B-4201-8503-4EB1600F09EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D90B7B0B-7A8B-4201-8503-4EB1600F09EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D90B7B0B-7A8B-4201-8503-4EB1600F09EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C61F3171-D945-4917-8F1F-9A2EC171D560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C61F3171-D945-4917-8F1F-9A2EC171D560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C61F3171-D945-4917-8F1F-9A2EC171D560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C61F3171-D945-4917-8F1F-9A2EC171D560}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

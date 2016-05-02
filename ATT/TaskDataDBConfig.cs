@@ -37,14 +37,16 @@ namespace ATT
             }
 
 
-            ITGTrackData d = new ITGTrackData();
+            LHTrackData d = new LHTrackData();
             d.UserName = "21688419";
             d.Password = "4rfv%tgb";
             d.Client = "100";
             d.Address = "saplh4.sapnet.hp.com";
             d.Interval = 2;
+            d.IDocStatus = "*";
             d.Start = new ATTDate(2016, 4, 20);
-            AddTask(d,ATTTask.TrackITG);
+            
+            AddTask(d,ATTTask.LHTrack);
 
             MSGIDTaskData d1= new MSGIDTaskData();
             d1.Address = "saplh1-ent.sapnet.hpecorp.net";
@@ -69,14 +71,14 @@ namespace ATT
             d3.ProxyHostPort = 8080;
             AddTask(d3, ATTTask.UploadPayloads);
 
-            MSGID_ReportData d4 = new MSGID_ReportData();
+            PIITrackData d4 = new PIITrackData();
             d4.Address = "pi-itg-01-idoc.sapnet.hpecorp.net";
             d4.UserName = "21746957";
             d4.Password = "Ojo@6gat";
             d4.Client = "020";
             d4.Language = "EN";
             d4.Start = new ATTDate(2016, 4, 26, 0);
-            AddTask(d4, ATTTask.GetMessageReport);
+            AddTask(d4, ATTTask.PIITrack);
 
             PayloadsDownloaderData d5 = new PayloadsDownloaderData();
             d5.DownloadUrl = "http://sapxip-ent.sapnet.hpecorp.net:50000/hp.com~com.hp.pi.core.web/svc/event/downloadPayloads";

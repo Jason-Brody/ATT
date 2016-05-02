@@ -8,7 +8,7 @@ namespace ATT.Data
     public partial class AttDbContext : DbContext
     {
         public AttDbContext()
-            : base("name=AttDbContext")
+            : base(@"data source=localhost\sqlexpress;initial catalog=ATT;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework")
         {
         }
 

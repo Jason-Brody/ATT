@@ -39,7 +39,9 @@ namespace ATT.Scripts
 
         public int InterfaceCount { get; set; } = 1;
 
-        
+        public string IDocStatus { get; set; } = "53";
+
+
     }
 
     #region Backup

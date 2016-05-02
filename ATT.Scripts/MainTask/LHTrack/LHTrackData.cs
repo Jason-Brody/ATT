@@ -7,7 +7,7 @@ using Young.Data.Attributes;
 
 namespace ATT.Scripts
 {
-    public class ITGTrackData : GUIShareData
+    public class LHTrackData : GUIShareData
     {
         private const string _subFolder = "ITGTrack";
 
@@ -28,6 +28,8 @@ namespace ATT.Scripts
 
 
         public string UserId { get; set; } = "ATT";
+
+        public string IDocStatus { get; set; } = "*";
 
     }
 

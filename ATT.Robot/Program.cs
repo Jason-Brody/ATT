@@ -14,7 +14,7 @@ using System.Xml.Serialization;
 namespace ATT.Robot
 {
     
-    partial class Program
+    public partial class Program
     {
         //static string getUTCDate(DateTime dt) {
         //   var dateTemp = dt.ToUniversalTime().ToString("yyyyMMddHH0000");
@@ -22,6 +22,8 @@ namespace ATT.Robot
 
         static void Main(string[] args) {
 
+
+            TrackLH();
 
             ATTTask t;
             int taskId;
@@ -56,7 +58,7 @@ namespace ATT.Robot
             }
         }
 
-        static void RunTask(ATTTask task, int taskId) {
+        public static void RunTask(ATTTask task, int taskId) {
             var exeFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ATT.Robot.exe");
             ProcessStartInfo psInfo = new ProcessStartInfo();
             psInfo.FileName = exeFile;
@@ -71,7 +73,7 @@ namespace ATT.Robot
                         GetMessageId();
                         break;
                     case ATTTask.DownloadAndTransform:
-                        DownloadAndUpdatePayloads();
+                        TransformPayloads();
                         break;
                     case ATTTask.DownloadPayloads:
                         DownloadPayloads(TaskId);
@@ -82,11 +84,14 @@ namespace ATT.Robot
                     case ATTTask.UploadPayloads:
                         UploadPayloads(TaskId);
                         break;
-                    case ATTTask.GetMessageReport:
+                    case ATTTask.PIITrack:
                         GetMessageReport();
                         break;
-                    case ATTTask.TrackITG:
-                        TrackITG();
+                    case ATTTask.LHTrack:
+                        TrackLH();
+                        break;
+                    case ATTTask.GetMessageAll:
+                        GetMessageAll();
                         break;
                 }
             }
@@ -105,7 +110,7 @@ namespace ATT.Robot
         }
 
        
-        static T GetConfigData<T>() {
+        public static T GetConfigData<T>() {
             string xmlData = null;
             using (var db = new AttDbContext()) {
                 var tData = db.TaskDataConfigs.Single(t=>t.TypeName == typeof(T).FullName);
@@ -113,6 +118,7 @@ namespace ATT.Robot
             }
             StringReader sr = new StringReader(xmlData);
             XmlSerializer xs = new XmlSerializer(typeof(T));
+         
             var obj = xs.Deserialize(sr);
             return (T)obj;
         }
@@ -136,7 +142,7 @@ namespace ATT.Robot
 
         }
 
-        static void SetConfigData<T>(T data) {
+        public static void SetConfigData<T>(T data) {
             using (var db = new AttDbContext()) {
                 var tData = db.TaskDataConfigs.Single(t => t.TypeName == typeof(T).FullName);
                 var typeName = tData.TypeName;

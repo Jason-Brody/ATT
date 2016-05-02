@@ -26,14 +26,14 @@ namespace ATT.Scripts
             return datas;
         }
 
-        public static DataTable ReadToTable(string path,string splitChar = "\t")
+        public static DataTable ReadToTable(string path,char splitChar = '\t')
         {
             DataTable dt = Young.Data.Utils.ReadStringToTable(path, (s, h) =>
             {
                 if (!s.Contains(splitChar) || s == h || s.Contains("*"))
                     return null;
 
-                var vals = s.Split(splitChar.ToCharArray().First());
+                var vals = s.Split(splitChar);
                 var returnVals = new List<string>();
                 for (int i = 0; i < vals.Count(); i++)
                 {
@@ -46,7 +46,7 @@ namespace ATT.Scripts
             return dt;
         }
 
-        public static List<T> GetDataEntites<T>(string filePath,string splitChar = "\t") where T : class, new()
+        public static List<T> GetDataEntites<T>(string filePath,char splitChar = '\t') where T : class, new()
         {
             var dt = Tools.ReadToTable(filePath,splitChar);
             List<T> datas = dt.ToList<T>();

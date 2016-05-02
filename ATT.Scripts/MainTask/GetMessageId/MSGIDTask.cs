@@ -36,8 +36,6 @@ namespace ATT.Scripts
                     interfaces = db.SAPInterfaces.Take(_data.InterfaceCount).Include(s => s.SAPCompanyCodes).Include(s => s.SAPDocTypes).ToList();
                 }
                 if (interfaces.Count > 0) {
-
-
                     ScriptRunner.Interface.ProgressInfo ps = new ProgressInfo();
                     ps.Current = 0;
                     ps.IsProgressKnow = true;
@@ -129,7 +127,7 @@ namespace ATT.Scripts
 
 
                             if (File.Exists(_data.EDIKeyFile)) {
-                                var msgIds = Tools.GetDataEntites<MsgID>(_data.EDIKeyFile, "|");
+                                var msgIds = Tools.GetDataEntites<MsgID>(_data.EDIKeyFile, '|');
                                 if (msgIds != null && msgIds.Count > 0) {
                                     msgIds.ForEach(k => { k.CreateDt = DateTime.UtcNow; k.InterfaceId = i.Id; });
                                     using (db = new Data.AttDbContext()) {

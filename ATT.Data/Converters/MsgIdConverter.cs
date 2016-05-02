@@ -24,6 +24,8 @@ namespace ATT.Data
     {
         public object Convert(object data)
         {
+            if (data.ToString().Trim() == "")
+                return "";
             return data.ToString().Trim().Split(' ')[1];
         }
     }

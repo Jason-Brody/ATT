@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace ATT.Scripts
 {
-    public class MSGID_Report:ScriptBase<MSGID_ReportData>
+    public class PIITrack : ScriptBase<PIITrackData>
     {
         private string _file;
 

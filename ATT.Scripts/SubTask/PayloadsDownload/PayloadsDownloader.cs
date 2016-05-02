@@ -37,14 +37,7 @@ namespace ATT.Scripts
             if (edikeys.Count > 0) {
 
                 _log.WriteLog(_data.DownloadFileLog, LogType.Normal);
-                WebClient client = new WebClient();
-                client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                client.Credentials = new NetworkCredential(_data.UserName, _data.Password);
                 
-                //HttpWebRequest request = HttpWebRequest.Create(_data.DownloadUrl) as HttpWebRequest;
-                //request.Credentials = new NetworkCredential(_data.Username, _data.Password);
-                //request.Method = "POST";
-                //request.ContentType = "application/x-www-form-urlencoded";
                 string postData = "msgids=";
 
                 foreach (var edikey in edikeys) {
@@ -53,40 +46,52 @@ namespace ATT.Scripts
 
                 postData += "&lastVersion=false&fullEnvelope=false";
 
-                byte[] result = downloadFile(client, postData);
-                var f = Path.Combine(_data.WorkFolder, $"{_data.TaskId.ToString()}.zip");
-                if (File.Exists(f)) {
-                    File.Delete(f);
-                }
-                
-                MemoryStream ms = new MemoryStream(result);
-                using (var fs = File.OpenWrite(f)) {
-                    ms.CopyTo(fs);
-                }
-
+                downloadFile(postData);
                 _log.WriteLog(_data.DownloadFileLog, LogType.Success);
-                #region hide
-                //var data = Encoding.ASCII.GetBytes(postData);
 
-                //using (var stream = request.GetRequestStream()) {
-                //    stream.Write(data, 0, data.Length);
-                //}
-
-                ///// Need to add codes if file can't be downloaded
-                //HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-
-                //using (var responseStream = response.GetResponseStream()) {
-                //    var f = Path.Combine(_output.WorkDir,  $"{edikeys.Last().Id.ToString()}.zip");
-                //    if (File.Exists(f)) {
-                //        File.Delete(f);
-                //    }
-                //    using (var fs = File.OpenWrite(f)) {
-                //        responseStream.CopyTo(fs);
-                //    }
-
-                //}
-                #endregion
             }
+
+
+        }
+
+        private void downloadFile(string postData,int RetryCount = 50) {
+            try {
+                HttpWebRequest request = HttpWebRequest.Create(_data.DownloadUrl) as HttpWebRequest;
+                request.Credentials = new NetworkCredential(_data.UserName, _data.Password);
+                request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+
+                var data = Encoding.ASCII.GetBytes(postData);
+
+                using (var stream = request.GetRequestStream()) {
+                    stream.Write(data, 0, data.Length);
+                }
+
+                /// Need to add codes if file can't be downloaded
+                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+
+                using (var responseStream = response.GetResponseStream()) {
+                    var f = Path.Combine(_data.WorkFolder, $"{_data.TaskId.ToString()}.zip");
+                    if (File.Exists(f)) {
+                        File.Delete(f);
+                    }
+                    using (var fs = File.OpenWrite(f)) {
+                        responseStream.CopyTo(fs);
+                    }
+
+                }
+            }
+            catch (Exception ex) {
+                if (RetryCount == 0)
+                    throw ex;
+                else {
+                    RetryCount--;
+                    _log.WriteLog($"Fail to Upload ,Retry left {RetryCount} times", LogType.Fail);
+                }
+                Task.Delay(3000).Wait();
+                downloadFile(postData, RetryCount);
+            }
+            
 
 
         }

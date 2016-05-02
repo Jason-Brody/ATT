@@ -15,12 +15,8 @@ using System.Threading.Tasks;
 namespace ATT.Scripts
 {
     [Script("Get EDI Keys")]
-    public class ITGTrack : ScriptBase<ITGTrackData>
+    public class LHTrack : ScriptBase<LHTrackData>
     {
-
-        private ATT.Data.AttDbContext db;
-  
-
         [Step(Id = 1, Name = "Login to SAP LH ITG")]
         public void Login() {
             UIHelper.Login(_data);
@@ -31,7 +27,7 @@ namespace ATT.Scripts
             UIHelper.CheckUserConfig();
         }
 
-        [Step(Id = 2, Name = "Get Message Ids")]
+        [Step(Id = 3, Name = "Get Message Ids")]
         public void GetMessageId() {
 
             _data.NewGuid();
@@ -81,19 +77,19 @@ namespace ATT.Scripts
         }
 
 
-        [Step(Id = 3,Name ="Upload File")]
+        [Step(Id =4,Name ="Upload File")]
         public void UploadFile() {
             if (File.Exists(_data.File)) {
-                var msgId_ITGs = Tools.GetDataEntites<MsgIDs_ITG>(_data.File);
-                using(db = new AttDbContext()) {
-                    db.MsgIDs_ITG.AddRange(msgId_ITGs);
+                var idoc_ITGS = Tools.GetDataEntites<IDocNumbers_ITG>(_data.File);
+                using(var db = new AttDbContext()) {
+                    db.IDocNumbers_ITG.AddRange(idoc_ITGS);
                     db.SaveChanges();
                 }
                 File.Delete(_data.File);
             }
         }
 
-        [Step(Id = 4, Name = "Update Schedule Info")]
+        [Step(Id =5, Name = "Update Schedule Info")]
         public void UpdateSchedule() {
             _data.Start = _data.Start.GetNext(_data.Interval);
         }

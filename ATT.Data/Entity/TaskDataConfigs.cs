@@ -33,8 +33,9 @@ namespace ATT.Data.Entity
         DownloadPayloads = 2,
         UpdatePayloads = 3,
         UploadPayloads = 4,
-        GetMessageReport = 5,
-        TrackITG = 6,
+        PIITrack = 5,
+        LHTrack = 6,
         DownloadAndTransform = 7,
+        GetMessageAll = 100,
     }
 }

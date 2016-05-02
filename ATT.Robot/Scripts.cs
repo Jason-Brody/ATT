@@ -13,17 +13,29 @@ namespace ATT.Robot
 {
     partial class Program
     {
-        static void GetMessageId() {
+        static void GetMessageAll() {
             MSGIDTaskData d = GetConfigData<MSGIDTaskData>();
             ScriptEngine<MSGIDTask, MSGIDTaskData> script = new ScriptEngine<MSGIDTask, MSGIDTaskData>();
             BindingStepInfo(script);
-            script.StepProgress.ProgressChanged += (s,e) => RunTask(ATTTask.DownloadAndTransform, 0);
+            script.StepProgress.ProgressChanged += (s, e) => { Console.WriteLine("Interface {0} Finished", e.Msg); RunTask(ATTTask.DownloadAndTransform, 0); };
             script.Run(d);
             SetConfigData(d);
         }
 
-        static void DownloadAndUpdatePayloads() {
-            PayloadsData d = GetConfigData<PayloadsData>();
+        static void GetMessageId() {
+            MSGIDTaskData d = GetConfigData<MSGIDTaskData>();
+            ScriptEngine<MSGIDTask, MSGIDTaskData> script = new ScriptEngine<MSGIDTask, MSGIDTaskData>();
+            BindingStepInfo(script);
+            script.StepProgress.ProgressChanged += (s, e) => Console.WriteLine("Interface {0} Finished", e.Msg);
+            script.Run(d);
+            SetConfigData(d);
+        }
+
+        static void TransformPayloads() {
+            PayloadsData d = new PayloadsData();
+            d.DownloadData = GetConfigData<PayloadsDownloaderData>();
+            d.UpdateData = GetConfigData<PayloadsUpdateData>();
+            d.UploadData = GetConfigData<PayloadsUploaderData>();
             ScriptEngine<Payloads, PayloadsData> script = new ScriptEngine<Payloads, PayloadsData>();
             BindingStepInfo(script);
             script.Run(d);
@@ -47,16 +59,16 @@ namespace ATT.Robot
         }
 
         static void GetMessageReport() {
-            MSGID_ReportData d = GetConfigData<MSGID_ReportData>();
-            ScriptEngine<MSGID_Report, MSGID_ReportData> script = new ScriptEngine<MSGID_Report, MSGID_ReportData>();
+            PIITrackData d = GetConfigData<PIITrackData>();
+            ScriptEngine<PIITrack, PIITrackData> script = new ScriptEngine<PIITrack, PIITrackData>();
             BindingStepInfo(script);
             script.Run(d);
             SetConfigData(d);
         }
 
-        static void TrackITG() {
-            ITGTrackData d = GetConfigData<ITGTrackData>();
-            ScriptEngine<ITGTrack, ITGTrackData> script = new ScriptEngine<ITGTrack, ITGTrackData>();
+        static void TrackLH() {
+            LHTrackData d = GetConfigData<LHTrackData>();
+            ScriptEngine<LHTrack, LHTrackData> script = new ScriptEngine<LHTrack, LHTrackData>();
             BindingStepInfo(script);
             script.Run(d);
             SetConfigData(d);
@@ -70,10 +82,10 @@ namespace ATT.Robot
             script.Run(d);
         }
 
-        
 
-        
 
-        
+
+
+
     }
 }

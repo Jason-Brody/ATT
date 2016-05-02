@@ -30,8 +30,8 @@ namespace ATT.Scripts
             
         }
 
-        public int Interval { get; set; }
+        public int Interval { get; set; } = 1;
 
-        public string IDocStatus { get; set; } = "53";
+        
     }
 }
