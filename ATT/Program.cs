@@ -57,7 +57,13 @@ namespace ATT
 
         public static void Main() {
 
-            
+
+            //AIFMassUpload s = new AIFMassUpload();
+            //s.SetInputData(new AIFMassUploadData() { UserName = "20242630", Password = "1qaz@wsx", Client = "100", Address = "saplh1-ent.sapnet.hpecorp.net" });
+            //s.Login();
+
+
+
             TestC c = new TestC();
             TestB b = new TestB();
             Console.WriteLine(TestC.A);

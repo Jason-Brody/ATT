@@ -100,9 +100,8 @@ namespace ATT.Scripts
 
         }
 
-        public static void ExportFile(string outputmenuId, string fileName)
-        {
-            SAPTestHelper.Current.MainWindow.FindById<GuiMenu>(outputmenuId).Select();
+        public static void ExportFile(Action openExportMenu,string fileName) {
+            openExportMenu();
             SAPTestHelper.Current.PopupWindow.FindByName<GuiRadioButton>("SPOPLI-SELFLAG").Select();
             SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[0]").Press();
 
@@ -126,6 +125,37 @@ namespace ATT.Scripts
             Task.Run(() => { Utils.SetAccess(windowName, ct); });
             SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[0]").Press();
             ts.Cancel();
+        }
+
+        public static void ExportFile(string outputmenuId, string fileName)
+        {
+            ExportFile(() => {
+                SAPTestHelper.Current.MainWindow.FindById<GuiMenu>(outputmenuId).Select();
+            }, fileName);
+            //SAPTestHelper.Current.MainWindow.FindById<GuiMenu>(outputmenuId).Select();
+            //SAPTestHelper.Current.PopupWindow.FindByName<GuiRadioButton>("SPOPLI-SELFLAG").Select();
+            //SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[0]").Press();
+
+            //FileInfo f = new FileInfo(fileName);
+            //if (!f.Directory.Exists)
+            //    f.Directory.Create();
+            //if (f.Exists)
+            //    f.Delete();
+
+
+
+            //SAPTestHelper.Current.PopupWindow.FindByName<GuiCTextField>("DY_PATH").Text = f.DirectoryName;
+            //SAPTestHelper.Current.PopupWindow.FindByName<GuiCTextField>("DY_FILENAME").Text = f.Name;
+
+            //var windowName = SAPTestHelper.Current.MainWindow.Text;
+            //var args = "\"" + windowName + "\"";
+
+            //var ts = new CancellationTokenSource();
+            //var ct = ts.Token;
+
+            //Task.Run(() => { Utils.SetAccess(windowName, ct); });
+            //SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[0]").Press();
+            //ts.Cancel();
 
         }
 

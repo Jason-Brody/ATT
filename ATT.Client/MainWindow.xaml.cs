@@ -32,11 +32,17 @@ namespace ATT.Client
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
-            fy_Settings.IsOpen = !fy_Settings.IsOpen;
+
+            List<ATT.Client.Windows.ColMapping> mappings = new List<Windows.ColMapping>();
+            ATT.Client.Windows.MapWin win = new Windows.MapWin(mappings, typeof(ATT.Scripts.MSGIDTaskData), new List<string>() { "A","B","C","D"});
+            win.Show();
+            //fy_Settings.IsOpen = !fy_Settings.IsOpen;
         }
 
         private void btn_Save_Click(object sender, RoutedEventArgs e) {
             ATT.Client.UserControls.ConfigLoader.Save();
         }
     }
+
+   
 }
