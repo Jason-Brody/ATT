@@ -6,7 +6,7 @@ namespace ATT.Data.Entity
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("ProAwsys")]
+    [Table("ATT.ProAwsys")]
     public partial class ProAwsy
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

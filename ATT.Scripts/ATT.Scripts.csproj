@@ -61,7 +61,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ATTLog.cs" />
+    <Compile Include="Converters\MsgIdConverter.cs" />
+    <Compile Include="Converters\TimeConverter.cs" />
+    <Compile Include="Converters\TimeStampConverter.cs" />
     <Compile Include="LogType.cs" />
+    <Compile Include="MainTask\AIFUpload\AIFIDocNumbers.cs" />
     <Compile Include="MainTask\AIFUpload\AIFMassUpload.cs" />
     <Compile Include="MainTask\AIFUpload\AIFMassUploadData.cs" />
     <Compile Include="MainTask\GUIShareData.cs" />

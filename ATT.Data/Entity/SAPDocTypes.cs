@@ -6,6 +6,7 @@ namespace ATT.Data.Entity
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
+    [Table("ATT.SAPDocTypes")]
     public partial class SAPDocTypes
     {
         public int Id { get; set; }

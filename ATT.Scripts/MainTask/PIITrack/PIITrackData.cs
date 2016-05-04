@@ -9,7 +9,7 @@ namespace ATT.Scripts
 {
     public class PIITrackData: GUIShareData
     {
-        public string WorkFolder { get; } = Path.Combine(GlobalConfig.WorkDir, "MSGID_Report");
+        public string WorkFolder { get; } = Path.Combine(GlobalConfig.AttWorkDir, "MSGID_Report");
        
     }
 }

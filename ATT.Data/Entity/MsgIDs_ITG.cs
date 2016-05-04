@@ -6,6 +6,8 @@ namespace ATT.Data.Entity
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
     using Young.Data.Attributes;
+
+    [Table("ATT.MsgIDs_ITG")]
     public partial class MsgIDs_ITG
     {
         

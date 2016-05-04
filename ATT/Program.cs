@@ -62,7 +62,7 @@ namespace ATT
             //s.SetInputData(new AIFMassUploadData() { UserName = "20242630", Password = "1qaz@wsx", Client = "100", Address = "saplh1-ent.sapnet.hpecorp.net" });
             //s.Login();
 
-
+           var a= Tools.GetDataEntites<ATT.Scripts.AIFIDocNumbers>(@"E:\AIF.txt", '|');
 
             TestC c = new TestC();
             TestB b = new TestB();

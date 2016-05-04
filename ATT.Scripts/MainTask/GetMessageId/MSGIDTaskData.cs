@@ -20,14 +20,14 @@ namespace ATT.Scripts
 
         public string IDocReportFile {
             get {
-                var file = GlobalConfig.GetFile(_subFolder, IDocReportPrefix + "_" + _guid, "txt");
+                var file = GlobalConfig.GetAttFile(_subFolder, IDocReportPrefix + "_" + _guid, "txt");
                 return file;
             }
         }
 
         public string EDIKeyFile {
             get {
-                var file = GlobalConfig.GetFile(_subFolder, EDIKeyPrefix + "_" + _guid, "txt");
+                var file = GlobalConfig.GetAttFile(_subFolder, EDIKeyPrefix + "_" + _guid, "txt");
                 return file;
             }
         }

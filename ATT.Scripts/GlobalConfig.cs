@@ -10,7 +10,9 @@ namespace ATT.Scripts
 {
     public static class GlobalConfig
     {
-        public static readonly string WorkDir = @"C:\ATT";
+        public static readonly string AttWorkDir = @"C:\ATT";
+
+        public static readonly string AIFWorkDir = @"C:\AIF";
 
         public static void BindingStepInfo(IStepProcess script) {
             script.BeforeStepExecution += s => Console.WriteLine($"{s.Name} is Running.");
@@ -19,7 +21,8 @@ namespace ATT.Scripts
         }
 
         static GlobalConfig() {
-            CreateDirectory(WorkDir);
+            CreateDirectory(AttWorkDir);
+            CreateDirectory(AIFWorkDir);
         }
 
         public static string CreateDirectory(string dir) {
@@ -32,8 +35,8 @@ namespace ATT.Scripts
             return Guid.NewGuid().ToString();
         }
 
-        public static string GetFile(string subFolder,string Prefix,string extension) {
-            return Path.Combine(WorkDir, $"{Prefix}.{extension}");
+        public static string GetAttFile(string subFolder,string Prefix,string extension) {
+            return Path.Combine(AttWorkDir, $"{Prefix}.{extension}");
         }
 
         public static int DownloadPatchSize { get; } = 50;

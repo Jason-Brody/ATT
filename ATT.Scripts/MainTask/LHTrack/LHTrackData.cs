@@ -21,7 +21,7 @@ namespace ATT.Scripts
 
         public string File {
             get {
-                var f = GlobalConfig.GetFile(_subFolder, _filePrefix+"_"+_guid, "txt");
+                var f = GlobalConfig.GetAttFile(_subFolder, _filePrefix+"_"+_guid, "txt");
                 return f;
             }
         }

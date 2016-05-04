@@ -13,11 +13,11 @@ namespace ATT.Scripts
 
         public int TaskId { get { return taskId; } }
         public string TaskFolder {
-            get { return GlobalConfig.CreateDirectory(Path.Combine(GlobalConfig.WorkDir, "Payloads",TaskId.ToString())); }
+            get { return GlobalConfig.CreateDirectory(Path.Combine(GlobalConfig.AttWorkDir, "Payloads",TaskId.ToString())); }
         }
 
         public string WorkFolder {
-            get { return GlobalConfig.CreateDirectory(Path.Combine(GlobalConfig.WorkDir, "Payloads")); }
+            get { return GlobalConfig.CreateDirectory(Path.Combine(GlobalConfig.AttWorkDir, "Payloads")); }
         }
 
         public void SetTaskId(int TaskId) {
