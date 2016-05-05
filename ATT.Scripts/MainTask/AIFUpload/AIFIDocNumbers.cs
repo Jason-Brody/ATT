@@ -5,11 +5,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Young.Data.Attributes;
+using ATT.Data.AIF;
 
 namespace ATT.Scripts
 {
     public class AIFIDocNumbers
     {
+        public ATT.Data.AIF.IDocNumbers GetIDocNumber() {
+            ATT.Data.AIF.IDocNumbers iDoc = new IDocNumbers();
+            iDoc.IDocNumber = this.IDocNumber;
+            iDoc.BasicType = this.BasicType;
+            iDoc.Date = this.Date;
+            iDoc.Description = this.Description;
+            iDoc.Direction = this.Direction;
+            iDoc.IDocId = this.IDocId;
+            iDoc.MsgCode = this.MsgCode;
+            iDoc.MsgFunction = this.MsgFunction;
+            iDoc.MsgType = this.MsgType;
+            iDoc.Partner = this.Partner;
+            iDoc.Port = this.Port;
+            iDoc.Reference = this.Reference;
+            iDoc.Segments = this.Segments;
+            iDoc.Status = this.Status;
+            iDoc.Time = this.Time;
+            return iDoc;
+        }
+
         [ColMapping("IDoc Number")]
         public string IDocNumber { get; set; }
 

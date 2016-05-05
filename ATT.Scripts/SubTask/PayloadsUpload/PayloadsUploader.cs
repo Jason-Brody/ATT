@@ -14,6 +14,7 @@ using ScriptRunner.Interface.Attributes;
 
 namespace ATT.Scripts
 {
+    [Script("Payloads Upload")]
     public class PayloadsUploader : ScriptBase<PayloadsUploaderData>
     {
         private ATTLog _log;

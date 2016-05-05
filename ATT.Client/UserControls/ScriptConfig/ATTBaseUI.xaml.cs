@@ -1,5 +1,4 @@
-﻿using ATT.Robot;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,18 +23,18 @@ namespace ATT.Client.UserControls
     /// <summary>
     /// Interaction logic for ATTBaseUI.xaml
     /// </summary>
-    public partial class ATTBaseUI<T> : UserControl,IConfig
+    public partial class ATTBaseUI<T> : UserControl
     {
 
         T data;
 
         public async void Load() {
-            data = await ConfigLoader.GetData<T>(this);
+            data = await ConfigLoader.GetData<T>();
             this.DataContext = data;
         }
 
-        public void Save() {
-            ConfigLoader.Save(data);
+        public string Save() {
+            return ConfigLoader.Save(data);
             
         }
 
@@ -67,8 +66,8 @@ namespace ATT.Client.UserControls
         }
         static bool IsProcess;
 
-        public static async Task<T> GetData<T>(IConfig myConfig) {
-            MyConfigs.Add(myConfig);
+        public static async Task<T> GetData<T>() {
+         
             if (Configs != null) {
                 var config = Configs.Single(c => c.TypeName == typeof(T).FullName);
                 System.Xml.Serialization.XmlSerializer xs = new System.Xml.Serialization.XmlSerializer(typeof(T));
@@ -82,16 +81,19 @@ namespace ATT.Client.UserControls
                 await Load();
             }
             await Task.Delay(50);
-            return await GetData<T>(myConfig);
+            return await GetData<T>();
         }
 
-        public static void Save<T>(T data) {
+        public static string Save<T>(T data) {
             System.Xml.Serialization.XmlSerializer xs = new System.Xml.Serialization.XmlSerializer(typeof(T));
             StringBuilder sb = new StringBuilder();
             StringWriter sw = new StringWriter(sb);
             xs.Serialize(sw, data);
             var item = Configs.Single(c => c.TypeName == typeof(T).FullName);
             item.Data = sb.ToString();
+            _db.SaveChanges();
+            (App.Current.MainWindow as MetroWindow).ShowMessageAsync("Success", "Data Saved");
+            return item.Data;
         }
 
         public static void Save() {

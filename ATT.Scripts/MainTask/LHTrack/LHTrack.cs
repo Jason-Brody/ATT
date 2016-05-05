@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace ATT.Scripts
 {
-    [Script("Get EDI Keys")]
+    [Script("LH Track")]
     public class LHTrack : ScriptBase<LHTrackData>
     {
         [Step(Id = 1, Name = "Login to SAP LH ITG")]

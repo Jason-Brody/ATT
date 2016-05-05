@@ -36,6 +36,8 @@ namespace ATT.Data.Entity
         PIITrack = 5,
         LHTrack = 6,
         DownloadAndTransform = 7,
+        AIFMassUpload = 8,
         GetMessageAll = 100,
+
     }
 }

@@ -85,6 +85,7 @@
     <Compile Include="UserControls\ScriptConfig\ATTBaseUI.xaml.cs">
       <DependentUpon>ATTBaseUI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ScriptConfig\Class1.cs" />
     <Compile Include="UserControls\ScriptConfig\GetMsgId.xaml.cs">
       <DependentUpon>GetMsgId.xaml</DependentUpon>
     </Compile>
@@ -105,6 +106,9 @@
     </Compile>
     <Compile Include="UserControls\Components\Schedule.xaml.cs">
       <DependentUpon>Schedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ScriptConfig\UC_AIFMassUpload.xaml.cs">
+      <DependentUpon>UC_AIFMassUpload.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MapWin.xaml.cs">
       <DependentUpon>MapWin.xaml</DependentUpon>
@@ -165,6 +169,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\ScriptConfig\UC_AIFMassUpload.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\MapWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -188,6 +196,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ATT.Robot.exe.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

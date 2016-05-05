@@ -90,9 +90,9 @@ namespace ATT.Scripts.Converters
             var date = data.ToString();
             if (string.IsNullOrEmpty(date))
                 return null;
-            var dates = date.Split('/');
-            var m = int.Parse(dates[0]);
-            var d = int.Parse(dates[1]);
+            var dates = date.Split('.');
+            var d = int.Parse(dates[0]);
+            var m = int.Parse(dates[1]);
             var y = int.Parse(dates[2]);
             return new DateTime(y, m, d);
         }

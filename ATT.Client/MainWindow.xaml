@@ -71,6 +71,9 @@
             <controls:MetroTabItem Header="SAP Interfaces">
                 <ucg:SAPTestInterfaces/>
             </controls:MetroTabItem>
+            <controls:MetroTabItem Header="AIF Mass Upload">
+                <uc:UC_AIFMassUpload/>
+            </controls:MetroTabItem>
         </controls:MetroTabControl>
 
 

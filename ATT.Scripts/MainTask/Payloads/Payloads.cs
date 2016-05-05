@@ -16,10 +16,9 @@ using System.Xml;
 
 namespace ATT.Scripts
 {
+    [Script("Payloads")]
     public class Payloads : ScriptBase<PayloadsData>
     {
-        
-
         [Step(Id =1,Name ="Download and Update payloads")]
         public void DispatchTask() {
             using (var db = new AttDbContext()) {

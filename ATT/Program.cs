@@ -53,11 +53,60 @@ namespace ATT
     partial class Program
     {
 
+        static void loginLH7() {
+            SAPLoginData d = new SAPLoginData();
+            d.UserName = "21688419";
+            d.Password = "1qaz@wsx";
+            d.Address = "saplh7.sapnet.hp.com";
+            d.Client = "100";
+            UIHelper.Login(d);
+        }
 
+        static void Test(DateTime dt) {
+            
+            dt = dt.AddDays(2);
+        }
 
         public static void Main() {
+          //  SampleFill();
 
+            AIFMassUploadData d = new AIFMassUploadData();
+            //d.AIFTask = new Data.AIF.Tasks() {
+            //    Interfaces = new Data.AIF.Interfaces() {
+            //        MsgCode = "TW",
+            //        MsgType = "ACC_DOCUMENT",
+            //        MsgFunction = "ICS",
+            //        PartnerNo = "HPS"
+            //    }
+            //};
+            d.LH1 = new SAPLoginData() {
+                UserName = "20242630",
+                Password = "1qaz@wsx",
+                Client = "100",
+                Address = "saplh1-ent.sapnet.hpecorp.net"
+            };
+            d.LH7 = new SAPLoginData() {
+                UserName = "21688419",
+                Password = "1qaz@wsx",
+                Address = "saplh7.sapnet.hp.com",
+                Client = "100"
+            };
+            d.Start = DateTime.Now.AddDays(-2);
+            d.End = DateTime.Now;
 
+            AIFMassUpload s3 = new AIFMassUpload();
+            s3.SetInputData(d);
+            s3.LoginLH7();
+            s3.TrackStatus();
+
+            using (var db = new ATT.Data.AIF.AIFDbContext()) {
+                db.Database.Log += (s) => Console.WriteLine(s);
+                //db.Tasks.Add(d.AIFTask);
+                db.SaveChanges();
+            }
+                ScriptEngine<AIFMassUpload, AIFMassUploadData> script = new ScriptEngine<AIFMassUpload, AIFMassUploadData>();
+            script.Run(d);
+           
             //AIFMassUpload s = new AIFMassUpload();
             //s.SetInputData(new AIFMassUploadData() { UserName = "20242630", Password = "1qaz@wsx", Client = "100", Address = "saplh1-ent.sapnet.hpecorp.net" });
             //s.Login();
@@ -69,14 +118,14 @@ namespace ATT
             Console.WriteLine(TestC.A);
             SampleFill();
 
-            PayloadsUploader p = new PayloadsUploader();
-            PayloadsUploaderData d = new PayloadsUploaderData();
-            d.UserName = "21746957";
-            d.Password = "Ojo@6gat";
-            d.SetTaskId(3014);
-            p.SetInputData(d);
+            //PayloadsUploader p = new PayloadsUploader();
+            //PayloadsUploaderData d = new PayloadsUploaderData();
+            //d.UserName = "21746957";
+            //d.Password = "Ojo@6gat";
+            //d.SetTaskId(3014);
+            //p.SetInputData(d);
 
-            p.Upload();
+            //p.Upload();
 
 
 

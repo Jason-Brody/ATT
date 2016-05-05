@@ -15,7 +15,7 @@ using ATT.Data;
 
 namespace ATT.Scripts
 {
-    [Script("Transform XML file from pro to itg")]
+    [Script("Payloads Transform")]
     public class PayloadsUpdate : ScriptBase<PayloadsUpdateData>
     {
        

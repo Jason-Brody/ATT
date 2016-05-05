@@ -83,6 +83,13 @@ namespace ATT.Robot
         }
 
 
+        static void AIFMassUpload(int id) {
+            AIFMassUploadData d = GetConfigData<AIFMassUploadData>();
+            d.TaskId = id;
+            ScriptEngine<AIFMassUpload, AIFMassUploadData> script = new ScriptEngine<Scripts.AIFMassUpload, AIFMassUploadData>();
+            BindingStepInfo(script);
+            script.Run(d);
+        }
 
 
 

@@ -50,10 +50,16 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="Young.Data">
-      <HintPath>..\..\..\Young\Young.Data\bin\Debug\Young.Data.dll</HintPath>
+      <HintPath>..\..\Young\Young.Data\bin\Debug\Young.Data.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AIF\AIFDbContext.cs" />
+    <Compile Include="AIF\IDocNumbers.cs" />
+    <Compile Include="AIF\IDocs.cs" />
+    <Compile Include="AIF\Interfaces.cs" />
+    <Compile Include="AIF\Missions.cs" />
+    <Compile Include="AIF\Tasks.cs" />
     <Compile Include="AttDbContext.cs" />
     <Compile Include="Entity\TaskDataConfigs.cs" />
     <Compile Include="Entity\IDocNumbers_ITG.cs" />
@@ -84,9 +90,7 @@
   <ItemGroup>
     <Compile Include="Converters\MsgIdConverter.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AIF\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -91,6 +91,25 @@ namespace ATT
             d6.UpdateData = d2;
             d6.UploadData = d3;
             AddTask(d6, ATTTask.DownloadAndTransform);
+
+
+            AIFMassUploadData d7 = new AIFMassUploadData();
+            d7.LH1 = new SAPLoginData() {
+                UserName = "20242630",
+                Password = "1qaz@wsx",
+                Client = "100",
+                Address = "saplh1-ent.sapnet.hpecorp.net"
+            };
+            d7.LH7 = new SAPLoginData() {
+                UserName = "21688419",
+                Password = "1qaz@wsx",
+                Address = "saplh7.sapnet.hp.com",
+                Client = "100"
+            };
+            d7.Start = DateTime.Now.AddDays(-2);
+            d7.End = DateTime.Now;
+            AddTask(d7, ATTTask.AIFMassUpload);
+
         }
     }
 }

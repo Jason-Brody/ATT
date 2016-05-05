@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ATT.Robot;
 using ATT.Scripts;
 using ATT.Data.Entity;
 using System.Timers;
@@ -38,7 +37,7 @@ namespace ATT.Client.UserControls
         }
 
         private void btn_RunOnce_Click(object sender, RoutedEventArgs e) {
-            Program.RunTask(ATTTask.GetMessageAll, 0);
+            //Program.RunTask(ATTTask.GetMessageAll, 0);
         }
 
         private void btn_Run_Click(object sender, RoutedEventArgs e) {
@@ -70,7 +69,7 @@ namespace ATT.Client.UserControls
        
 
         private void _timer_Elapsed(object sender, ElapsedEventArgs e) {
-            Program.RunTask(ATTTask.GetMessageAll, 0);
+            //Program.RunTask(ATTTask.GetMessageAll, 0);
         }
     }
 }

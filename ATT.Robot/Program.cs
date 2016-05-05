@@ -23,7 +23,7 @@ namespace ATT.Robot
         static void Main(string[] args) {
 
 
-            TrackLH();
+          
 
             ATTTask t;
             int taskId;
@@ -58,12 +58,12 @@ namespace ATT.Robot
             }
         }
 
-        public static void RunTask(ATTTask task, int taskId) {
+        public static Process RunTask(ATTTask task, int taskId) {
             var exeFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ATT.Robot.exe");
             ProcessStartInfo psInfo = new ProcessStartInfo();
             psInfo.FileName = exeFile;
             psInfo.Arguments = $"{task} {taskId}";
-            Process.Start(psInfo);
+            return Process.Start(psInfo);
         }
 
         static void RunScript(ATTTask script, int TaskId) {
@@ -92,6 +92,9 @@ namespace ATT.Robot
                         break;
                     case ATTTask.GetMessageAll:
                         GetMessageAll();
+                        break;
+                    case ATTTask.AIFMassUpload:
+                        AIFMassUpload(TaskId);
                         break;
                 }
             }

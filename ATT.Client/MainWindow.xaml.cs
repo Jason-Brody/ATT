@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using ATT.Scripts;
-using ATT.Robot;
 
 namespace ATT.Client
 {

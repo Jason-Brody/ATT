@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace ATT.Scripts
 {
+    [Script("PII Track")]
     public class PIITrack : ScriptBase<PIITrackData>
     {
         private string _file;
