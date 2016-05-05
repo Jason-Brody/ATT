@@ -35,7 +35,8 @@ namespace ATT.Client.UserControls
             var data = base.Save();
             List<int> tasks;
             using(var db = new ATT.Data.AIF.AIFDbContext()) {
-                tasks = db.Database.SqlQuery<int>("exec [dbo].[SP_CreateMission] @xml", new SqlParameter("xml",data)).ToList();
+                //tasks = db.Database.SqlQuery<int>("exec [dbo].[SP_CreateMission] @xml", new SqlParameter("xml",data)).ToList();
+                tasks = db.Tasks.Where(t => t.IsFinished == false).Select(i => i.Id).ToList();
             }
             int count = 1;
             pb.Maximum = tasks.Count;

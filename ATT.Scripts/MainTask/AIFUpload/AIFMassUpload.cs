@@ -20,10 +20,10 @@ namespace ATT.Scripts
 
         private List<string> _iDocNumbers;
 
-        [Step(Id =0,Name ="Get Task")]
+        [Step(Id = 0, Name = "Get Task")]
         public void GetTask() {
-            using(var db = new ATT.Data.AIF.AIFDbContext()) {
-                _aifTask = db.Tasks.Include(t=>t.Interfaces).Single(t => t.Id == _data.TaskId);
+            using (var db = new ATT.Data.AIF.AIFDbContext()) {
+                _aifTask = db.Tasks.Include(t => t.Interfaces).Single(t => t.Id == _data.TaskId);
             }
         }
 
@@ -40,7 +40,7 @@ namespace ATT.Scripts
 
         [Step(Id = 4, Name = "Download IDoc List")]
         public void DownloadIDocList() {
-            
+
 
             fillTheForm(_data.Start, _data.End, 0);
         }
@@ -48,16 +48,16 @@ namespace ATT.Scripts
         [Step(Id = 5, Name = "Read IDoc List")]
         public void ReadIDocList() {
             if (!File.Exists(_data.GetIDocFile())) {
-                using(var db = new ATT.Data.AIF.AIFDbContext()) {
+                using (var db = new ATT.Data.AIF.AIFDbContext()) {
                     var task = db.Tasks.Single(t => t.Id == _data.TaskId);
                     task.IsFinished = true;
                     task.DataCount = 0;
                     db.SaveChanges();
                 }
-
+                SAPTestHelper.Current.CloseSession();
                 throw new BreakException("No data found");
             }
-                
+
             var iDocNumbers = Tools.GetDataEntites<AIFIDocNumbers>(_data.GetIDocFile(), '|').Take(_data.DataCounts).ToList();
             _iDocNumbers = iDocNumbers.Select(i => i.IDocNumber).ToList();
             using (var db = new ATT.Data.AIF.AIFDbContext()) {
@@ -184,7 +184,7 @@ namespace ATT.Scripts
             }
         }
 
-        
+
 
         private void fillTheForm(DateTime start, DateTime end, int count) {
 
@@ -208,11 +208,13 @@ namespace ATT.Scripts
 
             var gridView = SAPTestHelper.Current.MainWindow.FindDescendantByProperty<GuiGridView>();
 
-            if (SAPTestHelper.Current.PopupWindow != null || (gridView.RowCount < _data.DataCounts && count < _data.RetryCounts)) {
+            if ((SAPTestHelper.Current.PopupWindow != null || gridView == null || gridView.RowCount < _data.DataCounts) && count < _data.RetryCounts) {
                 count++;
                 var interval = Math.Abs(_data.IntervalDays) * -1;
 
                 fillTheForm(start.AddDays(interval), end, count);
+            } else if (gridView == null) {
+                return;
             } else {
                 UIHelper.ExportFile(() => {
                     SAPTestHelper.Current.SAPGuiSession.FindById<GuiGridView>("wnd[0]/usr/cntlIDOCLISTE/shellcont/shell").PressToolbarContextButton("&MB_EXPORT");
