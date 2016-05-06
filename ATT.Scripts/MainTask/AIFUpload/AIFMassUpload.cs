@@ -119,10 +119,17 @@ namespace ATT.Scripts
             SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiTableControl>().SetBatchValues(_iDocNumbers);
             SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[8]").Press();
 
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_CREDA-LOW").Text = _data.Start.ToString("dd.MM.yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_CREDA-HIGH").Text = _data.End.ToString("dd.MM.yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_CRETI-LOW").Text = "00:00:00";
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_CRETI-HIGH").Text = "24:00:00";
+
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_UPDDA-LOW").Text = _data.Start.ToString("dd.MM.yyyy");
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_UPDDA-HIGH").Text = _data.End.ToString("dd.MM.yyyy");
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_UPDTI-HIGH").Text = "00:00:00";
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_UPDTI-LOW").Text = "00:00:00";
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_UPDTI-HIGH").Text = "24:00:00";
+
+
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_STATU-LOW").Text = "64";
             SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[8]").Press();
 
@@ -140,6 +147,11 @@ namespace ATT.Scripts
         [Step(Id = 10, Name = "Track Status")]
         public void TrackStatus() {
             SAPTestHelper.Current.SAPGuiSession.StartTransaction("ZIDOCAUDREP");
+            if (SAPTestHelper.Current.SAPGuiSession.Info.ScreenNumber != 1000) {
+                Console.WriteLine("Log off system:" + SAPTestHelper.Current.SAPGuiSession.Info.SystemName);
+                SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[15]").Press();
+                SAPTestHelper.Current.SAPGuiSession.StartTransaction("ZIDOCAUDREP");
+            }
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-LOW").Text = _data.Start.ToString("dd.MM.yyyy");
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-HIGH").Text = _data.End.ToString("dd.MM.yyyy");
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CRETIM-LOW").Text = "00:00:00";

@@ -52,6 +52,38 @@ namespace ATT
 
     partial class Program
     {
+        public static void TrackStatus() {
+            var _iDocNumbers = Tools.GetDataEntites<AIFUploadedIDoc>(@"c:\AIF\AIFUploaded_2605_7135cb46-316a-49bd-bf38-38d9b083e6e4.txt", '|').Select(i => i.IDocNumber).ToList();
+            SAPTestHelper.Current.SAPGuiSession.StartTransaction("ZIDOCAUDREP");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-LOW").Text = (new DateTime(2016, 4, 23)).ToString("dd.MM.yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-HIGH").Text = (new DateTime(2016, 5, 5)).ToString("dd.MM.yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CRETIM-LOW").Text = "00:00:00";
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CRETIM-HIGH").Text = "24:00:00";
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_STATUS-LOW").Text = "*";
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("P_DIRECT").Text = "2";
+
+
+            SAPTestHelper.Current.MainWindow.FindByName<GuiRadioButton>("R_OTHERS").Select();
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_MESTYP-LOW").Text = "ACC_DOCUMENT";
+
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCheckBox>("P_DOWNLD").Selected = true;
+            SAPTestHelper.Current.MainWindow.FindByName<GuiRadioButton>("P_FILE").Select();
+            SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("P_CPATH").Text = @"C:\AIF\Temp.txt";
+
+            SAPTestHelper.Current.MainWindow.FindByName<GuiRadioButton>("P_DOC").Select();
+
+            SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("%_S_IDOCNO_%_APP_%-VALU_PUSH").Press();
+            SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiTableControl>().SetBatchValues(_iDocNumbers);
+            SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[8]").Press();
+
+            SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[8]").Press();
+
+            if (SAPTestHelper.Current.PopupWindow != null)
+                SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[0]").Press();
+
+            SAPTestHelper.Current.CloseSession();
+        }
+
 
         static void loginLH7() {
             SAPLoginData d = new SAPLoginData();
@@ -63,12 +95,38 @@ namespace ATT
         }
 
         static void Test(DateTime dt) {
-            
+
             dt = dt.AddDays(2);
         }
 
         public static void Main() {
-          //  SampleFill();
+            //  SampleFill();
+
+            loginLH7();
+            DateTime start = DateTime.Now;
+            DirectoryInfo di = new DirectoryInfo(@"C:\AIF");
+            var files = di.GetFiles().Where(f => f.Name.Contains("AIFIDoc_ITG"));
+            int total = files.Count();
+            int current = 0;
+            using(var db = new ATT.Data.AIF.AIFDbContext()) {
+                foreach (var f in files) {
+
+                    var taskid = int.Parse(f.Name.Split('_')[2]);
+                    var tempItems = Tools.GetDataEntites<IDoc>(f.FullName);
+                    foreach(var item in tempItems) {
+                        var idoc = item.GetIDocs();
+                        idoc.Tid = taskid;
+                        db.IDocs.Add(idoc);
+                    }
+                    current++;
+                    Console.WriteLine("{0}/{1}", current, total);
+                    db.SaveChanges();
+
+                }
+                
+            }
+
+            Console.WriteLine(DateTime.Now.Subtract(start));
 
             AIFMassUploadData d = new AIFMassUploadData();
             //d.AIFTask = new Data.AIF.Tasks() {
@@ -104,14 +162,14 @@ namespace ATT
                 //db.Tasks.Add(d.AIFTask);
                 db.SaveChanges();
             }
-                ScriptEngine<AIFMassUpload, AIFMassUploadData> script = new ScriptEngine<AIFMassUpload, AIFMassUploadData>();
+            ScriptEngine<AIFMassUpload, AIFMassUploadData> script = new ScriptEngine<AIFMassUpload, AIFMassUploadData>();
             script.Run(d);
-           
+
             //AIFMassUpload s = new AIFMassUpload();
             //s.SetInputData(new AIFMassUploadData() { UserName = "20242630", Password = "1qaz@wsx", Client = "100", Address = "saplh1-ent.sapnet.hpecorp.net" });
             //s.Login();
 
-           var a= Tools.GetDataEntites<ATT.Scripts.AIFIDocNumbers>(@"E:\AIF.txt", '|');
+            var a = Tools.GetDataEntites<ATT.Scripts.AIFIDocNumbers>(@"E:\AIF.txt", '|');
 
             TestC c = new TestC();
             TestB b = new TestB();

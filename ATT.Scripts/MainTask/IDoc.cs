@@ -30,6 +30,7 @@ namespace ATT.Scripts
             return doc;
         }
 
+        [ColMapping("Idoc No")]
         [ColMapping("Idoc No.")]
         public string IDocNumber { get; set; }
 
@@ -37,10 +38,13 @@ namespace ATT.Scripts
         [ColMapping("Cr Date")]
         public DateTime? CreateDT { get; set; }
 
+        [ColMapping("Time")]
+        [ColMapping("Cr Time")]
         [MyTimeConverter]
         public TimeSpan? Time { get; set; }
 
         [ColMapping("CS")]
+        [ColMapping("Status")]
         public string Status { get; set; }
 
         [ColMapping("Appl Area")]
@@ -56,19 +60,27 @@ namespace ATT.Scripts
         public string CompanyCode { get; set; }
 
         [ColMapping("Message Description")]
+        [ColMapping("Msg Description")]
         public string Description { get; set; }
 
+        [ColMapping("DT")]
+        [ColMapping("Doc Type")]
         public string DT { get; set; }
 
         [ColMapping("Ref Doc No")]
         public string RefDocNumber { get; set; }
 
         [ColMapping("Acc Doc No")]
+        [ColMapping("Acct Doc No")]
         public string AccDocNumber { get; set; }
 
+        [ColMapping("PostDate")]
+        [ColMapping("Post Date")]
         [MyDateConverter]
         public DateTime? PostDate { get; set; }
 
+        [ColMapping("DocDate")]
+        [ColMapping("Doc Date")]
         [MyDateConverter]
         public DateTime? DocDate { get; set; }
 

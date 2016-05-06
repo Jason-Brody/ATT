@@ -26,7 +26,19 @@ namespace ATT.Scripts.Converters
             var y = int.Parse(val.Substring(0, 4));
             var m = int.Parse(val.Substring(4, 2));
             var d = int.Parse(val.Substring(6, 2));
-            return new DateTime(y, m, d);
+            //try {
+            //    return new DateTime(y, m, d);
+            //}
+            //catch {
+            //    return new DateTime();
+            //}
+            if(y==0 || m ==0 ||d==0) {
+                return new DateTime();
+            }else { 
+                return new DateTime(y, m, d);
+            }
+            
+           
         }
     }
 

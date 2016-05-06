@@ -214,7 +214,7 @@ namespace ATT.Scripts
             l.Login(data.UserName, data.Password, data.Client, data.Language);
             SAPTestHelper.Current.SetSession(l);
 
-            SAPTestHelper.Current.OnRequestError += (s, e) => { throw new Exception(e.Message); };
+            //SAPTestHelper.Current.OnRequestError += (s, e) => { throw new Exception(e.Message); };
         }
 
         public static void GoToSE16Table(string tableName)
