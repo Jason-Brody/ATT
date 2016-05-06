@@ -99,11 +99,19 @@ namespace ATT
             dt = dt.AddDays(2);
         }
 
-        static void BD87(List<string> _iDocNumbers) {
+        static string lastDoc;
+        static int Count;
+        static void BD87(string iDoc) {
+            
             SAPTestHelper.Current.SAPGuiSession.StartTransaction("BD87");
-            SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("%_SX_DOCNU_%_APP_%-VALU_PUSH").Press();
-            SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiTableControl>().SetBatchValues(_iDocNumbers);
-            SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[8]").Press();
+            if(SAPTestHelper.Current.SAPGuiSession.Info.SystemName != "LH7") {
+                SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[15]").Press();
+                SAPTestHelper.Current.SAPGuiSession.StartTransaction("BD87");
+                Console.WriteLine(lastDoc + "---" + Count.ToString());
+            }
+          
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_DOCNU-LOW").Text = iDoc;
+            
 
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_CREDA-LOW").Text =  (new DateTime(2016,5,5)).ToString("dd.MM.yyyy");
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_CREDA-HIGH").Text = (new DateTime(2016, 5, 5)).ToString("dd.MM.yyyy");
@@ -127,6 +135,9 @@ namespace ATT
                 var n1 = tree.ChooseNode("LH7->IDoc->IDoc");
                 SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[8]").Press();
             }
+
+            lastDoc = iDoc;
+            Count++;
         }
 
         public static void Main() {
@@ -136,7 +147,9 @@ namespace ATT
 
            using(var db = new ATT.Data.AIF.AIFDbContext()) {
                 var iDocs = db.IDocs.Where(s => s.Status == "64").ToList();
-                BD87(iDocs.Select(i => i.IDocNumber).ToList());
+                foreach(var item in iDocs) {
+                    BD87(item.IDocNumber);
+                }
                 TrackStatus(iDocs.Select(i => i.IDocNumber).ToList());
             }
 
