@@ -52,8 +52,8 @@ namespace ATT
 
     partial class Program
     {
-        public static void TrackStatus() {
-            var _iDocNumbers = Tools.GetDataEntites<AIFUploadedIDoc>(@"c:\AIF\AIFUploaded_2605_7135cb46-316a-49bd-bf38-38d9b083e6e4.txt", '|').Select(i => i.IDocNumber).ToList();
+        public static void TrackStatus(List<string> _iDocNumbers) {
+            
             SAPTestHelper.Current.SAPGuiSession.StartTransaction("ZIDOCAUDREP");
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-LOW").Text = (new DateTime(2016, 4, 23)).ToString("dd.MM.yyyy");
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-HIGH").Text = (new DateTime(2016, 5, 5)).ToString("dd.MM.yyyy");
@@ -99,10 +99,50 @@ namespace ATT
             dt = dt.AddDays(2);
         }
 
+        static void BD87(List<string> _iDocNumbers) {
+            SAPTestHelper.Current.SAPGuiSession.StartTransaction("BD87");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("%_SX_DOCNU_%_APP_%-VALU_PUSH").Press();
+            SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiTableControl>().SetBatchValues(_iDocNumbers);
+            SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[8]").Press();
+
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_CREDA-LOW").Text =  (new DateTime(2016,5,5)).ToString("dd.MM.yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_CREDA-HIGH").Text = (new DateTime(2016, 5, 5)).ToString("dd.MM.yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_CRETI-LOW").Text = "00:00:00";
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_CRETI-HIGH").Text = "24:00:00";
+
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_UPDDA-LOW").Text = (new DateTime(2016, 5, 5)).ToString("dd.MM.yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_UPDDA-HIGH").Text = (new DateTime(2016, 5, 5)).ToString("dd.MM.yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_UPDTI-LOW").Text = "00:00:00";
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_UPDTI-HIGH").Text = "24:00:00";
+
+
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_STATU-LOW").Text = "64";
+            SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[8]").Press();
+
+            var tree = SAPTestHelper.Current.MainWindow.FindDescendantByProperty<GuiTree>();
+            var n = tree.ChooseNode("LH7");
+            var number = tree.GetItemText(n, "Column3");
+
+            if (number != "0") {
+                var n1 = tree.ChooseNode("LH7->IDoc->IDoc");
+                SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[8]").Press();
+            }
+        }
+
         public static void Main() {
             //  SampleFill();
 
             loginLH7();
+
+           using(var db = new ATT.Data.AIF.AIFDbContext()) {
+                var iDocs = db.IDocs.Where(s => s.Status == "64").ToList();
+                BD87(iDocs.Select(i => i.IDocNumber).ToList());
+                TrackStatus(iDocs.Select(i => i.IDocNumber).ToList());
+            }
+
+           
+
+
             DateTime start = DateTime.Now;
             DirectoryInfo di = new DirectoryInfo(@"C:\AIF");
             var files = di.GetFiles().Where(f => f.Name.Contains("AIFIDoc_ITG"));
