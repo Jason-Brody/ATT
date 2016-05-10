@@ -72,7 +72,7 @@
                 <ucg:SAPTestInterfaces/>
             </controls:MetroTabItem>
             <controls:MetroTabItem Header="AIF Mass Upload">
-                <uc:UC_AIFMassUpload/>
+                <uc:UC_AIF/>
             </controls:MetroTabItem>
         </controls:MetroTabControl>
 

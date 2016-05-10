@@ -21,83 +21,97 @@ using System.Xml;
 
 namespace WebTest
 {
+
+    public class Student
+    {
+        public string Name { get; set; }
+    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        string test = "abc";
+        Student stu = new Student() { Name = "1" };
+        Student stu1 = new Student() { Name = "2" };
+        List<Student> stus = new List<Student>();
         public MainWindow() {
             InitializeComponent();
+            stus.Add(stu);
+            stus.Add(stu1);
+            dg1.DataContext = stus;
+            dg2.DataContext = stus;
 
-            Send();
-
+            stu.Name = "Zhou Yang";
+            tb1.DataContext = stu;
+            tb2.DataContext = stu;
         }
 
-        public void Send() {
-            string userName = "21746957";
-            string pwd = "Ojo@6gat";
-            string component = "com_hp_U26_010_uat";
-            string senderInterface = "FIDCC1.FIDCCP01.ZEXFIDCCP01";
-            string senderNamespace = "urn:sap-com:document:sap:idoc:messages";
-            string host = "pi-itg-01-idoc.sapnet.hpecorp.net";
-            string port = "63100";
-            string msgId = "001F296E7D2E1EE682D0AD3AEC5F1204";
-            string url = buildUrl(host, port, senderNamespace, component, senderInterface);
+        //public void Send() {
+        //    string userName = "21746957";
+        //    string pwd = "Ojo@6gat";
+        //    string component = "com_hp_U26_010_uat";
+        //    string senderInterface = "FIDCC1.FIDCCP01.ZEXFIDCCP01";
+        //    string senderNamespace = "urn:sap-com:document:sap:idoc:messages";
+        //    string host = "pi-itg-01-idoc.sapnet.hpecorp.net";
+        //    string port = "63100";
+        //    string msgId = "001F296E7D2E1EE682D0AD3AEC5F1204";
+        //    string url = buildUrl(host, port, senderNamespace, component, senderInterface);
 
-            HttpWebRequest req = CreateWebRequest(url, "http://sap.com/xi/WebService/soap1.1");
-            req.Credentials = new NetworkCredential(userName, pwd);
-            req.Proxy = new WebProxy("web-proxy.austin.hp.com", 8080);
-            var postXml = getPayload(msgId);
+        //    HttpWebRequest req = CreateWebRequest(url, "http://sap.com/xi/WebService/soap1.1");
+        //    req.Credentials = new NetworkCredential(userName, pwd);
+        //    req.Proxy = new WebProxy("web-proxy.austin.hp.com", 8080);
+        //    var postXml = getPayload(msgId);
            
 
-            using (var stream = req.GetRequestStream()) {
+        //    using (var stream = req.GetRequestStream()) {
 
-                postXml.Save(stream);
-            }
+        //        postXml.Save(stream);
+        //    }
 
-            HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
+        //    HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
            
-        }
+        //}
 
 
-        public XmlDocument getPayload(string messageId) {
-            string dir = @"C:\ATT\PayloadsDownloads\3014\Target";
-            DirectoryInfo di = new DirectoryInfo(dir);
-            var f = di.GetFiles().Where(f1 => f1.Name.Contains(messageId)).FirstOrDefault();
-            if (f != null) {
-                System.Xml.XmlDocument xDoc = new System.Xml.XmlDocument();
-                xDoc.Load(f.FullName);
-                if (xDoc.FirstChild.NodeType == System.Xml.XmlNodeType.XmlDeclaration) {
-                    xDoc.RemoveChild(xDoc.FirstChild);
-                }
+        //public XmlDocument getPayload(string messageId) {
+        //    string dir = @"C:\ATT\PayloadsDownloads\3014\Target";
+        //    DirectoryInfo di = new DirectoryInfo(dir);
+        //    var f = di.GetFiles().Where(f1 => f1.Name.Contains(messageId)).FirstOrDefault();
+        //    if (f != null) {
+        //        System.Xml.XmlDocument xDoc = new System.Xml.XmlDocument();
+        //        xDoc.Load(f.FullName);
+        //        if (xDoc.FirstChild.NodeType == System.Xml.XmlNodeType.XmlDeclaration) {
+        //            xDoc.RemoveChild(xDoc.FirstChild);
+        //        }
 
-                string before = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">\n<soapenv:Header/>\n<soapenv:Body>\n";
-                string after = "</soapenv:Body>\n" +"</soapenv:Envelope>\n";
-                var xml = before + xDoc.OuterXml + after;
-                xDoc.LoadXml(xml);
-                return xDoc;
+        //        string before = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">\n<soapenv:Header/>\n<soapenv:Body>\n";
+        //        string after = "</soapenv:Body>\n" +"</soapenv:Envelope>\n";
+        //        var xml = before + xDoc.OuterXml + after;
+        //        xDoc.LoadXml(xml);
+        //        return xDoc;
                
-            }
+        //    }
             
-            return null;
-        }
+        //    return null;
+        //}
 
-        private string buildUrl(string host, string port, string senderNameSpace, string component, string senderInterface) {
-            string urlTemp = WebUtility.UrlEncode(senderNameSpace + "^" + senderInterface);
-            string url = $"http://{host}:{port}/sap/xi/engine?type=entry&version=3.0&Sender.Service={component}&Interface={urlTemp}&QualityOfService=ExactlyOnce";
-            // http://%s:%s/sap/xi/engine?type=entry&version=3.0&Sender.Service=%s&Interface=%s&QualityOfService=ExactlyOnce
-            return url;
-        }
+        //private string buildUrl(string host, string port, string senderNameSpace, string component, string senderInterface) {
+        //    string urlTemp = WebUtility.UrlEncode(senderNameSpace + "^" + senderInterface);
+        //    string url = $"http://{host}:{port}/sap/xi/engine?type=entry&version=3.0&Sender.Service={component}&Interface={urlTemp}&QualityOfService=ExactlyOnce";
+        //    // http://%s:%s/sap/xi/engine?type=entry&version=3.0&Sender.Service=%s&Interface=%s&QualityOfService=ExactlyOnce
+        //    return url;
+        //}
 
 
-        private static HttpWebRequest CreateWebRequest(string url, string action) {
-            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
-            webRequest.Headers.Add("SOAPAction", action);
-            webRequest.ContentType = "text/xml;charset=\"utf-8\"";
-            webRequest.Accept = "text/xml";
-            webRequest.Method = "POST";
-            return webRequest;
-        }
+        //private static HttpWebRequest CreateWebRequest(string url, string action) {
+        //    HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
+        //    webRequest.Headers.Add("SOAPAction", action);
+        //    webRequest.ContentType = "text/xml;charset=\"utf-8\"";
+        //    webRequest.Accept = "text/xml";
+        //    webRequest.Method = "POST";
+        //    return webRequest;
+        //}
 
       
 
@@ -172,6 +186,10 @@ namespace WebTest
                 }
 
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e) {
+            stu.Name = "Zhou Yang_abc";
         }
     }
 }
