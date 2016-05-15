@@ -113,6 +113,7 @@
     <Compile Include="UserControls\UC_AIF.xaml.cs">
       <DependentUpon>UC_AIF.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AIFInterfaceVM.cs" />
     <Compile Include="Windows\MapWin.xaml.cs">
       <DependentUpon>MapWin.xaml</DependentUpon>
     </Compile>

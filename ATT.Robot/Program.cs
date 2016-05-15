@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using ATT.Data;
 using ATT.Data.Entity;
 using System.Xml.Serialization;
+using System.Data.Entity;
 namespace ATT.Robot
 {
     
@@ -108,7 +109,7 @@ namespace ATT.Robot
 
         static void BindingStepInfo(IStepProcess script ) {
             script.BeforeStepExecution += s => Console.WriteLine($"{s.Name} is Running.");
-            script.AfterStepExecution += s => Console.WriteLine($"{s.Name} is Complete");
+            //script.AfterStepExecution += s => Console.WriteLine($"{s.Name} is Complete");
             
         }
 
@@ -168,6 +169,16 @@ namespace ATT.Robot
                 tData.Data = sb.ToString();
                 db.SaveChanges();
             }
+        }
+
+        static AIFMassUploadData GetAIFConfigData(int taskId) {
+            ATT.Data.AIF.Tasks t = null;
+            using(var db = new ATT.Data.AIF.AIFDbContext()) {
+                t = db.Tasks.Include(a => a.Missions).Single(a => a.Id == taskId);
+            }
+            XmlSerializer xs = new XmlSerializer(typeof(AIFMassUploadData));
+            StringReader sr = new StringReader(t.Missions.ConfigData);
+            return xs.Deserialize(sr) as AIFMassUploadData;
         }
 
         

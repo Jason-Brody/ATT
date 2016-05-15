@@ -17,8 +17,13 @@ namespace ATT.Scripts
     public class AIFMassUpload : ScriptBase<AIFMassUploadData>
     {
         private ATT.Data.AIF.Tasks _aifTask;
-
+        private DateTime initialTime;
         private List<string> _iDocNumbers;
+
+        public override void Initial() {
+            base.Initial();
+            initialTime = DateTime.Now;
+        }
 
         [Step(Id = 0, Name = "Get Task")]
         public void GetTask() {
@@ -40,8 +45,6 @@ namespace ATT.Scripts
 
         [Step(Id = 4, Name = "Download IDoc List")]
         public void DownloadIDocList() {
-
-
             fillTheForm(_data.Start, _data.End, 0);
         }
 
@@ -119,13 +122,13 @@ namespace ATT.Scripts
             SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiTableControl>().SetBatchValues(_iDocNumbers);
             SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[8]").Press();
 
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_CREDA-LOW").Text = _data.Start.ToString("dd.MM.yyyy");
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_CREDA-HIGH").Text = _data.End.ToString("dd.MM.yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_CREDA-LOW").Text = initialTime.ToString("dd.MM.yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_CREDA-HIGH").Text = DateTime.Now.ToString("dd.MM.yyyy");
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_CRETI-LOW").Text = "00:00:00";
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_CRETI-HIGH").Text = "24:00:00";
 
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_UPDDA-LOW").Text = _data.Start.ToString("dd.MM.yyyy");
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_UPDDA-HIGH").Text = _data.End.ToString("dd.MM.yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_UPDDA-LOW").Text = initialTime.ToString("dd.MM.yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_UPDDA-HIGH").Text = DateTime.Now.ToString("dd.MM.yyyy");
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_UPDTI-LOW").Text = "00:00:00";
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("SX_UPDTI-HIGH").Text = "24:00:00";
 
@@ -152,8 +155,8 @@ namespace ATT.Scripts
                 SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[15]").Press();
                 SAPTestHelper.Current.SAPGuiSession.StartTransaction("ZIDOCAUDREP");
             }
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-LOW").Text = _data.Start.ToString("dd.MM.yyyy");
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-HIGH").Text = _data.End.ToString("dd.MM.yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-LOW").Text = initialTime.ToString("dd.MM.yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-HIGH").Text = DateTime.Now.ToString("dd.MM.yyyy");
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CRETIM-LOW").Text = "00:00:00";
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CRETIM-HIGH").Text = "24:00:00";
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_STATUS-LOW").Text = "*";

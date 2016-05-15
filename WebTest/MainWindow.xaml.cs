@@ -32,17 +32,18 @@ namespace WebTest
     public partial class MainWindow : Window
     {
         string test = "abc";
-        Student stu = new Student() { Name = "1" };
-        Student stu1 = new Student() { Name = "2" };
-        List<Student> stus = new List<Student>();
+        //Student stu = new Student() { Name = "1" };
+        //Student stu1 = new Student() { Name = "2" };
+        //List<Student> stus = new List<Student>();
         public MainWindow() {
             InitializeComponent();
-            stus.Add(stu);
-            stus.Add(stu1);
-            dg1.DataContext = stus;
-            dg2.DataContext = stus;
+            //stus.Add(stu);
+            //stus.Add(stu1);
+            //dg1.DataContext = stus;
+            //dg2.DataContext = stus;
 
-            stu.Name = "Zhou Yang";
+            Student stu = new Student();
+            stu.Name = "Test1";
             tb1.DataContext = stu;
             tb2.DataContext = stu;
         }
@@ -189,7 +190,7 @@ namespace WebTest
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
-            stu.Name = "Zhou Yang_abc";
+            //stu.Name = "Zhou Yang_abc";
         }
     }
 }

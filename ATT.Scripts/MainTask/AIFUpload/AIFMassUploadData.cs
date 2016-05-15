@@ -48,9 +48,9 @@ namespace ATT.Scripts
 
         public SAPLoginData LH7 { get; set; }
 
-        public DateTime Start { get; set; }
+        public DateTime Start { get; set; } = DateTime.Now;
 
-        public DateTime End { get; set; }
+        public DateTime End { get; set; } = DateTime.Now;
 
         public int DataCounts { get; set; } = 100;
 

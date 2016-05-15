@@ -7,10 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <StackPanel>
-        <DataGrid x:Name="dg1" ItemsSource="{Binding}"/>
-        <DataGrid x:Name="dg2" ItemsSource="{Binding}"/>
-        <TextBox x:Name="tb1" Text="{Binding Name,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+        <TextBox x:Name="tb1" Text="{Binding Name,UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox x:Name="tb2" Text="{Binding Name}"/>
-        <Button Click="Button_Click" Content="TEST"/>
     </StackPanel>
 </Window>

@@ -36,6 +36,7 @@ namespace ATT.Client
             ATT.Client.Windows.MapWin win = new Windows.MapWin(mappings, typeof(ATT.Scripts.MSGIDTaskData), new List<string>() { "A","B","C","D"});
             win.ShowDialog();
             //fy_Settings.IsOpen = !fy_Settings.IsOpen;
+            
         }
 
         private void btn_Save_Click(object sender, RoutedEventArgs e) {
