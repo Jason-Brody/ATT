@@ -1,4 +1,4 @@
-﻿using ATT.Data.Entity;
+﻿using ATT.Data.ATT;
 using ScriptRunner.Interface;
 using ScriptRunner.Interface.Attributes;
 using System;
@@ -25,11 +25,12 @@ namespace ATT.Scripts
         [Step(Id = 1, Name = "Download XML Files")]
         public void Download() {
            
-            List<MsgID> edikeys = null;
+            List<MsgIDs> edikeys = null;
             _log.WriteLog(_data.GetTaskIdLog, LogType.Normal);
 
-            using (var db = new ATT.Data.AttDbContext()) {
-                edikeys = db.MsgIds.Where(m => m.TaskId == _data.TaskId).ToList();
+            using (var db = new AttDbContext()) {
+                edikeys = db.MsgIDs.Where(m => m.TaskId == _data.TaskId).ToList();
+                
             }
 
             _log.WriteLog(_data.GetTaskIdLog, LogType.Success);

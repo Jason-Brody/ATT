@@ -1,6 +1,4 @@
-﻿using ATT.Data;
-using ATT.Data.Entity;
-using SAPAutomation;
+﻿using SAPAutomation;
 using SAPFEWSELib;
 using ScriptRunner.Interface;
 using ScriptRunner.Interface.Attributes;
@@ -11,6 +9,7 @@ using System.Linq;
 using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
+using ATT.Data.ATT;
 
 namespace ATT.Scripts
 {
@@ -82,6 +81,7 @@ namespace ATT.Scripts
             if (File.Exists(_data.File)) {
                 var idoc_ITGS = Tools.GetDataEntites<IDocNumbers_ITG>(_data.File);
                 using(var db = new AttDbContext()) {
+                    
                     db.IDocNumbers_ITG.AddRange(idoc_ITGS);
                     db.SaveChanges();
                 }

@@ -13,8 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-using ATT.Data;
 using System.Data.Entity;
+using ATT.Data.ATT;
 
 namespace ATT.Client.UserControls.GenericConfig
 {

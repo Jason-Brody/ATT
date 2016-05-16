@@ -1,4 +1,4 @@
-namespace ATT.Data.Entity
+namespace ATT.Data.ATT
 {
     using System;
     using System.Collections.Generic;
@@ -6,8 +6,7 @@ namespace ATT.Data.Entity
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-  
-    public partial class SAPCompanyCodes
+    public partial class SAPDocTypes
     {
         public int Id { get; set; }
 

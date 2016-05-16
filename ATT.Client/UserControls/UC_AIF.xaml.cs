@@ -22,6 +22,7 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using ATT.Robot;
 using System.Diagnostics;
+using ATT.Data.ATT;
 
 namespace ATT.Client.UserControls
 {
@@ -137,10 +138,10 @@ namespace ATT.Client.UserControls
         }
 
         private Task startTask(int taskId) {
-            return Task.Run(()=> { Program.RunTask(Data.Entity.ATTTask.AIFMassUpload, taskId).WaitForExit(); });
+            return Task.Run(()=> { Program.RunTask(ATTTask.AIFMassUpload, taskId).WaitForExit(); });
         }
 
-        private async Task<List<Tasks>> createMission() {
+        private async Task<List<Data.AIF.Tasks>> createMission() {
             StringBuilder sb = new StringBuilder();
 
             XmlSerializer xs = new XmlSerializer(typeof(AIFMassUploadData));
@@ -148,7 +149,7 @@ namespace ATT.Client.UserControls
             xs.Serialize(sw, _config);
             sw.Close();
 
-            ATT.Data.AIF.Missions mission = new Missions();
+            ATT.Data.AIF.Missions mission = new Data.AIF.Missions();
             mission.ConfigData = sb.ToString();
             mission.IntervalDays = _config.IntervalDays;
             mission.RetryCounts = _config.RetryCounts;
@@ -156,7 +157,7 @@ namespace ATT.Client.UserControls
             mission.EndDt = _config.End;
             mission.DataLimit = _config.DataCounts;
             foreach(var item in viewModels.Where(i => i.IsChecked)) {
-                var t = new Tasks();
+                var t = new Data.AIF.Tasks();
                 t.DataCount = mission.DataLimit;
                 t.InterfaceId = item.AIFInterface.Id;
                 mission.Tasks.Add(t);

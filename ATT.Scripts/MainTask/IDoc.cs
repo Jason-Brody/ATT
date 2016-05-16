@@ -30,6 +30,26 @@ namespace ATT.Scripts
             return doc;
         }
 
+        public ATT.Data.ATT.IDocNumbers GetATTIDoc() {
+            ATT.Data.ATT.IDocNumbers doc = new Data.ATT.IDocNumbers();
+            doc.AccDocNumber = this.AccDocNumber;
+            doc.Application = this.Application;
+            doc.CompanyCode = this.CompanyCode;
+            doc.CreateDT = this.CreateDT;
+            doc.Description = this.Description;
+            doc.DocDate = this.DocDate;
+            doc.DT = this.DT;
+            doc.IDocNumber = this.IDocNumber;
+            doc.Msg = this.Msg;
+            doc.MsgFunction = this.MsgFunction;
+            doc.PostDate = this.PostDate;
+            doc.RefDocNumber = this.RefDocNumber;
+            doc.Status = this.Status;
+            doc.Time = this.Time;
+            doc.UserId = this.UserId;
+            return doc;
+        }
+
         [ColMapping("Idoc No")]
         [ColMapping("Idoc No.")]
         public string IDocNumber { get; set; }

@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using ATT.Scripts;
 using ATT.Robot;
 using System.Data.SqlClient;
+using ATT.Data.ATT;
 
 namespace ATT.Client.UserControls
 {
@@ -48,7 +49,7 @@ namespace ATT.Client.UserControls
                     tb_Progress.Dispatcher.BeginInvoke(new Action(() => {
                         tb_Progress.Text = $"{count}/{tasks.Count}";
                     }));
-                    var p = Program.RunTask(Data.Entity.ATTTask.AIFMassUpload, t);
+                    var p = Program.RunTask(ATTTask.AIFMassUpload, t);
                     p.WaitForExit();
                     count++;
                 }

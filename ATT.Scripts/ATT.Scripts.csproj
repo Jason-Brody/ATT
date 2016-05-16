@@ -70,6 +70,7 @@
     <Compile Include="MainTask\AIFUpload\AIFMassUpload.cs" />
     <Compile Include="MainTask\AIFUpload\AIFMassUploadData.cs" />
     <Compile Include="MainTask\AIFUpload\AIFUploadedIDoc.cs" />
+    <Compile Include="MainTask\GetMessageId\ATTMsgId.cs" />
     <Compile Include="MainTask\GUIShareData.cs" />
     <Compile Include="MainTask\IDoc.cs" />
     <Compile Include="MainTask\Payloads\Payloads.cs" />

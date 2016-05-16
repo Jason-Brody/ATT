@@ -1,4 +1,4 @@
-namespace ATT.Data.Entity
+namespace ATT.Data.ATT
 {
     using System;
     using System.Collections.Generic;
@@ -6,8 +6,7 @@ namespace ATT.Data.Entity
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-
-    public partial class SenderConfig
+    public partial class SenderConfigs
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -45,8 +44,8 @@ namespace ATT.Data.Entity
 
         public bool? IsNeedTransform { get; set; }
 
-        public virtual IDocType IDocType { get; set; }
+        public virtual IDocTypes IDocTypes { get; set; }
 
-        public virtual Source Source { get; set; }
+        public virtual Sources Sources { get; set; }
     }
 }

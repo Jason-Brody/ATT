@@ -1,5 +1,5 @@
 ﻿using ATT.Data;
-using ATT.Data.Entity;
+using ATT.Data.ATT;
 using ATT.Scripts;
 using System;
 using System.Collections.Generic;
@@ -56,7 +56,7 @@ namespace ATT
             d1.Language = "EN";
             d1.Start = new ATTDate(2016, 4, 26, 0);
             d1.Interval = 2;
-            d1.InterfaceCount = 1;
+            //d1.InterfaceCount = 1;
             AddTask(d1, ATTTask.GetMessageId);
 
             PayloadsUpdateData d2 = new PayloadsUpdateData();

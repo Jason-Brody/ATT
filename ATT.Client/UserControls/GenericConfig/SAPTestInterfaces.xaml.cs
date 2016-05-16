@@ -24,7 +24,7 @@ namespace ATT.Client.UserControls.GenericConfig
     {
         public SAPTestInterfaces() {
             InitializeComponent();
-            LoadDatas(d => d.SAPInterfaces.Include(s => s.SAPCompanyCodes).Include(s => s.SAPDocTypes).ToList());
+           //LoadDatas(d => d.SAPInterfaces.Include(s => s.SAPCompanyCodes).Include(s => s.SAPDocTypes).ToList());
         }
     }
 }

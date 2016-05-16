@@ -1,4 +1,4 @@
-namespace ATT.Data.Entity
+namespace ATT.Data.ATT
 {
     using System;
     using System.Collections.Generic;
@@ -6,8 +6,7 @@ namespace ATT.Data.Entity
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    
-    public partial class ParameterConfig
+    public partial class ParameterConfigs
     {
         public int Id { get; set; }
 
@@ -21,8 +20,8 @@ namespace ATT.Data.Entity
 
         public int? ProAwsysId { get; set; }
 
-        public virtual ProAwsy ProAwsy { get; set; }
+        public virtual ProAwsys ProAwsys { get; set; }
 
-        public virtual XNode XNode { get; set; }
+        public virtual XNodes XNodes { get; set; }
     }
 }

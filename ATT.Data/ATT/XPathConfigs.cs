@@ -1,4 +1,4 @@
-namespace ATT.Data.Entity
+namespace ATT.Data.ATT
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,7 @@ namespace ATT.Data.Entity
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class XPathConfig
+    public partial class XPathConfigs
     {
         public int Id { get; set; }
 
@@ -17,8 +17,8 @@ namespace ATT.Data.Entity
         [StringLength(100)]
         public string XPath { get; set; }
 
-        public virtual IDocType IDocType { get; set; }
+        public virtual IDocTypes IDocTypes { get; set; }
 
-        public virtual XNode XNode { get; set; }
+        public virtual XNodes XNodes { get; set; }
     }
 }

@@ -10,8 +10,8 @@ using System.Xml;
 using System.Text.RegularExpressions;
 using System.Data.SqlClient;
 using System.IO.Compression;
-using ATT.Data.Entity;
 using ATT.Data;
+using ATT.Data.ATT;
 
 namespace ATT.Scripts
 {
@@ -62,23 +62,25 @@ namespace ATT.Scripts
         [Step(Id = 3, Name = "Update EDIKey Info to DB")]
         public void UpdateEDIKeyInfo() {
 
-            List<IDocType> iDocTypes = null;
-            List<ProAwsy> proAwsys = null;
+            List<IDocTypes> iDocTypes = null;
+           
+            List<ProAwsys> proAwsys = null;
             _log.WriteLog(_data.UploadLog, LogType.Normal);
             using (var db = new AttDbContext()) {
+              
                 iDocTypes = db.IDocTypes.Where(i => i.Name != null).ToList();
                 proAwsys = db.ProAwsys.Where(p => p.Name != null).ToList();
 
-                var msgIds = db.MsgIds.Where(m => m.TaskId == _data.TaskId).ToList();
+                var msgIds = db.MsgIDs.Where(m => m.TaskId == _data.TaskId).ToList();
                 foreach (var i in msgIds) {
                     if (dic.ContainsKey(i.MsgId)) {
 
                         var iDocType = iDocTypes.Where(s => s.Name.Trim().ToLower() == dic[i.MsgId].IDocType.Trim().ToLower()).FirstOrDefault();
 
                         if (iDocType == null) {
-                            iDocType = new IDocType() { Name = dic[i.MsgId].IDocType };
+                            iDocType = new IDocTypes() { Name = dic[i.MsgId].IDocType };
                             db.IDocTypes.Add(iDocType);
-                            i.IDocType = iDocType;
+                            i.IDocTypes = iDocType;
                         } else {
                             i.IDocTypeId = iDocType.Id;
                         }
@@ -134,7 +136,7 @@ namespace ATT.Scripts
                 _log.WriteLog(_data.UpdateTransformConfigLog, LogType.Success);
 
                 _log.WriteLog(_data.TransformLog, LogType.Normal);
-                var msgIds = db.MsgIds.Where(m => m.TaskId == _data.TaskId && m.MsgId != null).ToList();
+                var msgIds = db.MsgIDs.Where(m => m.TaskId == _data.TaskId && m.MsgId != null).ToList();
 
                 if (msgIds.Count > 0) {
                     foreach (var k in msgIds) {
@@ -149,7 +151,7 @@ namespace ATT.Scripts
 
         }
 
-        private void transformFile(IEnumerable<Data.VW_EDITransFormConfig> Configs, MsgID k) {
+        private void transformFile(IEnumerable<Data.VW_EDITransFormConfig> Configs, MsgIDs k) {
 
             var sourceFile = Path.Combine(_data.SourceFolder, $"{k.MsgId}.xml");
             var targetFile = Path.Combine(_data.TargetFolder, $"{k.MsgId}.xml");

@@ -8,10 +8,10 @@ using ScriptRunner.Interface;
 using System.IO;
 using System.Diagnostics;
 using System.Data.SqlClient;
-using ATT.Data;
-using ATT.Data.Entity;
 using System.Xml.Serialization;
 using System.Data.Entity;
+using ATT.Data.ATT;
+
 namespace ATT.Robot
 {
     

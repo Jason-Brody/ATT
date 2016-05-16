@@ -9,8 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Data.Entity;
-using ATT.Data.Entity;
 using ScriptRunner.Interface.Attributes;
+using ATT.Data.ATT;
 
 namespace ATT.Scripts
 {
@@ -27,16 +27,16 @@ namespace ATT.Scripts
 
             using (var db = new AttDbContext()) {
 
-                var msgIds = db.MsgIds.Include(m => m.ProAwsy).Where(m => m.TaskId == _data.TaskId
+                var msgIds = db.MsgIDs.Include(m => m.ProAwsys).Where(m => m.TaskId == _data.TaskId
                   && m.IsNeedTransform == true
                   && m.IsSend == false
                   && m.ProAwsysId != null).ToList();
                 var iDocTypeIds = msgIds.GroupBy(g => g.IDocTypeId).Select(g => g.Key).ToList();
-                var SourceIds = msgIds.GroupBy(g => g.ProAwsy.SourceId).Select(g => g.Key).ToList();
+                var SourceIds = msgIds.GroupBy(g => g.ProAwsys.SourceId).Select(g => g.Key).ToList();
                 var senderConfigs = db.SenderConfigs.Where(c => iDocTypeIds.Contains(c.IDocTypeId) && SourceIds.Contains(c.SourceId)).ToList();
                 ProgressInfo info = new ProgressInfo(1, msgIds.Count, "");
                 foreach (var item in msgIds) {
-                    var senderConfig = senderConfigs.Where(c => c.IDocTypeId == item.IDocTypeId && c.SourceId == item.ProAwsy.SourceId).First();
+                    var senderConfig = senderConfigs.Where(c => c.IDocTypeId == item.IDocTypeId && c.SourceId == item.ProAwsys.SourceId).First();
                     string msg = $"MsgID:{item.MsgId} sent to interface:{senderConfig.senderinterface} component:{senderConfig.itgsendercomponent}";
                     _log.WriteLog(msg, LogType.Normal);
                     send(item, senderConfig);
@@ -54,7 +54,7 @@ namespace ATT.Scripts
 
         }
 
-        private HttpStatusCode send(MsgID item, SenderConfig senderConfig, int retryCount = 50) {
+        private HttpStatusCode send(MsgIDs item, SenderConfigs senderConfig, int retryCount = 50) {
             try {
                 var url = buildUrl(senderConfig);
                 var request = createWebRequest(url);
@@ -105,7 +105,7 @@ namespace ATT.Scripts
             return webRequest;
         }
 
-        private string buildUrl(SenderConfig config) {
+        private string buildUrl(SenderConfigs config) {
             string urlTemp = WebUtility.UrlEncode(config.sendernamespace + "^" + config.senderinterface);
             string url = $"http://{_data.Host}:{_data.Port}/sap/xi/engine?type=entry&version=3.0&Sender.Service={config.itgsendercomponent}&Interface={urlTemp}&QualityOfService=ExactlyOnce";
             return url;

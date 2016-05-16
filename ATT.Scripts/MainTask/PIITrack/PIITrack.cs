@@ -1,5 +1,5 @@
 ﻿using ATT.Data;
-using ATT.Data.Entity;
+using ATT.Data.ATT;
 using SAPAutomation;
 using SAPFEWSELib;
 using ScriptRunner.Interface;

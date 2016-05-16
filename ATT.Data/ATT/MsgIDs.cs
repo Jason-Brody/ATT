@@ -1,23 +1,18 @@
-namespace ATT.Data.Entity
+namespace ATT.Data.ATT
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    using Young.Data.Attributes;
 
-
-    public partial class MsgID
+    public partial class MsgIDs
     {
         public int Id { get; set; }
 
-        [ColMapping("IDoc number")]
         [StringLength(50)]
         public string IDocNumber { get; set; }
 
-        [MsgIdConverter]
-        [ColMapping("EDI Archive Key")]
         [StringLength(50)]
         public string MsgId { get; set; }
 
@@ -47,8 +42,10 @@ namespace ATT.Data.Entity
 
         public bool? IsNeedTransform { get; set; }
 
-        public virtual IDocType IDocType { get; set; }
+        public virtual IDocTypes IDocTypes { get; set; }
 
-        public virtual ProAwsy ProAwsy { get; set; }
+        public virtual ProAwsys ProAwsys { get; set; }
+
+        public virtual SAPInterfaces SAPInterfaces { get; set; }
     }
 }

@@ -14,9 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls.Dialogs;
 using MahApps.Metro.Controls;
-using ATT.Data.Entity;
-using ATT.Data;
 using System.IO;
+using ATT.Data.ATT;
 
 namespace ATT.Client.UserControls
 {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ATT.Data.Entity;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -36,8 +37,9 @@ namespace ATT.Scripts
 
         public string EDIKeyPrefix { get; }= "EDIArchiveKey";
 
+        public int TaskId { get; set; }
 
-        public int InterfaceCount { get; set; } = 1;
+        //public int InterfaceCount { get; set; } = 1;
 
         public string IDocStatus { get; set; } = "53";
 

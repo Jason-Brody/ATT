@@ -7,7 +7,7 @@ namespace ATT.Data.Entity
     using System.Data.Entity.Spatial;
     using Young.Data.Attributes;
 
-    [Table("ATT.IDocNumbers")]
+    
     public partial class IDocNumbers
     {
         public int Id { get; set; }
