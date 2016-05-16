@@ -57,7 +57,7 @@
             <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
         </Grid.Resources>
         <controls:MetroTabControl>
-            <controls:MetroTabItem Header="Scripts">
+            <!--<controls:MetroTabItem Header="Scripts">
                 <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Visible">
                     <StackPanel Orientation="Horizontal">
                         <uc:GetMsgId/>
@@ -70,7 +70,7 @@
             </controls:MetroTabItem>
             <controls:MetroTabItem Header="SAP Interfaces">
                 <ucg:SAPTestInterfaces/>
-            </controls:MetroTabItem>
+            </controls:MetroTabItem>-->
             <controls:MetroTabItem Header="AIF Mass Upload">
                 <uc:UC_AIF/>
             </controls:MetroTabItem>

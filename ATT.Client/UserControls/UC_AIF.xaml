@@ -87,7 +87,7 @@
             </DataGrid>
         </GroupBox>
 
-        <ProgressBar x:Name="pb_Aif" Grid.Row="1" Grid.ColumnSpan="2" IsIndeterminate="True"/>
+        <!--<ProgressBar x:Name="pb_Aif" Grid.Row="1" Grid.ColumnSpan="2" IsIndeterminate="True"/>-->
 
     </Grid>
 </UserControl>

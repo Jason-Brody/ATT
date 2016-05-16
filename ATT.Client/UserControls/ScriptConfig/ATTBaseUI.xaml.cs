@@ -29,8 +29,8 @@ namespace ATT.Client.UserControls
         T data;
 
         public async void Load() {
-            data = await ConfigLoader.GetData<T>();
-            this.DataContext = data;
+            //data = await ConfigLoader.GetData<T>();
+            //this.DataContext = data;
         }
 
         public string Save() {
