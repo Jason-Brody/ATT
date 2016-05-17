@@ -26,14 +26,46 @@ namespace ATT.Scripts
             return datas;
         }
 
+
+
         public static DataTable ReadToTable(string path,char splitChar = '\t')
         {
-            DataTable dt = Young.Data.Utils.ReadStringToTable(path, (s, h) =>
+            
+            DataTable dt = Young.Data.Utils.ReadStringToTable(path, (s, h,t) =>
             {
                 if (!s.Contains(splitChar) || s == h || s.Contains("*"))
                     return null;
 
+
                 var vals = s.Split(splitChar);
+                if(t!=null && vals.Count() > t.Columns.Count) {
+                    List<int> tableColumnLength = new List<int>();
+                    var tempHeader = h;
+                    bool isFinished = false;
+                    while (!isFinished) {
+                        var index = tempHeader.IndexOf(splitChar);
+                        switch (index) {
+                            case -1:
+                                isFinished = true;
+                                tableColumnLength.Add(0);
+                                break;
+                            default:
+                                tableColumnLength.Add(index);
+                                tempHeader = tempHeader.Substring(index+1, tempHeader.Length - index-1);
+                                break;
+                        }
+                        
+                    }
+                    vals = new string[tableColumnLength.Count];
+                    var last = 0;
+                   
+                    for(int i =0;i<tableColumnLength.Count;i++) {
+                        vals[i] = s.Substring(last, tableColumnLength[i]);
+                        last += tableColumnLength[i] + 1;
+                    }
+                }
+                
+
                 var returnVals = new List<string>();
                 for (int i = 0; i < vals.Count(); i++)
                 {

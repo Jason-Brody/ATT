@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AIF\AIFDbContext.cs" />
+    <Compile Include="AIF\Errors.cs" />
     <Compile Include="AIF\IDocNumbers.cs" />
     <Compile Include="AIF\IDocs.cs" />
     <Compile Include="AIF\Interfaces.cs" />

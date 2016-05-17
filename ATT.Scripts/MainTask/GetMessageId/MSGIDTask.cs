@@ -36,9 +36,6 @@ namespace ATT.Scripts
         [Step(Id = 2, Name = "Get Message Ids")]
         public void GetMessageId() {
 
-
-
-
             //_data.NewGuid(i.Name);
             SAPTestHelper.Current.SAPGuiSession.StartTransaction("ZIDOCAUDREP");
             if (SAPTestHelper.Current.PopupWindow != null) {

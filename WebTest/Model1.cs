@@ -1,16 +1,16 @@
-namespace ATT.Data.AIF
+namespace WebTest
 {
     using System;
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class AIFDbContext : DbContext
+    public partial class Model1 : DbContext
     {
-        public AIFDbContext()
-            : base("name=AIFDbContext") {
+        public Model1()
+            : base("name=Model1") {
         }
-        public virtual DbSet<Errors> Errors { get; set; }
+
         public virtual DbSet<IDocNumbers> IDocNumbers { get; set; }
         public virtual DbSet<IDocs> IDocs { get; set; }
         public virtual DbSet<Interfaces> Interfaces { get; set; }
