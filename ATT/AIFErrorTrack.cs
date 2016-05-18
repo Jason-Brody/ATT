@@ -15,10 +15,10 @@ namespace ATT
             var patchSize = 200;
             using(var db = new ATT.Data.AIF.AIFDbContext()) {
                 var idocs = db.IDocs.Where(i => i.Status == "51").ToList();
-
+               
                 var times = idocs.Count / patchSize;
-                for(int i = 0; i < times; i++) {
-                    var tempIDocs = idocs.Skip(i * patchSize).Take(patchSize).ToList();
+                for(int i = 0; i <= times; i++) {
+                    var tempIDocs = idocs.Skip(i * patchSize).Take(patchSize).Select(s=>s.IDocNumber).ToList();
                     var idocDic = getErrors(tempIDocs);
                     var errors = ATT.Scripts.Tools.GetDataEntites<ATT.Data.AIF.Errors>(@"C:\AIF\ErrorMsg.txt", '|');
                     foreach(var error in errors) {
@@ -34,7 +34,7 @@ namespace ATT
 
         }
 
-        static Dictionary<int, string> getErrors(List<ATT.Data.AIF.IDocs> idocs) {
+        static Dictionary<int, string> getErrors(List<string> idocs) {
             SAPTestHelper.Current.SetSession();
             SAPTestHelper.Current.SAPGuiSession.StartTransaction("/AIF/ERR");
 
@@ -46,7 +46,7 @@ namespace ATT
 
 
             SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("%_S_GUID32_%_APP_%-VALU_PUSH").Press();
-            SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiTableControl>().SetBatchValues(idocs.Select(i => i.IDocNumber).ToList());
+            SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiTableControl>().SetBatchValues(idocs);
             SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[8]").Press();
             SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[8]").Press();
 
