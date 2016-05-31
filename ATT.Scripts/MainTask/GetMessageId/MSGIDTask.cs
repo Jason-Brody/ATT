@@ -21,12 +21,14 @@ namespace ATT.Scripts
 
         private SAPInterfaces _interface;
 
-        public override void Initial() {
-            base.Initial();
-            using(db = new AttDbContext()) {
+        public override void Initial(MSGIDTaskData data, IProgress<ProgressInfo> StepReporter) {
+            base.Initial(data, StepReporter);
+            using (db = new AttDbContext()) {
                 _interface = db.Tasks.Include(s => s.SAPInterfaces).Single(t => t.Id == _data.TaskId).SAPInterfaces;
             }
         }
+
+     
 
         [Step(Id = 1, Name = "Login to LH1")]
         public void Login() {

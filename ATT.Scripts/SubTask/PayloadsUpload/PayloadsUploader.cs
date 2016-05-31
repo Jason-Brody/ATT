@@ -18,9 +18,12 @@ namespace ATT.Scripts
     public class PayloadsUploader : ScriptBase<PayloadsUploaderData>
     {
         private ATTLog _log;
-        public override void Initial() {
+
+        public override void Initial(PayloadsUploaderData data, IProgress<ProgressInfo> StepReporter) {
+            base.Initial(data, StepReporter);
             _log = new ATTLog(_data);
         }
+       
 
         [Step(Id = 1, Name = "Upload payload to XI")]
         public void Upload() {

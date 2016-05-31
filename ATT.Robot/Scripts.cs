@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace ATT.Robot
 {
@@ -93,7 +94,17 @@ namespace ATT.Robot
         }
 
 
-
+        static void ATT(Missions myMission) {
+            Missions mission = null;
+            using(var db = new AttDbContext()) {
+                mission = db.Missions.Include(m=>m.Tasks).SingleOrDefault(m => m.Id == myMission.Id);
+                if (mission == null) {
+                    db.Missions.Add(myMission);
+                    db.SaveChanges();
+                    mission = myMission;
+                }
+            }
+        }
 
     }
 }

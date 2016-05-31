@@ -18,9 +18,13 @@ namespace ATT.Scripts
     public class PayloadsDownloader : ScriptBase<PayloadsDownloaderData>
     {
         private ATTLog _log;
-        public override void Initial() {
+
+        public override void Initial(PayloadsDownloaderData data, IProgress<ProgressInfo> StepReporter) {
+            base.Initial(data, StepReporter);
             _log = new ATTLog(_data);
         }
+
+       
 
         [Step(Id = 1, Name = "Download XML Files")]
         public void Download() {

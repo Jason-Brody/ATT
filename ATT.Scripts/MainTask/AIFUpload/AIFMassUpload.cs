@@ -20,10 +20,12 @@ namespace ATT.Scripts
         private DateTime initialTime;
         private List<string> _iDocNumbers;
 
-        public override void Initial() {
-            base.Initial();
+        public override void Initial(AIFMassUploadData data, IProgress<ProgressInfo> StepReporter) {
+            base.Initial(data, StepReporter);
             initialTime = DateTime.Now;
         }
+
+       
 
         [Step(Id = 0, Name = "Get Task")]
         public void GetTask() {

@@ -32,9 +32,12 @@ namespace ATT.Scripts
             _xDoc = new XmlDocument();
         }
 
-        public override void Initial() {
+        public override void Initial(PayloadsUpdateData data, IProgress<ProgressInfo> StepReporter) {
+            base.Initial(data, StepReporter);
             _log = new ATTLog(_data);
         }
+
+       
 
         [Step(Id = 1, Name = "Unzip the file")]
         public void UnzipFile() {
