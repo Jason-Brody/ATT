@@ -63,8 +63,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ATTLog.cs" />
+    <Compile Include="Converters\DateConverter.cs" />
+    <Compile Include="Converters\DateConverterAttribute.cs" />
+    <Compile Include="Converters\MsgIdConverterAttribute.cs" />
+    <Compile Include="Converters\MyDateConverter.cs" />
+    <Compile Include="Converters\MyDateConverterAttribute.cs" />
     <Compile Include="Converters\MsgIdConverter.cs" />
+    <Compile Include="Converters\MyTimeConverter.cs" />
+    <Compile Include="Converters\MyTimeConverterAttribute.cs" />
     <Compile Include="Converters\TimeConverter.cs" />
+    <Compile Include="Converters\TimeConverterAttribute.cs" />
     <Compile Include="Converters\TimeStampConverter.cs" />
     <Compile Include="LogType.cs" />
     <Compile Include="MainTask\AIFUpload\AIFIDocNumbers.cs" />

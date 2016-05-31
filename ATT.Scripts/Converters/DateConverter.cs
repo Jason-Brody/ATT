@@ -7,19 +7,19 @@ using Young.Data.Attributes;
 
 namespace ATT.Scripts.Converters
 {
-    public class TimeConverter : IDataConverter
+    public class DateConverter : IDataConverter
     {
         public object Convert(object data) {
             if (data == null)
                 return null;
-            var time = data.ToString();
-            if (string.IsNullOrEmpty(time))
+            var date = data.ToString();
+            if (string.IsNullOrEmpty(date))
                 return null;
-            var times = time.Split(':');
-            var h = int.Parse(times[0]);
-            var m = int.Parse(times[1]);
-            var s = int.Parse(times[2]);
-            return new TimeSpan(h, m, s);
+            var dates = date.Split('.');
+            var d = int.Parse(dates[0]);
+            var m = int.Parse(dates[1]);
+            var y = int.Parse(dates[2]);
+            return new DateTime(y, m, d);
         }
     }
 }
