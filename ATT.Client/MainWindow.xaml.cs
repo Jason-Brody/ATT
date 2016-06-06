@@ -27,7 +27,9 @@ namespace ATT.Client
         public MainWindow() {
             InitializeComponent();
 
-           
+            int? a = 1;
+            int? b = 1;
+            bool result = a == b;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {

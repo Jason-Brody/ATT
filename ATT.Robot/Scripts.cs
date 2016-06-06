@@ -100,8 +100,13 @@ namespace ATT.Robot
                 mission = db.Missions.Include(m=>m.Tasks).SingleOrDefault(m => m.Id == myMission.Id);
                 if (mission == null) {
                     db.Missions.Add(myMission);
-                    db.SaveChanges();
                     mission = myMission;
+                } else {
+                    foreach(var t in myMission.Tasks) {
+                        if(mission.Tasks.SingleOrDefault(s=>s.InterfaceId == t.InterfaceId) != null) {
+
+                        }
+                    }
                 }
             }
         }

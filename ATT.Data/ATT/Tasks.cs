@@ -13,11 +13,11 @@ namespace ATT.Data.ATT
 
         public int? Mid { get; set; }
 
-        public bool? IsProcess { get; set; }
+        public bool IsProcess { get; set; }
 
         public int? InterfaceId { get; set; }
 
-        public bool? IsFinished { get; set; }
+        public bool IsFinished { get; set; }
 
         public virtual Missions Missions { get; set; }
 
