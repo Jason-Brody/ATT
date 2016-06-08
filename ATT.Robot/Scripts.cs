@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Threading;
 
 namespace ATT.Robot
 {
@@ -109,6 +110,22 @@ namespace ATT.Robot
                     }
                 }
             }
+        }
+
+        static void ATTALL(Missions mission) {
+            //List<Task> myTasks = new List<Task>();
+
+            //ThreadPool.SetMinThreads(3, 3);
+            //ThreadPool.SetMaxThreads(3, 3);
+
+            //for (int i = 0; i <= 10; i++) {
+            //    ScriptEngine<MSGIDTask, MSGIDTaskData> script = new ScriptEngine<MSGIDTask, MSGIDTaskData>();
+            //    script.Run(_data.MsgIdTaskData);
+
+            //    for (int j = 1; j <= 10; j++) {
+            //        Task.Run(() => { }).AppendTo(myTasks);
+            //    }
+            //}
         }
 
     }

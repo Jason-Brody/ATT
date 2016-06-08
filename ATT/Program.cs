@@ -20,6 +20,7 @@ using ATT.Data.Entity;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Xml.Serialization;
+using System.Threading;
 
 namespace ATT
 {
@@ -48,6 +49,13 @@ namespace ATT
         }
     }
 
+    public static class TestStatic
+    {
+        public static T AppendTo<T>(this T item,ICollection<T> collections) {
+            collections.Add(item);
+            return item;
+        }
+    }
 
 
     partial class Program
@@ -140,13 +148,46 @@ namespace ATT
             Count++;
         }
 
-      
+       static async void Test(int i) {
+            
+            await Task.Run(()=> { Task.Delay(2000).Wait(); });
+            Console.WriteLine(i);
+            
+            
+        }
 
         public static void Main() {
 
+            ThreadPool.SetMinThreads(2, 2);
+            ThreadPool.SetMaxThreads(2, 2);
             
+            List<Task> t = new List<Task>();
+            for (int i = 0; i < 100; i++) {
 
-            TrackError();
+                Console.WriteLine("Hi #:" + i.ToString());
+
+                for(int j = 0; j < 5; j++) {
+
+                    Action a = new Action(() => { Thread.Sleep(50); Console.WriteLine(i*5+j); });
+                    Task.Factory.StartNew(a).AppendTo(t);
+
+                }
+
+                
+
+
+
+                
+                //tempT.Start();
+                //Task.Run(()=> { Thread.Sleep(1000); Console.WriteLine(i); }).AppendTo(t);
+            }
+
+            Task.WaitAll(t.ToArray());
+
+            Console.WriteLine("Finished");
+
+            Console.ReadLine();
+            //TrackError();
             //  SampleFill();
            
             //var tpp = typeof(int?);
