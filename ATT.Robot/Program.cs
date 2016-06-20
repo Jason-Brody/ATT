@@ -11,6 +11,8 @@ using System.Data.SqlClient;
 using System.Xml.Serialization;
 using System.Data.Entity;
 using ATT.Data.ATT;
+using AIF.Data;
+using AIF.Scripts;
 
 namespace ATT.Robot
 {
@@ -172,8 +174,8 @@ namespace ATT.Robot
         }
 
         static AIFMassUploadData GetAIFConfigData(int taskId) {
-            ATT.Data.AIF.Tasks t = null;
-            using(var db = new ATT.Data.AIF.AIFDbContext()) {
+            AIF.Data.Tasks t = null;
+            using(var db = new AIFDbContext()) {
                 t = db.Tasks.Include(a => a.Missions).Single(a => a.Id == taskId);
             }
             XmlSerializer xs = new XmlSerializer(typeof(AIFMassUploadData));

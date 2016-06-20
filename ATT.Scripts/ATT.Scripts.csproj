@@ -38,9 +38,6 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FluencyCSharp">
-      <HintPath>..\..\..\FluencyCSharp\FluencyCSharp\FluencyCSharp\bin\Debug\FluencyCSharp.dll</HintPath>
-    </Reference>
     <Reference Include="SAPAutomation, Version=1.4.0.3, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\SAPGuiAutomationLib\SAPAutomation\bin\Debug\SAPAutomation.dll</HintPath>
@@ -66,22 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ATTLog.cs" />
-    <Compile Include="Converters\DateConverter.cs" />
-    <Compile Include="Converters\DateConverterAttribute.cs" />
-    <Compile Include="Converters\MsgIdConverterAttribute.cs" />
-    <Compile Include="Converters\MyDateConverter.cs" />
-    <Compile Include="Converters\MyDateConverterAttribute.cs" />
-    <Compile Include="Converters\MsgIdConverter.cs" />
-    <Compile Include="Converters\MyTimeConverter.cs" />
-    <Compile Include="Converters\MyTimeConverterAttribute.cs" />
-    <Compile Include="Converters\TimeConverter.cs" />
-    <Compile Include="Converters\TimeConverterAttribute.cs" />
-    <Compile Include="Converters\TimeStampConverter.cs" />
     <Compile Include="LogType.cs" />
-    <Compile Include="MainTask\AIFUpload\AIFIDocNumbers.cs" />
-    <Compile Include="MainTask\AIFUpload\AIFMassUpload.cs" />
-    <Compile Include="MainTask\AIFUpload\AIFMassUploadData.cs" />
-    <Compile Include="MainTask\AIFUpload\AIFUploadedIDoc.cs" />
     <Compile Include="MainTask\GetMessageId\ATTMsgId.cs" />
     <Compile Include="MainTask\GUIShareData.cs" />
     <Compile Include="MainTask\IDoc.cs" />
@@ -90,7 +72,6 @@
     <Compile Include="SubTask\PayloadsShareData.cs" />
     <Compile Include="SubTask\PayloadsUpload\PayloadsUploader.cs" />
     <Compile Include="SubTask\PayloadsUpload\PayloadsUploaderData.cs" />
-    <Compile Include="GlobalConfig.cs" />
     <Compile Include="SubTask\PayloadsUpdate\PayloadsUpdateData.cs" />
     <Compile Include="SubTask\PayloadsDownload\PayloadsDownloaderData.cs" />
     <Compile Include="SubTask\PayloadsDownload\PayloadsDownloader.cs" />
@@ -100,13 +81,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MainTask\PIITrack\PIITrack.cs" />
     <Compile Include="MainTask\PIITrack\PIITrackData.cs" />
-    <Compile Include="SAPLoginData.cs" />
     <Compile Include="ATTDate.cs" />
     <Compile Include="MainTask\LHTrack\LHTrack.cs" />
     <Compile Include="MainTask\LHTrack\LHTrackData.cs" />
-    <Compile Include="Tools.cs" />
-    <Compile Include="UIHelper.cs" />
-    <Compile Include="UserInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="SAPFEWSELib">
@@ -129,9 +106,17 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AIF.Data\AIF.Data.csproj">
+      <Project>{726bb2ec-1069-4785-b783-76ef2364925c}</Project>
+      <Name>AIF.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ATT.Data\ATT.Data.csproj">
       <Project>{77ed0909-5de3-414d-9cf4-ae71da0a947a}</Project>
       <Name>ATT.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharedLib\SharedLib.csproj">
+      <Project>{fb58c9e4-b0c9-4adc-8d88-75f4f7caba7c}</Project>
+      <Name>SharedLib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -141,9 +126,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MainTask\AIFErrorCheck\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

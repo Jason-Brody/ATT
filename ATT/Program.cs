@@ -93,14 +93,14 @@ namespace ATT
         }
 
 
-        static void loginLH7() {
-            SAPLoginData d = new SAPLoginData();
-            d.UserName = "21688419";
-            d.Password = "1qaz@wsx";
-            d.Address = "saplh7.sapnet.hp.com";
-            d.Client = "100";
-            UIHelper.Login(d);
-        }
+        //static void loginLH7() {
+        //    SAPLoginData d = new SAPLoginData();
+        //    d.UserName = "21688419";
+        //    d.Password = "1qaz@wsx";
+        //    d.Address = "saplh7.sapnet.hp.com";
+        //    d.Client = "100";
+        //    UIHelper.Login(d);
+        //}
 
         static void Test(DateTime dt) {
 
@@ -156,8 +156,21 @@ namespace ATT
             
         }
 
-        public static void Main() {
+        static async Task AsyncTest1(int seconds) {
+            await Task.Delay(new TimeSpan(0,0,seconds));
+            Console.WriteLine($"Delay {seconds}");
+        }
 
+        static async void test() {
+            await AsyncTest1(5);
+            await AsyncTest1(1);
+        }
+
+        public static void Main() {
+            test();
+
+            
+            Console.ReadLine();
             ThreadPool.SetMinThreads(2, 2);
             ThreadPool.SetMaxThreads(2, 2);
             

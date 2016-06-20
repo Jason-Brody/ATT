@@ -16,6 +16,8 @@ using ATT.Scripts;
 using ATT.Robot;
 using System.Data.SqlClient;
 using ATT.Data.ATT;
+using AIF.Data;
+using AIF.Scripts;
 
 namespace ATT.Client.UserControls
 {
@@ -35,7 +37,7 @@ namespace ATT.Client.UserControls
         private async void btn_Run_Click(object sender, RoutedEventArgs e) {
             var data = base.Save();
             List<int> tasks;
-            using(var db = new ATT.Data.AIF.AIFDbContext()) {
+            using(var db = new AIFDbContext()) {
                 //tasks = db.Database.SqlQuery<int>("exec [dbo].[SP_CreateMission] @xml", new SqlParameter("xml",data)).ToList();
                 tasks = db.Tasks.Where(t => t.IsFinished == false).Select(i => i.Id).ToList();
             }

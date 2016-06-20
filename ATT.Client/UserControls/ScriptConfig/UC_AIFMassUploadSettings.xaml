@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ATT.Client.UserControls.ScriptConfig"
              mc:Ignorable="d" 
                xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-                xmlns:s="clr-namespace:ATT.Scripts;assembly=ATT.Scripts"
+                xmlns:s="clr-namespace:AIF.Scripts;assembly=AIF.Scripts"
              xmlns:uc ="clr-namespace:ATT.Client.UserControls"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>

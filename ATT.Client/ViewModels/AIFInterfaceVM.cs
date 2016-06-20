@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AIF.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace ATT.Client.ViewModels
     {
         public AIFInterfaceVM() { }
 
-        public AIFInterfaceVM(ATT.Data.AIF.Interfaces inf) {
+        public AIFInterfaceVM(Interfaces inf) {
             this.AIFInterface = inf;
         }
 
@@ -30,6 +31,6 @@ namespace ATT.Client.ViewModels
             }
         }
 
-        public ATT.Data.AIF.Interfaces AIFInterface { get; set; }
+        public Interfaces AIFInterface { get; set; }
     }
 }

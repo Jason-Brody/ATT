@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ATT.Data.AIF;
 using ATT.Scripts;
 using System.IO;
 using System.Collections.ObjectModel;
@@ -23,6 +22,9 @@ using MahApps.Metro.Controls.Dialogs;
 using ATT.Robot;
 using System.Diagnostics;
 using ATT.Data.ATT;
+using AIF.Data;
+using AIF.Scripts;
+using SharedLib;
 
 namespace ATT.Client.UserControls
 {
@@ -49,9 +51,9 @@ namespace ATT.Client.UserControls
 
             
             if(File.Exists(configFile)) {
-                XmlSerializer xs = new XmlSerializer(typeof(ATT.Scripts.AIFMassUploadData));
+                XmlSerializer xs = new XmlSerializer(typeof(AIFMassUploadData));
                 using(var fs = new FileStream(configFile, FileMode.Open)) {
-                    _config = xs.Deserialize(fs) as ATT.Scripts.AIFMassUploadData;
+                    _config = xs.Deserialize(fs) as AIFMassUploadData;
                 }
                 
             }
@@ -141,7 +143,7 @@ namespace ATT.Client.UserControls
             return Task.Run(()=> { Program.RunTask(ATTTask.AIFMassUpload, taskId).WaitForExit(); });
         }
 
-        private async Task<List<Data.AIF.Tasks>> createMission() {
+        private async Task<List<AIF.Data.Tasks>> createMission() {
             StringBuilder sb = new StringBuilder();
 
             XmlSerializer xs = new XmlSerializer(typeof(AIFMassUploadData));
@@ -149,7 +151,7 @@ namespace ATT.Client.UserControls
             xs.Serialize(sw, _config);
             sw.Close();
 
-            ATT.Data.AIF.Missions mission = new Data.AIF.Missions();
+            AIF.Data.Missions mission = new AIF.Data.Missions();
             mission.ConfigData = sb.ToString();
             mission.IntervalDays = _config.IntervalDays;
             mission.RetryCounts = _config.RetryCounts;
@@ -157,7 +159,7 @@ namespace ATT.Client.UserControls
             mission.EndDt = _config.End;
             mission.DataLimit = _config.DataCounts;
             foreach(var item in viewModels.Where(i => i.IsChecked)) {
-                var t = new Data.AIF.Tasks();
+                var t = new AIF.Data.Tasks();
                 t.DataCount = mission.DataLimit;
                 t.InterfaceId = item.AIFInterface.Id;
                 mission.Tasks.Add(t);

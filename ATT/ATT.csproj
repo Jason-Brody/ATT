@@ -94,6 +94,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AIF.Data\AIF.Data.csproj">
+      <Project>{726bb2ec-1069-4785-b783-76ef2364925c}</Project>
+      <Name>AIF.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ATT.Data\ATT.Data.csproj">
       <Project>{77ed0909-5de3-414d-9cf4-ae71da0a947a}</Project>
       <Name>ATT.Data</Name>

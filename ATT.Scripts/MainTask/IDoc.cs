@@ -1,4 +1,5 @@
-﻿using ATT.Scripts.Converters;
+﻿
+using SharedLib.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace ATT.Scripts
 {
     public class IDoc
     {
-        public ATT.Data.AIF.IDocs GetIDocs() {
-            ATT.Data.AIF.IDocs doc = new Data.AIF.IDocs();
+        public AIF.Data.LH7IDocs GetIDocs() {
+            var doc = new AIF.Data.LH7IDocs();
             doc.AccDocNumber = this.AccDocNumber;
             doc.Application = this.Application;
             doc.CompanyCode = this.CompanyCode;
