@@ -13,22 +13,22 @@ namespace ATT
 {
     partial class Program
     {
-        static void AddTask<T>(T obj,ATTTask t) {
-            XmlSerializer xs = new XmlSerializer(typeof(T));
-            StringBuilder sb = new StringBuilder();
-            StringWriter sw = new StringWriter(sb);
-            xs.Serialize(sw, obj);
+        //static void AddTask<T>(T obj,ATTTask t) {
+        //    XmlSerializer xs = new XmlSerializer(typeof(T));
+        //    StringBuilder sb = new StringBuilder();
+        //    StringWriter sw = new StringWriter(sb);
+        //    xs.Serialize(sw, obj);
 
-            using (var db = new AttDbContext()) {
-                var t1 = new TaskDataConfigs();
-                t1.AttTask = t;
-                t1.Data = sb.ToString();
-                t1.TypeName = typeof(T).FullName;
-                t1.Name = t.ToString();
-                db.TaskDataConfigs.Add(t1);
-                db.SaveChanges();
-            }
-        }
+        //    using (var db = new ATTDbContext()) {
+        //        var t1 = new TaskDataConfigs();
+        //        t1.AttTask = t;
+        //        t1.Data = sb.ToString();
+        //        t1.TypeName = typeof(T).FullName;
+        //        t1.Name = t.ToString();
+        //        db.TaskDataConfigs.Add(t1);
+        //        db.SaveChanges();
+        //    }
+        //}
 
         //static void SampleFill() {
         //    using (var db = new AttDbContext()) {

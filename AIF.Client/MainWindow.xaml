@@ -10,7 +10,7 @@
         mc:Ignorable="d"
                       Closed="MetroWindow_Closed"
                       BorderThickness="1" 
-                      GlowBrush="Black"
+                      GlowBrush="Black" Loaded="MetroWindow_Loaded"
         Title="MainWindow" MinHeight="500" MinWidth="600">
 
     <controls:MetroWindow.Flyouts>

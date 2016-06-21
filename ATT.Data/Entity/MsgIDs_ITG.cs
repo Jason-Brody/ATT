@@ -8,38 +8,38 @@ namespace ATT.Data.Entity
     using Young.Data.Attributes;
 
    
-    public partial class MsgIDs_ITG
-    {
+    //public partial class MsgIDs_ITG
+    //{
         
-        public int Id { get; set; }
+    //    public int Id { get; set; }
 
-        [ColMapping("Message ID")]
-        [StringLength(50)]
-        public string MsgId { get; set; }
+    //    [ColMapping("Message ID")]
+    //    [StringLength(50)]
+    //    public string MsgId { get; set; }
 
-        [ColMapping("Message Status")]
-        public int MsgStatus { get; set; }
+    //    [ColMapping("Message Status")]
+    //    public int MsgStatus { get; set; }
 
-        [ColMapping("Outbound Status")]
-        public int OutboundStatus { get; set; }
+    //    [ColMapping("Outbound Status")]
+    //    public int OutboundStatus { get; set; }
 
-        [StringLength(50)]
-        public string Sender { get; set; }
+    //    [StringLength(50)]
+    //    public string Sender { get; set; }
 
-        [ColMapping("Sr If Name")]
-        [StringLength(50)]
-        public string SrIfName { get; set; }
+    //    [ColMapping("Sr If Name")]
+    //    [StringLength(50)]
+    //    public string SrIfName { get; set; }
 
-        [TimeStampConverter]
-        [ColMapping("Time Stamp")]
-        public DateTime? Dt { get; set; }
+    //    [TimeStampConverter]
+    //    [ColMapping("Time Stamp")]
+    //    public DateTime? Dt { get; set; }
 
-        [TimeStampConverter]
-        [ColMapping("Time Stamp1")]
-        public DateTime? Dt1 { get; set; }
+    //    [TimeStampConverter]
+    //    [ColMapping("Time Stamp1")]
+    //    public DateTime? Dt1 { get; set; }
 
-        [TimeStampConverter]
-        [ColMapping("Time Stamp11")]
-        public DateTime? Dt2 { get; set; }
-    }
+    //    [TimeStampConverter]
+    //    [ColMapping("Time Stamp11")]
+    //    public DateTime? Dt2 { get; set; }
+    //}
 }

@@ -55,14 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AIF\AIFDbContext.cs" />
-    <Compile Include="AIF\Errors.cs" />
-    <Compile Include="AIF\IDocNumbers.cs" />
-    <Compile Include="AIF\IDocs.cs" />
-    <Compile Include="AIF\Interfaces.cs" />
-    <Compile Include="AIF\Missions.cs" />
-    <Compile Include="AIF\Tasks.cs" />
-    <Compile Include="AttDbContext.cs" />
+    <Compile Include="ATTDbContext.cs" />
     <Compile Include="ATT\AttDbContext.cs" />
     <Compile Include="ATT\ATTTask.cs" />
     <Compile Include="ATT\IDocNumbers.cs" />
@@ -88,28 +81,39 @@
     <Compile Include="Entity\SAPCompanyCodes.cs" />
     <Compile Include="Entity\SAPDocTypes.cs" />
     <Compile Include="Entity\SAPInterfaces.cs" />
-    <Compile Include="Converters\TimeStampConverter.cs" />
     <Compile Include="Entity\MsgID.cs" />
     <Compile Include="Entity\IDocType.cs" />
     <Compile Include="Entity\ParameterConfig.cs" />
     <Compile Include="Entity\ProAwsy.cs" />
     <Compile Include="Entity\SenderConfig.cs" />
     <Compile Include="Entity\Source.cs" />
-    <Compile Include="Converters\TimeConverter.cs" />
     <Compile Include="Entity\IDocNumbers.cs" />
+    <Compile Include="IDocNumbers.cs" />
+    <Compile Include="IDocNumbers_ITG.cs" />
+    <Compile Include="IDocTypes.cs" />
+    <Compile Include="MsgIDs.cs" />
+    <Compile Include="MsgIDs_ITG.cs" />
+    <Compile Include="ParameterConfigs.cs" />
+    <Compile Include="ProAwsys.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SAPCompanyCodes.cs" />
+    <Compile Include="SAPDocTypes.cs" />
+    <Compile Include="SAPInterfaces.cs" />
+    <Compile Include="SenderConfigs.cs" />
+    <Compile Include="Sources.cs" />
+    <Compile Include="TaskDataConfigs.cs" />
+    <Compile Include="Tasks.cs" />
     <Compile Include="VW_EDITransFormConfig.cs" />
     <Compile Include="Entity\XNode.cs" />
     <Compile Include="Entity\XPathConfig.cs" />
+    <Compile Include="XNodes.cs" />
+    <Compile Include="XPathConfigs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Converters\MsgIdConverter.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<SAPLoginData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <UserName>21688419</UserName>
+  <Password>2wsx#edc</Password>
+  <Address>saplh7.sapnet.hp.com</Address>
+  <Client>100</Client>
+  <MaximumNo>2147483646</MaximumNo>
+</SAPLoginData>

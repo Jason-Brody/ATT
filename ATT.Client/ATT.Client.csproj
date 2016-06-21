@@ -108,6 +108,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\ATTDateConverter.cs" />
+    <Compile Include="UserControls\ATTUploadConfig.xaml.cs">
+      <DependentUpon>ATTUploadConfig.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\DataInput\ExcelDataInput.xaml.cs">
       <DependentUpon>ExcelDataInput.xaml</DependentUpon>
     </Compile>
@@ -136,9 +139,6 @@
     <Compile Include="UserControls\ScriptConfig\PIITrack.xaml.cs">
       <DependentUpon>PIITrack.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Components\SAPLogin.xaml.cs">
-      <DependentUpon>SAPLogin.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\Components\Schedule.xaml.cs">
       <DependentUpon>Schedule.xaml</DependentUpon>
     </Compile>
@@ -164,6 +164,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\ATTUploadConfig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\DataInput\ExcelDataInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -197,10 +201,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ScriptConfig\PIITrack.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\Components\SAPLogin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -260,6 +260,10 @@
     <ProjectReference Include="..\SharedLib\SharedLib.csproj">
       <Project>{fb58c9e4-b0c9-4adc-8d88-75f4f7caba7c}</Project>
       <Name>SharedLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharedUserControl\SharedUserControl.csproj">
+      <Project>{727aa053-c85b-4c77-9f7a-440371f3b99c}</Project>
+      <Name>SharedUserControl</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -68,7 +68,7 @@ namespace AIF.Client
             };
 
      
-            loadMissions();
+           
 
         }
 
@@ -79,6 +79,8 @@ namespace AIF.Client
 
         private async void loadMissions() {
 
+            var controller = await this.ShowProgressAsync("Please wait...", "Loading data from server");
+            controller.SetIndeterminate();
             dg_Missions.DataContext = null;
 
             await Task.Run(() => {
@@ -87,6 +89,7 @@ namespace AIF.Client
             });
 
             dg_Missions.DataContext = _missions;
+            await controller.CloseAsync();
         }
 
         private void btn_Create_Click(object sender, RoutedEventArgs e) {
@@ -112,6 +115,8 @@ namespace AIF.Client
                 var controller = await this.ShowProgressAsync("Please wait...", "Running AIF upload script.");
                 controller.SetIndeterminate();
 
+                Tasks currentTask = null;
+
                 try {
                     AIFMassUploadData d = new AIFMassUploadData();
                     d.LH1 = UC_AccountSetting.LH1;
@@ -128,13 +133,13 @@ namespace AIF.Client
                         var myTask = _db.Entry(_currentMission).Collection(m => m.Tasks).Query().Where(t => t.IsSelected);
                         var processedNum = myTask.Where(w => w.IsProcess == true).Count();
                         var totalNum = myTask.Count();
-                        var task = myTask.Where(w => w.IsProcess == false).Take(1).FirstOrDefault();
+                        currentTask = myTask.Where(w => w.IsProcess == false).Take(1).FirstOrDefault();
 
                         double progress = double.Parse(processedNum.ToString()) / double.Parse(totalNum.ToString());
                         controller.SetProgress(progress);
                         controller.SetMessage($"{processedNum}/{totalNum}");
                         
-                        if (task == null) {
+                        if (currentTask == null) {
                             _currentMission.IsUpload = true;
                             _db.SaveChanges();
                             
@@ -142,12 +147,12 @@ namespace AIF.Client
                         }
 
 
-                        task.IsProcess = true;
-                        task.ProcessDt = DateTime.Now;
+                        currentTask.IsProcess = true;
+                        currentTask.ProcessDt = DateTime.Now;
                         _db.SaveChanges();
 
-                        d.TaskId = task.Id;
-                        task.IsProcess = true;
+                        d.TaskId = currentTask.Id;
+                        currentTask.IsProcess = true;
                         _db.SaveChanges();
 
                         await Task.Run(() => script.Run(d));
@@ -161,6 +166,13 @@ namespace AIF.Client
                     loadMissions();
                 }
                 catch (Exception ex) {
+
+                    if (currentTask != null) {
+                        currentTask.IsProcess = false;
+                        
+                        _db.SaveChanges();
+                    }
+
                     while (ex.InnerException != null)
                         ex = ex.InnerException;
                     await this.ShowMessageAsync("Error", ex.Message);
@@ -327,10 +339,14 @@ namespace AIF.Client
         }
 
         private void btn_Open_Click(object sender, RoutedEventArgs e) {
+            if (!System.IO.Directory.Exists("Results"))
+                System.IO.Directory.CreateDirectory("Results");
             var folder = "Results";
             Process.Start(folder);
         }
 
-       
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e) {
+            loadMissions();
+        }
     }
 }

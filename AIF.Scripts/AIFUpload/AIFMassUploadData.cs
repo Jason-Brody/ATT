@@ -18,8 +18,8 @@ namespace AIF.Scripts
         private string _guid;
 
         private string getfile(string prefix) {
+            //return prefix + $"_{TaskId}.txt";
             return prefix + $"_{TaskId}_{_guid}.txt";
-           // return prefix + $"_{AIFTask.Interfaces.MsgType}_{AIFTask.Interfaces.MsgFunction}_{AIFTask.Interfaces.MsgCode}_{AIFTask.Interfaces.PartnerNo}_{_guid}.txt";
         }
 
         private void removeFile(string file) {
@@ -28,21 +28,21 @@ namespace AIF.Scripts
         }
 
         public string GetUploadedFile() {
-            string file = Path.Combine(GlobalConfig.AIFWorkDir, getfile("AIFUploaded"));
+            string file = Path.Combine(GlobalConfig.AIFWorkDir, getfile("LH7_BD87"));
             return file;
         }
 
         public string GetIDocFile() {
-            string file = Path.Combine(GlobalConfig.AIFWorkDir, getfile("AIFIDoc"));
+            string file = Path.Combine(GlobalConfig.AIFWorkDir, getfile("LH1_IDoc"));
             return file;
         }
 
         public string GetDownloadFile() {
-            return Path.Combine(GlobalConfig.AIFWorkDir,getfile("AIFDownload"));
+            return Path.Combine(GlobalConfig.AIFWorkDir,getfile("LH1_Data"));
         }
 
         public string GetIDocITGFile() {
-            return Path.Combine(GlobalConfig.AIFWorkDir, getfile("AIFIDoc_ITG"));
+            return Path.Combine(GlobalConfig.AIFWorkDir, getfile("LH7_IDoc"));
         }
 
         public SAPLoginData LH1 { get; set; }

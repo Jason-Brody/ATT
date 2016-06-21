@@ -64,26 +64,26 @@
   <ItemGroup>
     <Compile Include="ATTLog.cs" />
     <Compile Include="LogType.cs" />
-    <Compile Include="MainTask\GetMessageId\ATTMsgId.cs" />
-    <Compile Include="MainTask\GUIShareData.cs" />
-    <Compile Include="MainTask\IDoc.cs" />
-    <Compile Include="MainTask\Payloads\Payloads.cs" />
-    <Compile Include="MainTask\Payloads\PayloadsData.cs" />
-    <Compile Include="SubTask\PayloadsShareData.cs" />
-    <Compile Include="SubTask\PayloadsUpload\PayloadsUploader.cs" />
-    <Compile Include="SubTask\PayloadsUpload\PayloadsUploaderData.cs" />
-    <Compile Include="SubTask\PayloadsUpdate\PayloadsUpdateData.cs" />
-    <Compile Include="SubTask\PayloadsDownload\PayloadsDownloaderData.cs" />
-    <Compile Include="SubTask\PayloadsDownload\PayloadsDownloader.cs" />
-    <Compile Include="SubTask\PayloadsUpdate\PayloadsUpdate.cs" />
-    <Compile Include="MainTask\GetMessageId\MSGIDTask.cs" />
-    <Compile Include="MainTask\GetMessageId\MSGIDTaskData.cs" />
+    <Compile Include="GetMessageId\ATTMsgId.cs" />
+    <Compile Include="GUIShareData.cs" />
+    <Compile Include="IDoc.cs" />
+    <Compile Include="Payloads\Payloads.cs" />
+    <Compile Include="Payloads\PayloadsData.cs" />
+    <Compile Include="PayloadsShareData.cs" />
+    <Compile Include="PayloadsUpload\PayloadsUploader.cs" />
+    <Compile Include="PayloadsUpload\PayloadsUploaderData.cs" />
+    <Compile Include="PayloadsUpdate\PayloadsUpdateData.cs" />
+    <Compile Include="PayloadsDownload\PayloadsDownloaderData.cs" />
+    <Compile Include="PayloadsDownload\PayloadsDownloader.cs" />
+    <Compile Include="PayloadsUpdate\PayloadsUpdate.cs" />
+    <Compile Include="GetMessageId\MSGIDTask.cs" />
+    <Compile Include="GetMessageId\MSGIDTaskData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MainTask\PIITrack\PIITrack.cs" />
-    <Compile Include="MainTask\PIITrack\PIITrackData.cs" />
+    <Compile Include="PIITrack\PIITrack.cs" />
+    <Compile Include="PIITrack\PIITrackData.cs" />
     <Compile Include="ATTDate.cs" />
-    <Compile Include="MainTask\LHTrack\LHTrack.cs" />
-    <Compile Include="MainTask\LHTrack\LHTrackData.cs" />
+    <Compile Include="LHTrack\LHTrack.cs" />
+    <Compile Include="LHTrack\LHTrackData.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="SAPFEWSELib">
@@ -122,9 +122,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

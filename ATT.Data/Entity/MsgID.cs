@@ -8,47 +8,47 @@ namespace ATT.Data.Entity
     using Young.Data.Attributes;
 
 
-    public partial class MsgID
-    {
-        public int Id { get; set; }
+    //public partial class MsgID
+    //{
+    //    public int Id { get; set; }
 
-        [ColMapping("IDoc number")]
-        [StringLength(50)]
-        public string IDocNumber { get; set; }
+    //    [ColMapping("IDoc number")]
+    //    [StringLength(50)]
+    //    public string IDocNumber { get; set; }
 
-        [MsgIdConverter]
-        [ColMapping("EDI Archive Key")]
-        [StringLength(50)]
-        public string MsgId { get; set; }
+    //    [MsgIdConverter]
+    //    [ColMapping("EDI Archive Key")]
+    //    [StringLength(50)]
+    //    public string MsgId { get; set; }
 
-        public int? IDocTypeId { get; set; }
+    //    public int? IDocTypeId { get; set; }
 
-        public int? ProAwsysId { get; set; }
+    //    public int? ProAwsysId { get; set; }
 
-        public int? InterfaceId { get; set; }
+    //    public int? InterfaceId { get; set; }
 
-        public bool IsProcess { get; set; }
+    //    public bool IsProcess { get; set; }
 
-        public bool IsDownload { get; set; }
+    //    public bool IsDownload { get; set; }
 
-        public bool IsTransformed { get; set; }
+    //    public bool IsTransformed { get; set; }
 
-        public bool IsSend { get; set; }
+    //    public bool IsSend { get; set; }
 
-        public DateTime? CreateDt { get; set; }
+    //    public DateTime? CreateDt { get; set; }
 
-        public DateTime? DownloadDt { get; set; }
+    //    public DateTime? DownloadDt { get; set; }
 
-        public DateTime? TransformDt { get; set; }
+    //    public DateTime? TransformDt { get; set; }
 
-        public DateTime? SentDt { get; set; }
+    //    public DateTime? SentDt { get; set; }
 
-        public int? TaskId { get; set; }
+    //    public int? TaskId { get; set; }
 
-        public bool? IsNeedTransform { get; set; }
+    //    public bool? IsNeedTransform { get; set; }
 
-        public virtual IDocType IDocType { get; set; }
+    //    public virtual IDocType IDocType { get; set; }
 
-        public virtual ProAwsy ProAwsy { get; set; }
-    }
+    //    public virtual ProAwsy ProAwsy { get; set; }
+    //}
 }

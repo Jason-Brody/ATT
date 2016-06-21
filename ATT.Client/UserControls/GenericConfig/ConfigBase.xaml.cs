@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
-using ATT.Data.ATT;
+using ATT.Data;
 
 namespace ATT.Client.UserControls.GenericConfig
 {
@@ -23,19 +23,19 @@ namespace ATT.Client.UserControls.GenericConfig
     /// </summary>
     public partial class ConfigBase<T> : UserControl where T : class
     {
-        protected AttDbContext db;
+        protected ATTDbContext db;
 
         protected ObservableCollection<T> _items;
 
         public ConfigBase() {
-            db = new AttDbContext();
+            db = new ATTDbContext();
         }
 
         public void Add() {
 
         }
 
-        public async void LoadDatas(Func<AttDbContext, List<T>> Table) {
+        public async void LoadDatas(Func<ATTDbContext, List<T>> Table) {
             _items = await Task.Run(() => new ObservableCollection<T>(Table(db)));
             this.DataContext = _items;
         }
