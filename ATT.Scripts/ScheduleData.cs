@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace ATT.Scripts
 {
-    public class GUIShareData 
+    public class ScheduleData 
     {
         
-
+        [XmlIgnore]
         public ATTDate Start { get; set; }
 
+        [XmlIgnore]
         public ATTDate ExpireDate{ get; set; }
 
         public DateTime GetStart() {
@@ -30,7 +32,8 @@ namespace ATT.Scripts
             DateTime dt = GetStart();
             
         }
-
+        
+        [XmlIgnore]
         public int Interval { get; set; } = 1;
 
         

@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:ATT.Client.UserControls"
              xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
+             xmlns:uc="clr-namespace:SharedUserControl;assembly=SharedUserControl"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -18,10 +19,10 @@
         </Grid.RowDefinitions>
         <StackPanel x:Name="sp_Config">
             <GroupBox Header="SAP LH1 Configuration">
-                <local:SAPLogin DataContext="{Binding LH1}"/>
+                <uc:SAPLogin DataContext="{Binding LH1}"/>
             </GroupBox>
             <GroupBox Header="SAP LH7 Configuration">
-                <local:SAPLogin DataContext="{Binding LH7}"/>
+                <uc:SAPLogin DataContext="{Binding LH7}"/>
             </GroupBox>
             <GroupBox Header="Basic Configuration">
                 <Grid>

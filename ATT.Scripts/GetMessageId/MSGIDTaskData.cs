@@ -11,8 +11,12 @@ using System.Xml.Serialization;
 
 namespace ATT.Scripts
 {
-    public class MSGIDTaskData : GUIShareData
+    public class MSGIDTaskData : ScheduleData
     {
+        public MSGIDTaskData() {
+            LH1 = new SAPLoginData();
+        }
+
         private string _guid;
 
         private const string _subFolder = "MsgIds";
@@ -43,8 +47,6 @@ namespace ATT.Scripts
 
         [XmlIgnore]
         public int TaskId { get; set; }
-
-        //public int InterfaceCount { get; set; } = 1;
 
         public string IDocStatus { get; } = "53";
 

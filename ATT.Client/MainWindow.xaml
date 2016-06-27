@@ -6,7 +6,8 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
  xmlns:uc="clr-namespace:ATT.Client.UserControls"
                       xmlns:ucg="clr-namespace:ATT.Client.UserControls.GenericConfig"
-        xmlns:local="clr-namespace:ATT.Client"
+        xmlns:local="clr-namespace:ATT.Client.UserControls"
+                      
         mc:Ignorable="d" 
                        BorderThickness="1" 
                       GlowBrush="Black"
@@ -28,21 +29,13 @@
             <Setter Property="Padding" Value="5,0"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
+        
     </Window.Resources>
 
     <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl>
-            <controls:Flyout x:Name="fy_Settings" Header="Data Configuration" Position="Right" Width="600">
-                <ScrollViewer>
-                    <StackPanel ScrollViewer.VerticalScrollBarVisibility="Visible">
-                        <uc:GetMsgId/>
-                        <uc:PayloadDownload/>
-                        <uc:PayloadsUpload/>
-                        <uc:PIITrack/>
-                        <uc:LHTrack/>
-                        <Button x:Name="btn_Save" Content="Save" Click="btn_Save_Click"/>
-                    </StackPanel>
-                </ScrollViewer>
+            <controls:Flyout x:Name="fy_ATTUploadConfig" Header="Data Configuration" Position="Right" Width="600">
+                <uc:ATTUploadConfig x:Name="uc_ATTUploadConfig"/>
             </controls:Flyout>
         </controls:FlyoutsControl>
     </controls:MetroWindow.Flyouts>
@@ -56,9 +49,16 @@
         <Grid.Resources>
             <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
         </Grid.Resources>
-       
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
 
+        <local:ScriptTask x:Name="uc_ATTUpload" Title="ATT Upload"/>
+        <local:ScriptTask x:Name="uc_PIITrack" Title="PII Track" Grid.Column="1"/>
+        <local:ScriptTask x:Name="uc_LHTrack" Title="LH Track" Grid.Column="2"/>
     </Grid>
 
 </controls:MetroWindow>

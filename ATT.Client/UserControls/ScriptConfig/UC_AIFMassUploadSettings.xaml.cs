@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ATT.Scripts;
-using ATT.Robot;
 using System.Data.SqlClient;
 using ATT.Data.ATT;
 using AIF.Data;
@@ -35,27 +34,27 @@ namespace ATT.Client.UserControls
       
 
         private async void btn_Run_Click(object sender, RoutedEventArgs e) {
-            var data = base.Save();
-            List<int> tasks;
-            using(var db = new AIFDbContext()) {
-                //tasks = db.Database.SqlQuery<int>("exec [dbo].[SP_CreateMission] @xml", new SqlParameter("xml",data)).ToList();
-                tasks = db.Tasks.Where(t => t.IsFinished == false).Select(i => i.Id).ToList();
-            }
-            int count = 1;
-            pb.Maximum = tasks.Count;
-            await Task.Run(() => {
-                foreach (var t in tasks) {
-                    pb.Dispatcher.BeginInvoke(new Action(() => {
-                        pb.Value = count;
-                    }));
-                    tb_Progress.Dispatcher.BeginInvoke(new Action(() => {
-                        tb_Progress.Text = $"{count}/{tasks.Count}";
-                    }));
-                    var p = Program.RunTask(ATTTask.AIFMassUpload, t);
-                    p.WaitForExit();
-                    count++;
-                }
-            });
+            //var data = base.Save();
+            //List<int> tasks;
+            //using(var db = new AIFDbContext()) {
+            //    //tasks = db.Database.SqlQuery<int>("exec [dbo].[SP_CreateMission] @xml", new SqlParameter("xml",data)).ToList();
+            //    tasks = db.Tasks.Where(t => t.IsFinished == false).Select(i => i.Id).ToList();
+            //}
+            //int count = 1;
+            //pb.Maximum = tasks.Count;
+            //await Task.Run(() => {
+            //    foreach (var t in tasks) {
+            //        pb.Dispatcher.BeginInvoke(new Action(() => {
+            //            pb.Value = count;
+            //        }));
+            //        tb_Progress.Dispatcher.BeginInvoke(new Action(() => {
+            //            tb_Progress.Text = $"{count}/{tasks.Count}";
+            //        }));
+            //        var p = Program.RunTask(ATTTask.AIFMassUpload, t);
+            //        p.WaitForExit();
+            //        count++;
+            //    }
+            //});
             
         }
     }

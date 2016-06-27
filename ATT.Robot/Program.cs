@@ -11,8 +11,9 @@ using System.Data.SqlClient;
 using System.Xml.Serialization;
 using System.Data.Entity;
 using ATT.Data.ATT;
-using AIF.Data;
-using AIF.Scripts;
+//using AIF.Data;
+//using AIF.Scripts;
+using ATT.Data;
 
 namespace ATT.Robot
 {
@@ -96,9 +97,9 @@ namespace ATT.Robot
                     case ATTTask.GetMessageAll:
                         GetMessageAll();
                         break;
-                    case ATTTask.AIFMassUpload:
-                        AIFMassUpload(TaskId);
-                        break;
+                    //case ATTTask.AIFMassUpload:
+                    //    AIFMassUpload(TaskId);
+                    //    break;
                 }
             }
             catch (Exception ex) {
@@ -118,7 +119,7 @@ namespace ATT.Robot
        
         public static T GetConfigData<T>() {
             string xmlData = null;
-            using (var db = new AttDbContext()) {
+            using (var db = new ATTDbContext()) {
                 var tData = db.TaskDataConfigs.Single(t=>t.TypeName == typeof(T).FullName);
                 xmlData = tData.Data;
             }
@@ -129,27 +130,27 @@ namespace ATT.Robot
             return (T)obj;
         }
 
-        static object GetConfigData<T>(ATTTask task) {
-            string xmlData = null;
-            string typeName = null;
-            using(var db = new AttDbContext()) {
-                var tData = db.TaskDataConfigs.Single(t => t.AttTask == task);
-                xmlData = tData.Data;
-                typeName = tData.TypeName;
-            }
+        //static object GetConfigData<T>(ATTTask task) {
+        //    string xmlData = null;
+        //    string typeName = null;
+        //    using(var db = new ATTDbContext()) {
+        //        var tData = db.TaskDataConfigs.Single(t => t.AttTask == task);
+        //        xmlData = tData.Data;
+        //        typeName = tData.TypeName;
+        //    }
 
-            var tp = typeof(T);
+        //    var tp = typeof(T);
 
-            StringReader sr = new StringReader(xmlData);
+        //    StringReader sr = new StringReader(xmlData);
 
-            XmlSerializer xs = new XmlSerializer(tp);
-            var obj = xs.Deserialize(sr);
-            return obj;
+        //    XmlSerializer xs = new XmlSerializer(tp);
+        //    var obj = xs.Deserialize(sr);
+        //    return obj;
 
-        }
+        //}
 
         public static void SetConfigData<T>(T data) {
-            using (var db = new AttDbContext()) {
+            using (var db = new ATTDbContext()) {
                 var tData = db.TaskDataConfigs.Single(t => t.TypeName == typeof(T).FullName);
                 var typeName = tData.TypeName;
                 XmlSerializer xs = new XmlSerializer(typeof(T));
@@ -161,27 +162,27 @@ namespace ATT.Robot
             }
         }
 
-        static void SetConfigData<T>(ATTTask task,T data) {
-            using (var db = new AttDbContext()) {
-                var tData = db.TaskDataConfigs.Single(t => t.AttTask == task);
-                XmlSerializer xs = new XmlSerializer(typeof(T));
-                StringBuilder sb = new StringBuilder();
-                StringWriter sw = new StringWriter(sb);
-                xs.Serialize(sw, data);
-                tData.Data = sb.ToString();
-                db.SaveChanges();
-            }
-        }
+        //static void SetConfigData<T>(ATTTask task,T data) {
+        //    using (var db = new ATTDbContext()) {
+        //        var tData = db.TaskDataConfigs.Single(t => t.AttTask == task);
+        //        XmlSerializer xs = new XmlSerializer(typeof(T));
+        //        StringBuilder sb = new StringBuilder();
+        //        StringWriter sw = new StringWriter(sb);
+        //        xs.Serialize(sw, data);
+        //        tData.Data = sb.ToString();
+        //        db.SaveChanges();
+        //    }
+        //}
 
-        static AIFMassUploadData GetAIFConfigData(int taskId) {
-            AIF.Data.Tasks t = null;
-            using(var db = new AIFDbContext()) {
-                t = db.Tasks.Include(a => a.Missions).Single(a => a.Id == taskId);
-            }
-            XmlSerializer xs = new XmlSerializer(typeof(AIFMassUploadData));
-            StringReader sr = new StringReader(t.Missions.ConfigData);
-            return xs.Deserialize(sr) as AIFMassUploadData;
-        }
+        //static AIFMassUploadData GetAIFConfigData(int taskId) {
+        //    AIF.Data.Tasks t = null;
+        //    using(var db = new AIFDbContext()) {
+        //        t = db.Tasks.Include(a => a.Missions).Single(a => a.Id == taskId);
+        //    }
+        //    XmlSerializer xs = new XmlSerializer(typeof(AIFMassUploadData));
+        //    StringReader sr = new StringReader("");//t.Missions.ConfigData);
+        //    return xs.Deserialize(sr) as AIFMassUploadData;
+        //}
 
         
     }

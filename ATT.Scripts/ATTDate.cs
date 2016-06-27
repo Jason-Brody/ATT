@@ -37,6 +37,10 @@ namespace ATT.Scripts
             return new ATTDate(dt.Year, dt.Month, dt.Day, dt.Hour);
         }
 
+        public DateTime Current {
+            get { return new DateTime(Year,Month,Day,Hour,0,0); }
+        }
+
         
     }
 }

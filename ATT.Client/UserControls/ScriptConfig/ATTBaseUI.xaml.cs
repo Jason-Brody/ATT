@@ -16,6 +16,7 @@ using MahApps.Metro.Controls.Dialogs;
 using MahApps.Metro.Controls;
 using System.IO;
 using ATT.Data.ATT;
+using ATT.Data;
 
 namespace ATT.Client.UserControls
 {
@@ -47,7 +48,7 @@ namespace ATT.Client.UserControls
 
     public static class ConfigLoader
     {
-        private static AttDbContext _db;
+        private static ATTDbContext _db;
 
 
         public static List<TaskDataConfigs> Configs = null;
@@ -58,7 +59,7 @@ namespace ATT.Client.UserControls
         public static List<IConfig> MyConfigs = new List<IConfig>();
 
         static Task Load() {
-            _db = new AttDbContext();
+            _db = new ATTDbContext();
             return Task.Run(() => {
                 Configs = _db.TaskDataConfigs.ToList();
             });

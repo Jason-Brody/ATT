@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Threading;
-using AIF.Scripts;
+
 
 namespace ATT.Robot
 {
@@ -87,47 +87,47 @@ namespace ATT.Robot
 
 
 
-        static void AIFMassUpload(int id) {
-            AIFMassUploadData d = GetAIFConfigData(id);
-            d.TaskId = id;
-            ScriptEngine<AIFMassUpload, AIFMassUploadData> script = new ScriptEngine<AIFMassUpload, AIFMassUploadData>();
-            BindingStepInfo(script);
-            script.Run(d);
-        }
+        //static void AIFMassUpload(int id) {
+        //    AIFMassUploadData d = GetAIFConfigData(id);
+        //    d.TaskId = id;
+        //    ScriptEngine<AIFMassUpload, AIFMassUploadData> script = new ScriptEngine<AIFMassUpload, AIFMassUploadData>();
+        //    BindingStepInfo(script);
+        //    script.Run(d);
+        //}
 
 
-        static void ATT(Missions myMission) {
-            Missions mission = null;
-            using(var db = new AttDbContext()) {
-                mission = db.Missions.Include(m=>m.Tasks).SingleOrDefault(m => m.Id == myMission.Id);
-                if (mission == null) {
-                    db.Missions.Add(myMission);
-                    mission = myMission;
-                } else {
-                    foreach(var t in myMission.Tasks) {
-                        if(mission.Tasks.SingleOrDefault(s=>s.InterfaceId == t.InterfaceId) != null) {
+        //static void ATT(Missions myMission) {
+        //    Missions mission = null;
+        //    using(var db = new ATTDbContext()) {
+        //        mission = db.Missions.Include(m=>m.Tasks).SingleOrDefault(m => m.Id == myMission.Id);
+        //        if (mission == null) {
+        //            db.Missions.Add(myMission);
+        //            mission = myMission;
+        //        } else {
+        //            foreach(var t in myMission.Tasks) {
+        //                if(mission.Tasks.SingleOrDefault(s=>s.InterfaceId == t.InterfaceId) != null) {
 
-                        }
-                    }
-                }
-            }
-        }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
-        static void ATTALL(Missions mission) {
-            //List<Task> myTasks = new List<Task>();
+        //static void ATTALL(Missions mission) {
+        //    //List<Task> myTasks = new List<Task>();
 
-            //ThreadPool.SetMinThreads(3, 3);
-            //ThreadPool.SetMaxThreads(3, 3);
+        //    //ThreadPool.SetMinThreads(3, 3);
+        //    //ThreadPool.SetMaxThreads(3, 3);
 
-            //for (int i = 0; i <= 10; i++) {
-            //    ScriptEngine<MSGIDTask, MSGIDTaskData> script = new ScriptEngine<MSGIDTask, MSGIDTaskData>();
-            //    script.Run(_data.MsgIdTaskData);
+        //    //for (int i = 0; i <= 10; i++) {
+        //    //    ScriptEngine<MSGIDTask, MSGIDTaskData> script = new ScriptEngine<MSGIDTask, MSGIDTaskData>();
+        //    //    script.Run(_data.MsgIdTaskData);
 
-            //    for (int j = 1; j <= 10; j++) {
-            //        Task.Run(() => { }).AppendTo(myTasks);
-            //    }
-            //}
-        }
+        //    //    for (int j = 1; j <= 10; j++) {
+        //    //        Task.Run(() => { }).AppendTo(myTasks);
+        //    //    }
+        //    //}
+        //}
 
     }
 }

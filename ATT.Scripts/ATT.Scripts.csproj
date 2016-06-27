@@ -42,9 +42,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\SAPGuiAutomationLib\SAPAutomation\bin\Debug\SAPAutomation.dll</HintPath>
     </Reference>
-    <Reference Include="ScriptRunner.Interface, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ScriptRunner.Interface, Version=1.1.1.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ScriptRunner\ScriptRunner.Interface\bin\Debug\ScriptRunner.Interface.dll</HintPath>
+      <HintPath>..\..\ScriptRunner\ScriptRunner\ScriptRunner.Interface\bin\Debug\ScriptRunner.Interface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -63,9 +63,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ATTLog.cs" />
+    <Compile Include="ATTUpload\ATTUpload.cs" />
+    <Compile Include="ATTUpload\ATTUploadData.cs" />
     <Compile Include="LogType.cs" />
     <Compile Include="GetMessageId\ATTMsgId.cs" />
-    <Compile Include="GUIShareData.cs" />
+    <Compile Include="ScheduleData.cs" />
     <Compile Include="IDoc.cs" />
     <Compile Include="Payloads\Payloads.cs" />
     <Compile Include="Payloads\PayloadsData.cs" />

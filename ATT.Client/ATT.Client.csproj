@@ -78,9 +78,16 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FluencyCSharp">
+      <HintPath>..\..\FluencyCSharp\FluencyCSharp\FluencyCSharp\FluencyCSharp\bin\Debug\FluencyCSharp.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=1.3.0.139, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.3.0-ALPHA139\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="ScriptRunner.Interface, Version=1.1.1.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ScriptRunner\ScriptRunner\ScriptRunner.Interface\bin\Debug\ScriptRunner.Interface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -108,6 +115,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\ATTDateConverter.cs" />
+    <Compile Include="Converters\EnableConverter.cs" />
+    <Compile Include="Converters\SAPInterfaceConverter.cs" />
+    <Compile Include="GlobalConfig.cs" />
+    <Compile Include="ScriptType.cs" />
     <Compile Include="UserControls\ATTUploadConfig.xaml.cs">
       <DependentUpon>ATTUploadConfig.xaml</DependentUpon>
     </Compile>
@@ -139,16 +150,20 @@
     <Compile Include="UserControls\ScriptConfig\PIITrack.xaml.cs">
       <DependentUpon>PIITrack.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Components\Schedule.xaml.cs">
+    <Compile Include="UserControls\Schedule.xaml.cs">
       <DependentUpon>Schedule.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ScriptConfig\UC_AIFMassUploadSettings.xaml.cs">
       <DependentUpon>UC_AIFMassUploadSettings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ScriptTask.xaml.cs">
+      <DependentUpon>ScriptTask.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UC_AIF.xaml.cs">
       <DependentUpon>UC_AIF.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AIFInterfaceVM.cs" />
+    <Compile Include="ViewModels\InterfaceVM.cs" />
     <Compile Include="Windows\MapWin.xaml.cs">
       <DependentUpon>MapWin.xaml</DependentUpon>
     </Compile>
@@ -204,11 +219,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Components\Schedule.xaml">
+    <Page Include="UserControls\Schedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ScriptConfig\UC_AIFMassUploadSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ScriptTask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -225,9 +244,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Content Include="ATT.Robot.exe.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="packages.config" />
     <AppDesigner Include="Properties\" />
     <None Include="Properties\app.manifest" />
@@ -247,11 +263,6 @@
     <ProjectReference Include="..\ATT.Data\ATT.Data.csproj">
       <Project>{77ed0909-5de3-414d-9cf4-ae71da0a947a}</Project>
       <Name>ATT.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ATT.Robot\ATT.Robot.csproj">
-      <Project>{d90b7b0b-7a8b-4201-8503-4eb1600f09eb}</Project>
-      <Name>ATT.Robot</Name>
-      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\ATT.Scripts\ATT.Scripts.csproj">
       <Project>{120f9b8f-eb97-44a0-8f30-e6692a65ecb2}</Project>

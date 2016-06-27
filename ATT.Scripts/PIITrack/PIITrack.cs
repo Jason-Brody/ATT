@@ -62,10 +62,10 @@ namespace ATT.Scripts
             }
         }
 
-        [Step(Id =4,Name ="Update Schedule Info")]
-        public void UpdateSchedule() {
-            _data.Start = _data.Start.GetNext(_data.Interval);
-        }
+        //[Step(Id =4,Name ="Update Schedule Info")]
+        //public void UpdateSchedule() {
+        //    _data.Start = _data.Start.GetNext(_data.Interval);
+        //}
 
 
     }

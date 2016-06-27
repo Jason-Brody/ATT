@@ -18,6 +18,8 @@ namespace ATT.Data
 
         public int Id { get; set; }
 
+        public bool IsSelected { get; set; }
+
         [StringLength(20)]
         public string Name { get; set; }
 

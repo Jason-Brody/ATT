@@ -33,8 +33,9 @@
     <Reference Include="SAPAutomation">
       <HintPath>..\..\..\SAPGuiAutomationLib\SAPAutomation\bin\Debug\SAPAutomation.dll</HintPath>
     </Reference>
-    <Reference Include="ScriptRunner.Interface">
-      <HintPath>..\..\..\ScriptRunner\ScriptRunner.Interface\bin\Debug\ScriptRunner.Interface.dll</HintPath>
+    <Reference Include="ScriptRunner.Interface, Version=1.1.1.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ScriptRunner\ScriptRunner\ScriptRunner.Interface\bin\Debug\ScriptRunner.Interface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />

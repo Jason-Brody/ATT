@@ -19,7 +19,6 @@ using ATT.Client.ViewModels;
 using System.Xml.Serialization;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using ATT.Robot;
 using System.Diagnostics;
 using ATT.Data.ATT;
 using AIF.Data;
@@ -140,7 +139,7 @@ namespace ATT.Client.UserControls
         }
 
         private Task startTask(int taskId) {
-            return Task.Run(()=> { Program.RunTask(ATTTask.AIFMassUpload, taskId).WaitForExit(); });
+            return Task.Run(()=> { /*Program.RunTask(ATTTask.AIFMassUpload, taskId).WaitForExit();*/ });
         }
 
         private async Task<List<AIF.Data.Tasks>> createMission() {
@@ -152,9 +151,9 @@ namespace ATT.Client.UserControls
             sw.Close();
 
             AIF.Data.Missions mission = new AIF.Data.Missions();
-            mission.ConfigData = sb.ToString();
-            mission.IntervalDays = _config.IntervalDays;
-            mission.RetryCounts = _config.RetryCounts;
+            //mission.ConfigData = sb.ToString();
+            //mission.IntervalDays = _config.IntervalDays;
+            //mission.RetryCounts = _config.RetryCounts;
             mission.StartDt = _config.Start;
             mission.EndDt = _config.End;
             mission.DataLimit = _config.DataCounts;

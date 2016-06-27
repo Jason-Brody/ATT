@@ -4,73 +4,110 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ATT.Client.UserControls"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:myControl="clr-namespace:SharedUserControl;assembly=SharedUserControl"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="500">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <GroupBox Header="SAP LH1 Account Configuration">
-            <myControl:SAPLogin x:Name="uc_SAPLogin"/>
-        </GroupBox>
-        <GroupBox Header="Payloads Download Configuration" Grid.Row="1" x:Name="uc_PayloadsDownload">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition MaxHeight="500"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <GroupBox Header="SAP LH1 Account Configuration">
+                <myControl:SAPLogin x:Name="uc_SAPLogin"/>
+            </GroupBox>
+            <GroupBox Header="Payloads Download Configuration" Grid.Row="1" x:Name="uc_PayloadsDownload">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock Text="User Name:"/>
-                <TextBox Grid.Column="1" Text="{Binding UserName}"/>
+                    <TextBlock Text="User Name:"/>
+                    <TextBox Grid.Column="1" Text="{Binding UserName}"/>
 
-                <TextBlock Text="Password:" Grid.Row="1"/>
-                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Password}"/>
+                    <TextBlock Text="Password:" Grid.Row="1"/>
+                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Password}"/>
 
-                <TextBlock Text="Download URL:" Grid.Row="2"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DownloadUrl}"/>
-            </Grid>
-        </GroupBox>
-        <GroupBox Header="Payloads Upload Configuration" Grid.Row="2" x:Name="uc_PayloadsUpload">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                    <TextBlock Text="Download URL:" Grid.Row="2"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DownloadUrl}"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Payloads Upload Configuration" Grid.Row="2" x:Name="uc_PayloadsUpload">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock Text="User Name:"/>
-                <TextBox Grid.Column="1" Text="{Binding UserName}"/>
+                    <TextBlock Text="User Name:"/>
+                    <TextBox Grid.Column="1" Text="{Binding UserName}"/>
 
-                <TextBlock Grid.Row="1" Text="Password:"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Password}"/>
+                    <TextBlock Grid.Row="1" Text="Password:"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Password}"/>
 
-                <TextBlock Grid.Row="2" Text="Host"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Host}"/>
+                    <TextBlock Grid.Row="2" Text="Host"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Host}"/>
 
-                <TextBlock Grid.Row="3" Text="Port"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Port}"/>
+                    <TextBlock Grid.Row="3" Text="Port"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Port}"/>
 
-                <TextBlock Grid.Row="4" Text="Proxy Host"/>
-                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding ProxyHost}"/>
+                    <TextBlock Grid.Row="4" Text="Proxy Host"/>
+                    <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding ProxyHost}"/>
 
-                <TextBlock Grid.Row="5" Text="Proxy Port"/>
-                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding ProxyHostPort}"/>
-            </Grid>
-        </GroupBox>
-    </Grid>
+                    <TextBlock Grid.Row="5" Text="Proxy Port"/>
+                    <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding ProxyHostPort}"/>
+                </Grid>
+            </GroupBox>
+            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btn_Save"  Width="50" Height="50" Style="{DynamicResource MetroCircleButtonStyle}"
+                    Click="btn_Save_Click">
+
+                    <controls:PackIconModern Kind="Save"/>
+
+                </Button>
+                <Button x:Name="btn_Refresh" Click="btn_Refresh_Click" Width="50" Height="50" Style="{DynamicResource MetroCircleButtonStyle}">
+                    <controls:PackIconModern Kind="Refresh"/>
+                </Button>
+            </StackPanel>
+
+            <DataGrid Grid.Row="3" AutoGenerateColumns="False" x:Name="dg_Interfaces" CanUserAddRows="False" CanUserDeleteRows="False">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="mi_Select" Click="mi_Select_Click" Header="Select"></MenuItem>
+                        <MenuItem x:Name="mi_UnSelect" Click="mi_UnSelect_Click" Header="UnSelect"></MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Binding="{Binding Source.IsSelected}">
+                        <DataGridCheckBoxColumn.Header>
+                            <CheckBox x:Name="cb_Header" Checked="cb_Header_Checked" Unchecked="cb_Header_Unchecked"/>
+                        </DataGridCheckBoxColumn.Header>
+                    </DataGridCheckBoxColumn>
+                    <DataGridTextColumn IsReadOnly="True" Header="Name"  Binding="{Binding Source.Name}"/>
+                    <DataGridTextColumn IsReadOnly="True" Header="Msg Function" Binding="{Binding Source.MsgFunction}"/>
+                    <DataGridTextColumn IsReadOnly="True" Header="Partner Number" Binding="{Binding Source.PartnerNumber}"/>
+                    <DataGridTextColumn IsReadOnly="True" Header="Company Codes" Binding="{Binding CompanyCodes}"/>
+                    <DataGridTextColumn IsReadOnly="True" Header="Doc Types" Binding="{Binding DocTypes}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

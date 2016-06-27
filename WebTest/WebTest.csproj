@@ -65,6 +65,9 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ScriptRunner.Interface">
+      <HintPath>..\..\ScriptRunner\ScriptRunner\ScriptRunner.Interface\bin\Debug\ScriptRunner.Interface.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />

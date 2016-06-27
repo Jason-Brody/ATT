@@ -40,7 +40,7 @@ namespace ATT.Scripts
         [Step(Id = 2, Name = "Get Message Ids")]
         public void GetMessageId() {
 
-            //_data.NewGuid(i.Name);
+            _data.NewGuid(_interface.Name);
             SAPTestHelper.Current.SAPGuiSession.StartTransaction("ZIDOCAUDREP");
             if (SAPTestHelper.Current.PopupWindow != null) {
                 SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiRadioButton>((r => r.Text.Contains("Continue With"))).Select();
@@ -143,9 +143,9 @@ namespace ATT.Scripts
             SAPTestHelper.Current.CloseSession();
         }
 
-        [Step(Id = 3, Name = "Update Schedule Info")]
-        public void UpdateSchedule() {
-            _data.Start = _data.Start.GetNext(_data.Interval);
-        }
+        //[Step(Id = 3, Name = "Update Schedule Info")]
+        //public void UpdateSchedule() {
+        //    _data.Start = _data.Start.GetNext(_data.Interval);
+        //}
     }
 }

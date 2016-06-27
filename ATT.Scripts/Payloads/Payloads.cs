@@ -62,7 +62,7 @@ namespace ATT.Scripts
 
         private Task GetDownloadAndUpdateTask(int taskId) {
             Task t = new Task(() => {
-                Console.WriteLine("Thread {0} is running task {1}", System.Threading.Thread.CurrentThread.ManagedThreadId, taskId);
+                //Console.WriteLine("Thread {0} is running task {1}", System.Threading.Thread.CurrentThread.ManagedThreadId, taskId);
                 ScriptEngine<PayloadsDownloader, PayloadsDownloaderData> downloadScript = new ScriptEngine<PayloadsDownloader, PayloadsDownloaderData>();
                 var d = _data.Copy(_data.DownloadData);
                 d.SetTaskId(taskId);
@@ -82,7 +82,7 @@ namespace ATT.Scripts
                 GlobalConfig.BindingStepInfo(uploadScript);
                 uploadScript.StepProgress.ProgressChanged += (s, e) => { Console.WriteLine($"{e.Msg} sent,{e.Current} of {e.Total} finished,TaskId:{taskId}"); };
                 uploadScript.Run(d3);
-                Console.WriteLine("Thread {0} Finished task {1}", System.Threading.Thread.CurrentThread.ManagedThreadId, taskId);
+                //Console.WriteLine("Thread {0} Finished task {1}", System.Threading.Thread.CurrentThread.ManagedThreadId, taskId);
             });
             t.Start();
             return t;

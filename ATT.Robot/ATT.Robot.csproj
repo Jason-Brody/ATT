@@ -65,9 +65,9 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ScriptRunner.Interface, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ScriptRunner.Interface, Version=1.1.1.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ScriptRunner\ScriptRunner.Interface\bin\Debug\ScriptRunner.Interface.dll</HintPath>
+      <HintPath>..\..\ScriptRunner\ScriptRunner\ScriptRunner.Interface\bin\Debug\ScriptRunner.Interface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -90,14 +90,6 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AIF.Data\AIF.Data.csproj">
-      <Project>{726bb2ec-1069-4785-b783-76ef2364925c}</Project>
-      <Name>AIF.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AIF.Scripts\AIF.Scripts.csproj">
-      <Project>{a75f7a07-b6b7-41b5-a458-378dd12d206f}</Project>
-      <Name>AIF.Scripts</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ATT.Data\ATT.Data.csproj">
       <Project>{77ed0909-5de3-414d-9cf4-ae71da0a947a}</Project>
       <Name>ATT.Data</Name>

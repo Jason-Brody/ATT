@@ -90,9 +90,9 @@ namespace ATT.Scripts
             }
         }
 
-        [Step(Id =5, Name = "Update Schedule Info")]
-        public void UpdateSchedule() {
-            _data.Start = _data.Start.GetNext(_data.Interval);
-        }
+        //[Step(Id =5, Name = "Update Schedule Info")]
+        //public void UpdateSchedule() {
+        //    _data.Start = _data.Start.GetNext(_data.Interval);
+        //}
     }
 }

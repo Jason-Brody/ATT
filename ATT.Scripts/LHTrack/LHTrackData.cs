@@ -8,8 +8,12 @@ using Young.Data.Attributes;
 
 namespace ATT.Scripts
 {
-    public class LHTrackData : GUIShareData
+    public class LHTrackData : ScheduleData
     {
+        public LHTrackData() {
+            LH4 = new SAPLoginData();
+        }
+
         private const string _subFolder = "ITGTrack";
 
         private const string _filePrefix = "ITGTrack";

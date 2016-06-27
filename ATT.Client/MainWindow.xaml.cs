@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using ATT.Scripts;
+using ScriptRunner.Interface;
+using ATT.Scripts;
 
 namespace ATT.Client
 {
@@ -27,23 +29,13 @@ namespace ATT.Client
         public MainWindow() {
             InitializeComponent();
 
-            int? a = 1;
-            int? b = 1;
-            bool result = a == b;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e) {
-
-            //List<ATT.Client.Windows.ColMapping> mappings = new List<Windows.ColMapping>();
-            //ATT.Client.Windows.MapWin win = new Windows.MapWin(mappings, typeof(ATT.Scripts.MSGIDTaskData), new List<string>() { "A","B","C","D"});
-            //win.ShowDialog();
-            //fy_Settings.IsOpen = !fy_Settings.IsOpen;
+            uc_ATTUpload.SetScript(new ScriptEngine<MSGIDTask, MSGIDTaskData>(), uc_ATTUploadConfig.MsgIdTaskData,fy_ATTUploadConfig);
             
         }
 
-        private void btn_Save_Click(object sender, RoutedEventArgs e) {
-            ATT.Client.UserControls.ConfigLoader.Save();
-        }
+       
+
+       
     }
 
    

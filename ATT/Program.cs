@@ -21,6 +21,7 @@ using System.Data.Entity;
 using System.Diagnostics;
 using System.Xml.Serialization;
 using System.Threading;
+using System.Timers;
 
 namespace ATT
 {
@@ -166,40 +167,61 @@ namespace ATT
             await AsyncTest1(1);
         }
 
+        static void show(int i) {
+            Console.WriteLine(i);
+        }
+
         public static void Main() {
-            test();
-
-            
-            Console.ReadLine();
-            ThreadPool.SetMinThreads(2, 2);
-            ThreadPool.SetMaxThreads(2, 2);
-            
-            List<Task> t = new List<Task>();
-            for (int i = 0; i < 100; i++) {
-
-                Console.WriteLine("Hi #:" + i.ToString());
-
-                for(int j = 0; j < 5; j++) {
-
-                    Action a = new Action(() => { Thread.Sleep(50); Console.WriteLine(i*5+j); });
-                    Task.Factory.StartNew(a).AppendTo(t);
-
-                }
-
-                
+            DateTime dt = DateTime.Now;
+            Thread.Sleep(2000);
+            DateTime dt1 = DateTime.Now;
+            Console.WriteLine(dt1 < dt);
 
 
+            List<System.Timers.Timer> timers = new List<System.Timers.Timer>();
 
-                
-                //tempT.Start();
-                //Task.Run(()=> { Thread.Sleep(1000); Console.WriteLine(i); }).AppendTo(t);
+            for(int i = 0; i < 10; i++) {
+                System.Timers.Timer timer = new System.Timers.Timer(1000);
+                timer.Elapsed += (o, e) => { Console.WriteLine(Thread.CurrentThread.ManagedThreadId);Thread.Sleep(2000); };
+                timers.Add(timer);
             }
 
-            Task.WaitAll(t.ToArray());
 
-            Console.WriteLine("Finished");
+
+            ThreadPool.SetMinThreads(2, 2);
+            ThreadPool.SetMaxThreads(2, 2);
+
+            timers.ForEach(t => t.Start());
+
+            timers.ForEach(t => {  t.Stop(); Thread.Sleep(5000); });
 
             Console.ReadLine();
+            //List<Task> t = new List<Task>();
+            //for (int i = 0; i < 100; i++) {
+
+            //    Console.WriteLine("Hi #:" + i.ToString());
+
+            //    for(int j = 0; j < 5; j++) {
+
+            //        Action a = new Action(() => { Thread.Sleep(50); Console.WriteLine(i*5+j); });
+            //        Task.Factory.StartNew(a).AppendTo(t);
+
+            //    }
+
+                
+
+
+
+                
+            //    //tempT.Start();
+            //    //Task.Run(()=> { Thread.Sleep(1000); Console.WriteLine(i); }).AppendTo(t);
+            //}
+
+            //Task.WaitAll(t.ToArray());
+
+            //Console.WriteLine("Finished");
+
+            //Console.ReadLine();
             //TrackError();
             //  SampleFill();
            
@@ -310,6 +332,6 @@ namespace ATT
 
         }
 
-
+       
     }
 }

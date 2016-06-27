@@ -8,8 +8,12 @@ using System.Threading.Tasks;
 
 namespace ATT.Scripts
 {
-    public class PIITrackData: GUIShareData
+    public class PIITrackData: ScheduleData
     {
+        public PIITrackData() {
+            SAPAccount = new SAPLoginData();
+        }
+
         public string WorkFolder { get; } = Path.Combine(GlobalConfig.AttWorkDir, "MSGID_Report");
 
         public SAPLoginData SAPAccount { get; set; }
