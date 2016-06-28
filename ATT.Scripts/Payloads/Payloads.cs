@@ -76,12 +76,13 @@ namespace ATT.Scripts
                 updateScript.Run(d1);
                 
 
-                ScriptEngine<PayloadsUploader, PayloadsUploaderData> uploadScript = new ScriptEngine<PayloadsUploader, PayloadsUploaderData>();
-                var d3 = _data.Copy(_data.UploadData);
-                d3.SetTaskId(taskId);
-                GlobalConfig.BindingStepInfo(uploadScript);
-                uploadScript.StepProgress.ProgressChanged += (s, e) => { Console.WriteLine($"{e.Msg} sent,{e.Current} of {e.Total} finished,TaskId:{taskId}"); };
-                uploadScript.Run(d3);
+                //ScriptEngine<PayloadsUploader, PayloadsUploaderData> uploadScript = new ScriptEngine<PayloadsUploader, PayloadsUploaderData>();
+                //var d3 = _data.Copy(_data.UploadData);
+                //d3.SetTaskId(taskId);
+                //GlobalConfig.BindingStepInfo(uploadScript);
+                //uploadScript.StepProgress.ProgressChanged += (s, e) => { Console.WriteLine($"{e.Msg} sent,{e.Current} of {e.Total} finished,TaskId:{taskId}"); };
+                //uploadScript.Run(d3);
+
                 //Console.WriteLine("Thread {0} Finished task {1}", System.Threading.Thread.CurrentThread.ManagedThreadId, taskId);
             });
             t.Start();

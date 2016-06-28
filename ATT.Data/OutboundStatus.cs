@@ -6,21 +6,12 @@ namespace ATT.Data
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Tasks
+    public partial class OutboundStatus
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
-        public int? Mid { get; set; }
-
-        public bool? IsProcess { get; set; }
-
-        public int? InterfaceId { get; set; }
-
-        public bool? IsFinished { get; set; }
-
-        public DateTime? StartDt { get; set; }
-
-        public DateTime? EndDt { get; set; }
+        [StringLength(255)]
+        public string Message { get; set; }
     }
 }

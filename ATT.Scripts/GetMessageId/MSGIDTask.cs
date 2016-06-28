@@ -21,13 +21,13 @@ namespace ATT.Scripts
 
         private ATTDbContext db;
 
-        private SAPInterfaces _interface;
+        //private SAPInterfaces _interface;
 
         public override void Initial(MSGIDTaskData data, IProgress<ProgressInfo> StepReporter) {
             base.Initial(data, StepReporter);
-            using (db = new ATTDbContext()) {
-                _interface = db.Tasks.Include(s => s.SAPInterfaces).Single(t => t.Id == _data.TaskId).SAPInterfaces;
-            }
+            //using (db = new ATTDbContext()) {
+            //    _interface = db.Tasks.Include(s => s.SAPInterfaces).Single(t => t.Id == _data.TaskId).SAPInterfaces;
+            //}
         }
 
      
@@ -40,7 +40,7 @@ namespace ATT.Scripts
         [Step(Id = 2, Name = "Get Message Ids")]
         public void GetMessageId() {
 
-            _data.NewGuid(_interface.Name);
+            _data.NewGuid(_data.SAPInterface.Name);
             SAPTestHelper.Current.SAPGuiSession.StartTransaction("ZIDOCAUDREP");
             if (SAPTestHelper.Current.PopupWindow != null) {
                 SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiRadioButton>((r => r.Text.Contains("Continue With"))).Select();
@@ -49,15 +49,15 @@ namespace ATT.Scripts
 
 
             // Fill Control/Status Record Search
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-LOW").Text = _data.GetStart().ToString("MM/dd/yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-LOW").Text = _data.Start.ToString("MM/dd/yyyy");
             //DateTime toDate = _data.Start.AddHours(_data.StartTime + _data.Interval);
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-HIGH").Text = _data.GetEnd().ToString("MM/dd/yyyy");
 
 
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CRETIM-LOW").Text = _data.GetStart().ToString("HH:mm:ss");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CRETIM-LOW").Text = _data.Start.ToString("HH:mm:ss");
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CRETIM-HIGH").Text = _data.GetEnd().ToString("HH:mm:ss");
 
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_SNDPRN-LOW").Text = _interface.PartnerNumber;
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_SNDPRN-LOW").Text = _data.SAPInterface.PartnerNumber;
             SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("S_STAMID-LOW").Text = "*";
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_STATUS-LOW").Text = _data.IDocStatus;
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("P_DIRECT").Text = "2";
@@ -71,15 +71,15 @@ namespace ATT.Scripts
             SAPTestHelper.Current.MainWindow.SendKey(SAPKeys.F2);
             SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiGridView>().SelectedRows = "0";
             SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[0]").Press();
-            SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("S_MESFCT-LOW").Text = _interface.MsgFunction;
+            SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("S_MESFCT-LOW").Text = _data.SAPInterface.MsgFunction;
 
             //Fill IDoc Data Segments
             SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("%_S_BUKRS_%_APP_%-VALU_PUSH").Press();
-            SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiTableControl>().SetBatchValues(_interface.SAPCompanyCodes.Select(c => c.Name).ToList());
+            SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiTableControl>().SetBatchValues(_data.SAPInterface.SAPCompanyCodes.Select(c => c.Name).ToList());
             SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[8]").Press();
 
             SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("%_S_BLART_%_APP_%-VALU_PUSH").Press();
-            SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiTableControl>().SetBatchValues(_interface.SAPDocTypes.Select(c => c.Name).ToList());
+            SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiTableControl>().SetBatchValues(_data.SAPInterface.SAPDocTypes.Select(c => c.Name).ToList());
             SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[8]").Press();
 
             //Fill Download Option
@@ -129,7 +129,8 @@ namespace ATT.Scripts
                             msgIds.ForEach(a => {
                                 var attmsg = a.GetATTMsg();
                                 attmsg.CreateDt = DateTime.UtcNow;
-                                attmsg.TaskId = _data.TaskId;
+                                attmsg.InterfaceId = _data.SAPInterface.Id;
+                                attmsg.Mid = _data.Mid;
                                 db.MsgIDs.Add(attmsg);
                             });
                             db.SaveChanges();
@@ -148,4 +149,7 @@ namespace ATT.Scripts
         //    _data.Start = _data.Start.GetNext(_data.Interval);
         //}
     }
+
+
+   
 }

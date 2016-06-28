@@ -14,8 +14,11 @@ namespace ATT.Data
         public virtual DbSet<IDocNumbers> IDocNumbers { get; set; }
         public virtual DbSet<IDocNumbers_ITG> IDocNumbers_ITG { get; set; }
         public virtual DbSet<IDocTypes> IDocTypes { get; set; }
+        public virtual DbSet<MessageStatus> MessageStatus { get; set; }
+        public virtual DbSet<Missions> Missions { get; set; }
         public virtual DbSet<MsgIDs> MsgIDs { get; set; }
         public virtual DbSet<MsgIDs_ITG> MsgIDs_ITG { get; set; }
+        public virtual DbSet<OutboundStatus> OutboundStatus { get; set; }
         public virtual DbSet<ParameterConfigs> ParameterConfigs { get; set; }
         public virtual DbSet<ProAwsys> ProAwsys { get; set; }
         public virtual DbSet<SAPCompanyCodes> SAPCompanyCodes { get; set; }
@@ -23,10 +26,12 @@ namespace ATT.Data
         public virtual DbSet<SAPInterfaces> SAPInterfaces { get; set; }
         public virtual DbSet<SenderConfigs> SenderConfigs { get; set; }
         public virtual DbSet<Sources> Sources { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TaskDataConfigs> TaskDataConfigs { get; set; }
         public virtual DbSet<Tasks> Tasks { get; set; }
         public virtual DbSet<XNodes> XNodes { get; set; }
         public virtual DbSet<XPathConfigs> XPathConfigs { get; set; }
+        public virtual DbSet<Z_TestParameters> Z_TestParameters { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
             modelBuilder.Entity<IDocNumbers>()
@@ -53,6 +58,16 @@ namespace ATT.Data
                 .WithOptional(e => e.IDocTypes)
                 .HasForeignKey(e => e.IDocTypeId);
 
+            modelBuilder.Entity<Missions>()
+                .HasMany(e => e.MsgIDs)
+                .WithOptional(e => e.Missions)
+                .HasForeignKey(e => e.Mid);
+
+            modelBuilder.Entity<SAPInterfaces>()
+                .HasMany(e => e.MsgIDs)
+                .WithOptional(e => e.SAPInterfaces)
+                .HasForeignKey(e => e.InterfaceId);
+
             modelBuilder.Entity<SAPInterfaces>()
                 .HasMany(e => e.SAPCompanyCodes)
                 .WithOptional(e => e.SAPInterfaces)
@@ -60,11 +75,6 @@ namespace ATT.Data
 
             modelBuilder.Entity<SAPInterfaces>()
                 .HasMany(e => e.SAPDocTypes)
-                .WithOptional(e => e.SAPInterfaces)
-                .HasForeignKey(e => e.InterfaceId);
-
-            modelBuilder.Entity<SAPInterfaces>()
-                .HasMany(e => e.Tasks)
                 .WithOptional(e => e.SAPInterfaces)
                 .HasForeignKey(e => e.InterfaceId);
 
@@ -79,10 +89,10 @@ namespace ATT.Data
                 .HasForeignKey(e => e.SourceId)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Tasks>()
-                .HasMany(e => e.MsgIDs)
-                .WithOptional(e => e.Tasks)
-                .HasForeignKey(e => e.TaskId);
+            modelBuilder.Entity<Sources>()
+                .HasMany(e => e.Z_TestParameters)
+                .WithOptional(e => e.Sources)
+                .HasForeignKey(e => e.SourceId);
 
             modelBuilder.Entity<XNodes>()
                 .HasMany(e => e.ParameterConfigs)

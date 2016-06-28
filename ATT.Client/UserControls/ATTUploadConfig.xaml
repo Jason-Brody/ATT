@@ -8,7 +8,7 @@
              xmlns:myControl="clr-namespace:SharedUserControl;assembly=SharedUserControl"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="500">
-    <ScrollViewer>
+    
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -109,5 +109,5 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-    </ScrollViewer>
+    
 </UserControl>

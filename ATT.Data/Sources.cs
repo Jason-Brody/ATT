@@ -13,6 +13,7 @@ namespace ATT.Data
         {
             ProAwsys = new HashSet<ProAwsys>();
             SenderConfigs = new HashSet<SenderConfigs>();
+            Z_TestParameters = new HashSet<Z_TestParameters>();
         }
 
         public int Id { get; set; }
@@ -26,5 +27,8 @@ namespace ATT.Data
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SenderConfigs> SenderConfigs { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Z_TestParameters> Z_TestParameters { get; set; }
     }
 }

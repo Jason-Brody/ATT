@@ -30,6 +30,8 @@ namespace ATT.Client.UserControls
         private Timer _timer;
         private ScheduleData _data;
         private Flyout _fy;
+        private Timer _countTimer;
+        private DateTime _start;
 
         public string Title {
             get { return (string)GetValue(TitleProperty); }
@@ -45,6 +47,15 @@ namespace ATT.Client.UserControls
             InitializeComponent();
             _timer = new Timer();
             _timer.Elapsed += _timer_Elapsed;
+            _countTimer = new Timer(1000);
+            _countTimer.Elapsed += _countTimer_Elapsed;
+        }
+
+        private void _countTimer_Elapsed(object sender, ElapsedEventArgs e) {
+            tbl_Time.Dispatcher.Invoke(() => {
+                tbl_Time.Text = _start.AddHours(_data.Interval).Subtract(DateTime.Now).ToString(@"hh\:mm\:ss");
+               
+            });
         }
 
         public void SetScript(IScriptEngine<ProgressInfo> Script, ScheduleData Data,Flyout fy) {
@@ -57,28 +68,41 @@ namespace ATT.Client.UserControls
 
         private void _timer_Elapsed(object sender, ElapsedEventArgs e) {
 
-            if(_data.ExpireDate.Current < _data.Start.Current) {
+            if(_data.ExpireDate < _data.Start) {
                 stop();
                 return;
             }
 
-            //script.Run(_data);
 
+
+            runTask();
             
         }
 
-        private void btn_Run_Click(object sender, RoutedEventArgs e) {
-            _timer.Interval = 2000;
+        private async void btn_Run_Click(object sender, RoutedEventArgs e) {
+            _timer.Interval = _data.Interval*3600*1000;
             _timer.Start();
+            _countTimer.Start();
+            
+            btn_Stop.IsEnabled = true;
+            await Task.Run(()=>runTask());
         }
 
         private void btn_Stop_Click(object sender, RoutedEventArgs e) {
             stop();
         }
 
+        private void runTask() {
+            _start = DateTime.Now;
+            script.Run(_data);
+            _data.GetNext();
+
+        }
+
 
         private void stop() {
             _timer.Stop();
+            _countTimer.Stop();
             btn_Stop.Dispatcher.Invoke(() => btn_Stop.IsEnabled = false);
         }
 

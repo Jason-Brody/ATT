@@ -18,6 +18,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid IsEnabled="{Binding ElementName=btn_Run,Path=IsEnabled}">
                 <Grid.RowDefinitions>
@@ -33,12 +34,13 @@
                 <TextBlock>Start Time:</TextBlock>
                 <Controls:DateTimePicker Grid.Column="1"  IsClockVisible="True" Orientation="Horizontal"  PickerVisibility="Hour"
                                                   
-                                                 SelectedDate="{Binding Start,Converter={StaticResource ATTDateConverter},Mode=TwoWay}"/>
+                                                 SelectedDate="{Binding Start,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
 
 
                 <TextBlock Grid.Row="1">End Time:</TextBlock>
                 <Controls:DateTimePicker Grid.Column="1"  Grid.Row="1" IsClockVisible="True" Orientation="Horizontal"  PickerVisibility="Hour"
-                                                 SelectedDate="{Binding ExpireDate,Converter={StaticResource ATTDateConverter},Mode=TwoWay}"/>
+                                             
+                                                 SelectedDate="{Binding ExpireDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
 
                 <TextBlock Grid.Row="2">Interval:</TextBlock>
                 <Controls:NumericUpDown  Grid.Row="2" Grid.Column="1"  Minimum="1" Maximum="23"
@@ -59,6 +61,10 @@
                         Style="{DynamicResource MetroCircleButtonStyle}">
                     <Controls:PackIconModern Kind="Settings" />
                 </Button>
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+                <TextBlock Text="Next round will start in" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"/>
+                <TextBlock x:Name="tbl_Time" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Foreground="Red"/>
             </StackPanel>
         </Grid>
         

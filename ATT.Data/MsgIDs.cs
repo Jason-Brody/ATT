@@ -40,10 +40,16 @@ namespace ATT.Data
 
         public bool? IsNeedTransform { get; set; }
 
+        public int? Mid { get; set; }
+
+        public int? InterfaceId { get; set; }
+
         public virtual IDocTypes IDocTypes { get; set; }
+
+        public virtual Missions Missions { get; set; }
 
         public virtual ProAwsys ProAwsys { get; set; }
 
-        public virtual Tasks Tasks { get; set; }
+        public virtual SAPInterfaces SAPInterfaces { get; set; }
     }
 }

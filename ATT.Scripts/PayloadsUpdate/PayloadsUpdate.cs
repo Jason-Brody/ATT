@@ -154,7 +154,7 @@ namespace ATT.Scripts
 
         }
 
-        private void transformFile(IEnumerable<Data.VW_EDITransFormConfig> Configs, MsgIDs k) {
+        private void transformFile(IEnumerable<VW_EDITransFormConfig> Configs, MsgIDs k) {
 
             var sourceFile = Path.Combine(_data.SourceFolder, $"{k.MsgId}.xml");
             var targetFile = Path.Combine(_data.TargetFolder, $"{k.MsgId}.xml");

@@ -36,7 +36,10 @@ namespace SharedLib
         }
 
         public static string GetAttFile(string subFolder,string Prefix,string extension) {
-            return Path.Combine(AttWorkDir, $"{Prefix}.{extension}");
+
+            CreateDirectory(Path.Combine(AttWorkDir, subFolder));
+
+            return Path.Combine(AttWorkDir,subFolder, $"{Prefix}.{extension}");
         }
 
         public static int DownloadPatchSize { get; } = 50;

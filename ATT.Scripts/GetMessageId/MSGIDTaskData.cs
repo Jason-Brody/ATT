@@ -1,4 +1,4 @@
-﻿using ATT.Data.Entity;
+﻿using ATT.Data;
 using SharedLib;
 using System;
 using System.Collections.Generic;
@@ -48,9 +48,13 @@ namespace ATT.Scripts
         [XmlIgnore]
         public int TaskId { get; set; }
 
+        [XmlIgnore]
+        public int Mid { get; set; }
+
         public string IDocStatus { get; } = "53";
 
-
+        [XmlIgnore]
+        public SAPInterfaces SAPInterface { get; set; }
     }
 
     #region Backup

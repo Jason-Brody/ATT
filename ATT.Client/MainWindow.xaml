@@ -42,7 +42,7 @@
 
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands ShowLastSeparator="False">
-            <Button Content="Settings" Click="Button_Click"/>
+            <Button Content="Settings"/>
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
     <Grid>

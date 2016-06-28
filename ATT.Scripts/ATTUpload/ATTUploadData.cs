@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace ATT.Scripts
 {
-    public class ATTUploadData:ScheduleData
+    public class ATTUploadData : ScheduleData
     {
         public PayloadsDownloaderData DownloadData { get; set; }
 

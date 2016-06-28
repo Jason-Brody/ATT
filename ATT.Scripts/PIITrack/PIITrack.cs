@@ -33,7 +33,7 @@ namespace ATT.Scripts
             SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[8]").Press();
 
             SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("SP$00001-LOW").Text = _data.SAPAccount.UserName;
-            SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("SP$00002-LOW").Text = _data.GetStart().ToString("yyyyMMddHH0000");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("SP$00002-LOW").Text = _data.Start.ToString("yyyyMMddHH0000");
             SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("SP$00002-HIGH").Text = _data.GetEnd().ToString("yyyyMMddHH0000");
 
             SAPTestHelper.Current.MainWindow.FindByName<GuiRadioButton>("%DOWN").Select();

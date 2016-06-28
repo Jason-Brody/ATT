@@ -63,8 +63,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ATTLog.cs" />
+    <Compile Include="ATTUploadData.cs" />
     <Compile Include="ATTUpload\ATTUpload.cs" />
     <Compile Include="ATTUpload\ATTUploadData.cs" />
+    <Compile Include="ATTUpload.cs" />
     <Compile Include="LogType.cs" />
     <Compile Include="GetMessageId\ATTMsgId.cs" />
     <Compile Include="ScheduleData.cs" />
