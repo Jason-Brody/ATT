@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
  xmlns:uc="clr-namespace:ATT.Client.UserControls"
-                      xmlns:ucg="clr-namespace:ATT.Client.UserControls.GenericConfig"
+                      
         xmlns:local="clr-namespace:ATT.Client.UserControls"
                       
         mc:Ignorable="d" 

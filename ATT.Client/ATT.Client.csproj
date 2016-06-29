@@ -122,50 +122,15 @@
     <Compile Include="UserControls\ATTUploadConfig.xaml.cs">
       <DependentUpon>ATTUploadConfig.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\DataInput\ExcelDataInput.xaml.cs">
-      <DependentUpon>ExcelDataInput.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\LHTrackConfig.xaml.cs">
       <DependentUpon>LHTrackConfig.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\PIITrackConfig.xaml.cs">
       <DependentUpon>PIITrackConfig.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\GenericConfig\ConfigBase.xaml.cs">
-      <DependentUpon>ConfigBase.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\GenericConfig\SAPTestInterfaces.xaml.cs">
-      <DependentUpon>SAPTestInterfaces.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ScriptConfig\ATTBaseUI.xaml.cs">
-      <DependentUpon>ATTBaseUI.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ScriptConfig\Class1.cs" />
-    <Compile Include="UserControls\ScriptConfig\GetMsgId.xaml.cs">
-      <DependentUpon>GetMsgId.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ScriptConfig\LHTrack.xaml.cs">
-      <DependentUpon>LHTrack.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ScriptConfig\PayloadsDownload.xaml.cs">
-      <DependentUpon>PayloadsDownload.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ScriptConfig\PayloadsUpload.xaml.cs">
-      <DependentUpon>PayloadsUpload.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ScriptConfig\PIITrack.xaml.cs">
-      <DependentUpon>PIITrack.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ScriptConfig\UC_AIFMassUploadSettings.xaml.cs">
-      <DependentUpon>UC_AIFMassUploadSettings.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\ScriptTask.xaml.cs">
       <DependentUpon>ScriptTask.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UC_AIF.xaml.cs">
-      <DependentUpon>UC_AIF.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\AIFInterfaceVM.cs" />
     <Compile Include="ViewModels\InterfaceVM.cs" />
     <Compile Include="ViewModels\MissionVM.cs" />
     <Compile Include="Windows\MapWin.xaml.cs">
@@ -187,10 +152,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\DataInput\ExcelDataInput.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\LHTrackConfig.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -199,47 +160,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\GenericConfig\ConfigBase.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\GenericConfig\SAPTestInterfaces.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\ScriptConfig\ATTBaseUI.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\ScriptConfig\GetMsgId.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\ScriptConfig\LHTrack.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\ScriptConfig\PayloadsDownload.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\ScriptConfig\PayloadsUpload.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\ScriptConfig\PIITrack.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\ScriptConfig\UC_AIFMassUploadSettings.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\ScriptTask.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\UC_AIF.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -260,14 +181,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AIF.Data\AIF.Data.csproj">
-      <Project>{726bb2ec-1069-4785-b783-76ef2364925c}</Project>
-      <Name>AIF.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AIF.Scripts\AIF.Scripts.csproj">
-      <Project>{a75f7a07-b6b7-41b5-a458-378dd12d206f}</Project>
-      <Name>AIF.Scripts</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ATT.Data\ATT.Data.csproj">
       <Project>{77ed0909-5de3-414d-9cf4-ae71da0a947a}</Project>
       <Name>ATT.Data</Name>
@@ -296,11 +209,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="AIFConfig.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <PublishFile Include="AIFConfig.xml">

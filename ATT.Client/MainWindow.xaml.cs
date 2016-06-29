@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using ATT.Scripts;
 using ScriptRunner.Interface;
-using ATT.Scripts;
 using ATT.Data;
 using System.Data.SqlClient;
 
