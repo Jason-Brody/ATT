@@ -17,38 +17,39 @@ namespace ATT.Scripts
     [Script("PII Track")]
     public class PIITrack : ScriptBase<PIITrackData>
     {
+        private SAPLogon sap;
         private string _file;
 
         [Step(Id =1,Name ="Login to SAP PII")]
         public void Login() {
-            UIHelper.Login(_data.SAPAccount);
+            sap = UIExtension.Login(_data.SAPAccount);
             Guid guid = Guid.NewGuid();
             _file = Path.Combine(_data.WorkFolder,$"{guid.ToString()}.txt");
         }
 
         [Step(Id =2,Name ="Down load Report")]
         public void DownloadFile() {
-            SAPTestHelper.Current.SAPGuiSession.StartTransaction("SA38");
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("RS38M-PROGRAMM").Text = "AQ20SYSTQV000002ZIF_ATT_REPORT";
-            SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[8]").Press();
-
-            SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("SP$00001-LOW").Text = _data.SAPAccount.UserName;
-            SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("SP$00002-LOW").Text = _data.Start.ToString("yyyyMMddHH0000");
-            SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("SP$00002-HIGH").Text = _data.GetEnd().ToString("yyyyMMddHH0000");
-
-            SAPTestHelper.Current.MainWindow.FindByName<GuiRadioButton>("%DOWN").Select();
-            SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("%PATH").Text = _file;
+            sap.Session.StartTransaction("SA38");
+            sap.MainWindow.FindByName<GuiCTextField>("RS38M-PROGRAMM").Text = "AQ20SYSTQV000002ZIF_ATT_REPORT";
+            sap.MainWindow.FindByName<GuiButton>("btn[8]").Press();
+            
+            sap.MainWindow.FindByName<GuiTextField>("SP$00001-LOW").Text = _data.SAPAccount.UserName;
+            sap.MainWindow.FindByName<GuiTextField>("SP$00002-LOW").Text = _data.Start.ToString("yyyyMMddHH0000");
+            sap.MainWindow.FindByName<GuiTextField>("SP$00002-HIGH").Text = _data.GetEnd().ToString("yyyyMMddHH0000");
+            
+            sap.MainWindow.FindByName<GuiRadioButton>("%DOWN").Select();
+            sap.MainWindow.FindByName<GuiTextField>("%PATH").Text = _file;
             if (File.Exists(_file)) {
                 File.Delete(_file);
             }
-            SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[8]").Press();
+            sap.MainWindow.FindByName<GuiButton>("btn[8]").Press();
 
-            if(SAPTestHelper.Current.SAPGuiSession.Info.ScreenNumber != 1000) {
-                SAPTestHelper.Current.PopupWindow.FindByName<GuiCheckBox>("RSAQDOWN-COLUMN").Selected = true;
-                SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[0]").Press();
+            if(sap.Session.Info.ScreenNumber != 1000) {
+                sap.PopupWindow.FindByName<GuiCheckBox>("RSAQDOWN-COLUMN").Selected = true;
+                sap.PopupWindow.FindByName<GuiButton>("btn[0]").Press();
             }
 
-            SAPTestHelper.Current.CloseSession();
+            sap.CloseSession();
         }
 
         [Step(Id =3,Name ="Read the report")]

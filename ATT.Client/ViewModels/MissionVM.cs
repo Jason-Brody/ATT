@@ -20,7 +20,7 @@ namespace ATT.Client.ViewModels
             set {
                 if(isComplete != value) {
                     isComplete = value;
-                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(IsComplete)));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsComplete)));
                 }
             }
         }
@@ -33,7 +33,7 @@ namespace ATT.Client.ViewModels
             set {
                 if(timeUsed != value) {
                     timeUsed = value;
-                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(TimeUsed)));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TimeUsed)));
                 }
             }
         }

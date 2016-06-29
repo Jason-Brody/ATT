@@ -14,5 +14,9 @@ namespace ATT.Client
         public static string PayloadsDownloaderDataFile { get; } = "PayloadsDownloaderData.xml";
 
         public static string PayloadsUploaderDataFile { get; } = "PayloadsUploaderData.xml";
+
+        public static string PIITrackDataFile { get; } = "PIITrackData.xml";
+
+        public static string LHTrackDataFile { get; } = "LHTrackData.xml";
     }
 }

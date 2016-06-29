@@ -18,7 +18,7 @@ namespace ATT.Scripts
     [Script("Get EDI Keys")]
     public class MSGIDTask : ScriptBase<MSGIDTaskData>
     {
-
+        private SAPLogon sap;
         private ATTDbContext db;
 
         //private SAPInterfaces _interface;
@@ -34,71 +34,72 @@ namespace ATT.Scripts
 
         [Step(Id = 0, Name = "Login to LH1")]
         public void Login() {
-            UIHelper.Login(_data.LH1);
+            sap = UIExtension.Login(_data.LH1);
+            
         }
         
         [Step(Id =1,Name ="Check User Config")]
         public void UserConfigCheck() {
-            UIHelper.CheckUserConfig();
+            sap.CheckUserConfig();
         }
 
         [Step(Id = 2, Name = "Get Message Ids")]
         public void GetMessageId() {
 
             _data.NewGuid(_data.SAPInterface.Name);
-            SAPTestHelper.Current.SAPGuiSession.StartTransaction("ZIDOCAUDREP");
-            if (SAPTestHelper.Current.PopupWindow != null) {
-                SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiRadioButton>((r => r.Text.Contains("Continue With"))).Select();
-                SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiButton>(r => r.Text.Contains("Confirm Selection")).Press();
+            sap.Session.StartTransaction("ZIDOCAUDREP");
+            if (sap.PopupWindow != null) {
+                sap.PopupWindow.FindDescendantByProperty<GuiRadioButton>((r => r.Text.Contains("Continue With"))).Select();
+                sap.PopupWindow.FindDescendantByProperty<GuiButton>(r => r.Text.Contains("Confirm Selection")).Press();
             }
 
 
             // Fill Control/Status Record Search
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-LOW").Text = _data.Start.ToString("dd.MM.yyyy");
+            sap.MainWindow.FindByName<GuiCTextField>("S_CREDAT-LOW").Text = _data.Start.ToString("dd.MM.yyyy");
             //DateTime toDate = _data.Start.AddHours(_data.StartTime + _data.Interval);
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-HIGH").Text = _data.GetEnd().ToString("dd.MM.yyyy");
+            sap.MainWindow.FindByName<GuiCTextField>("S_CREDAT-HIGH").Text = _data.GetEnd().ToString("dd.MM.yyyy");
 
 
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CRETIM-LOW").Text = _data.Start.ToString("HH:mm:ss");
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CRETIM-HIGH").Text = _data.End;
+            sap.MainWindow.FindByName<GuiCTextField>("S_CRETIM-LOW").Text = _data.Start.ToString("HH:mm:ss");
+            sap.MainWindow.FindByName<GuiCTextField>("S_CRETIM-HIGH").Text = _data.End;
 
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_SNDPRN-LOW").Text = _data.SAPInterface.PartnerNumber;
-            SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("S_STAMID-LOW").Text = "*";
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_STATUS-LOW").Text = _data.IDocStatus;
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("P_DIRECT").Text = "2";
+            sap.MainWindow.FindByName<GuiCTextField>("S_SNDPRN-LOW").Text = _data.SAPInterface.PartnerNumber;
+            sap.MainWindow.FindByName<GuiTextField>("S_STAMID-LOW").Text = "*";
+            sap.MainWindow.FindByName<GuiCTextField>("S_STATUS-LOW").Text = _data.IDocStatus;
+            sap.MainWindow.FindByName<GuiCTextField>("P_DIRECT").Text = "2";
 
 
             // Fill Message Type
-            SAPTestHelper.Current.MainWindow.FindByName<GuiRadioButton>("R_ACCDOC").Select();
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_MESTYP-LOW").Text = "ACC_DOCUMENT";
-
-            SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("S_MESFCT-LOW").SetFocus();
-            SAPTestHelper.Current.MainWindow.SendKey(SAPKeys.F2);
-            SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiGridView>().SelectedRows = "0";
-            SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[0]").Press();
-            SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("S_MESFCT-LOW").Text = _data.SAPInterface.MsgFunction;
+            sap.MainWindow.FindByName<GuiRadioButton>("R_ACCDOC").Select();
+            sap.MainWindow.FindByName<GuiCTextField>("S_MESTYP-LOW").Text = "ACC_DOCUMENT";
+            
+            sap.MainWindow.FindByName<GuiTextField>("S_MESFCT-LOW").SetFocus();
+            sap.MainWindow.SendKey(SAPKeys.F2);
+            sap.PopupWindow.FindDescendantByProperty<GuiGridView>().SelectedRows = "0";
+            sap.PopupWindow.FindByName<GuiButton>("btn[0]").Press();
+            sap.MainWindow.FindByName<GuiTextField>("S_MESFCT-LOW").Text = _data.SAPInterface.MsgFunction;
 
             //Fill IDoc Data Segments
-            SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("%_S_BUKRS_%_APP_%-VALU_PUSH").Press();
-            SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiTableControl>().SetBatchValues(_data.SAPInterface.SAPCompanyCodes.Select(c => c.Name).ToList());
-            SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[8]").Press();
+            sap.MainWindow.FindByName<GuiButton>("%_S_BUKRS_%_APP_%-VALU_PUSH").Press();
+            sap.PopupWindow.FindDescendantByProperty<GuiTableControl>().SetBatchValues(_data.SAPInterface.SAPCompanyCodes.Select(c => c.Name).ToList());
+            sap.PopupWindow.FindByName<GuiButton>("btn[8]").Press();
 
-            SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("%_S_BLART_%_APP_%-VALU_PUSH").Press();
-            SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiTableControl>().SetBatchValues(_data.SAPInterface.SAPDocTypes.Select(c => c.Name).ToList());
-            SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[8]").Press();
+            sap.MainWindow.FindByName<GuiButton>("%_S_BLART_%_APP_%-VALU_PUSH").Press();
+            sap.PopupWindow.FindDescendantByProperty<GuiTableControl>().SetBatchValues(_data.SAPInterface.SAPDocTypes.Select(c => c.Name).ToList());
+            sap.PopupWindow.FindByName<GuiButton>("btn[8]").Press();
 
             //Fill Download Option
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCheckBox>("P_DOWNLD").Selected = true;
+            sap.MainWindow.FindByName<GuiCheckBox>("P_DOWNLD").Selected = true;
 
-            SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("P_CPATH").Text = _data.IDocReportFile;
+            sap.MainWindow.FindByName<GuiTextField>("P_CPATH").Text = _data.IDocReportFile;
 
             //Report Output Options
-            SAPTestHelper.Current.MainWindow.FindByName<GuiRadioButton>("P_DOC").Select();
+            sap.MainWindow.FindByName<GuiRadioButton>("P_DOC").Select();
 
-            SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[8]").Press();
+            sap.MainWindow.FindByName<GuiButton>("btn[8]").Press();
 
-            if (SAPTestHelper.Current.PopupWindow != null)
-                SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[0]").Press();
+            if (sap.PopupWindow != null)
+                sap.PopupWindow.FindByName<GuiButton>("btn[0]").Press();
 
 
             if (File.Exists(_data.IDocReportFile)) {
@@ -111,20 +112,20 @@ namespace ATT.Scripts
                     File.Delete(_data.IDocReportFile);
                 }
 
-                SAPTestHelper.Current.SAPGuiSession.StartTransaction("SE16");
-                SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("DATABROWSE-TABLENAME").Text = "EDIDC";
-                SAPTestHelper.Current.MainWindow.SendKey(SAPKeys.Enter);
-                SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("%_I1_%_APP_%-VALU_PUSH").Press();
-                SAPTestHelper.Current.PopupWindow.FindDescendantByProperty<GuiTableControl>().SetBatchValues(docs.Select(d => d.IDocNumber).ToList());
+                sap.Session.StartTransaction("SE16");
+                sap.MainWindow.FindByName<GuiCTextField>("DATABROWSE-TABLENAME").Text = "EDIDC";
+                sap.MainWindow.SendKey(SAPKeys.Enter);
+                sap.MainWindow.FindByName<GuiButton>("%_I1_%_APP_%-VALU_PUSH").Press();
+                sap.PopupWindow.FindDescendantByProperty<GuiTableControl>().SetBatchValues(docs.Select(d => d.IDocNumber).ToList());
+                
+                sap.PopupWindow.FindByName<GuiButton>("btn[8]").Press();
 
-                SAPTestHelper.Current.PopupWindow.FindByName<GuiButton>("btn[8]").Press();
 
-
-                SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("MAX_SEL").Text = "";
-                SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[8]").Press();
+                sap.MainWindow.FindByName<GuiTextField>("MAX_SEL").Text = "";
+                sap.MainWindow.FindByName<GuiButton>("btn[8]").Press();
 
                 string cols = "EDI Archive Key,IDoc number";
-                UIHelper.Export("wnd[0]/mbar/menu[0]/menu[10]/menu[3]/menu[2]", cols, _data.EDIKeyFile);
+                sap.Export("wnd[0]/mbar/menu[0]/menu[10]/menu[3]/menu[2]", cols, _data.EDIKeyFile);
 
 
                 if (File.Exists(_data.EDIKeyFile)) {
@@ -146,7 +147,7 @@ namespace ATT.Scripts
 
             }
 
-            SAPTestHelper.Current.CloseSession();
+            sap.CloseSession();
         }
 
        

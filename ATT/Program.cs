@@ -178,12 +178,34 @@ namespace ATT
         }
 
         public static void Main() {
+            SAPTestHelper.Current.SetSession();
 
-            Task[] tasks = new Task[2];
-            tasks[0] = Task.Run(() => loginLH7());
-            //tasks[1] = Task.Run(() => Task.Delay(500).Wait());
-            tasks[1] = Task.Run(() => loginLH7());
-            Task.WaitAll(tasks);
+
+            //Action act = new Action(() => {
+            //    ATT.Data.SAPInterfaces i = null;
+            //    using(var db = new ATTDbContext()) {
+            //        i = db.SAPInterfaces.Include(s=>s.SAPCompanyCodes).Include(s=>s.SAPDocTypes).First();
+            //    }
+               
+
+            //    ScriptEngine<MSGIDTask, MSGIDTaskData> script = new ScriptEngine<MSGIDTask, MSGIDTaskData>();
+            //    MSGIDTaskData d = new MSGIDTaskData() { Start = DateTime.Now.AddDays(-1), Interval = 1 };
+            //    d.LH1 = new SAPLoginData() {
+            //        UserName = "20242630",
+            //        Password = "2wsx#edc",
+            //        Address = "saplh1-ent.sapnet.hpecorp.net",
+            //        Client = "100"
+            //    };
+            //    d.SAPInterface = i;
+            //    script.Run(d);
+            //});
+
+            //Task[] tasks = new Task[2];
+            //tasks[0] = Task.Run(act);
+            //tasks[1] = Task.Run(act);
+            
+            ////tasks[1] = Task.Run(()=>Task.Delay(50).Wait());
+            //Task.WaitAll(tasks);
 
             //DateTime dt = DateTime.Now;
             //Thread.Sleep(2000);

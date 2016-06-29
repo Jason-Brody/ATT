@@ -39,8 +39,11 @@ namespace ATT.Client
             d1.UpdateData = new PayloadsUpdateData();
             uc_ATTUpload.SetScript(attuploadScript,d1,fy_ATTUploadConfig);
 
+            PIITrackData d2 = uc_PIITrackConfig.PII;
+            uc_PIITrack.SetScript(piitrackScript, d2, fy_PIITrackConfig);
 
-         
+            LHTrackData d3 = uc_LHTrackConfig.LH;
+            uc_LHTrack.SetScript(lhtrackScript, d3, fy_LHTrackConfig);
 
         }
 

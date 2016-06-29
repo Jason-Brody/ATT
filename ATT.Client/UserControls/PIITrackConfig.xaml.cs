@@ -12,16 +12,28 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ATT.Scripts;
+using SharedLib;
+using FluencyCSharp;
 
 namespace ATT.Client.UserControls
 {
     /// <summary>
-    /// Interaction logic for Schedule.xaml
+    /// Interaction logic for DataTrackConfig.xaml
     /// </summary>
-    public partial class Schedule : UserControl
+    public partial class PIITrackConfig : UserControl
     {
-        public Schedule() {
+        public PIITrackData PII { get; set; }
+
+        public PIITrackConfig() {
             InitializeComponent();
+            PII = Utils.GetObjFromXml<PIITrackData>(GlobalConfig.PIITrackDataFile);
+            this.DataContext = PII;
+
+        }
+
+        private void btn_Save_Click(object sender, RoutedEventArgs e) {
+            PII.SaveToXml(GlobalConfig.PIITrackDataFile);
         }
     }
 }

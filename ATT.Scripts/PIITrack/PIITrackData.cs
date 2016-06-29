@@ -17,6 +17,16 @@ namespace ATT.Scripts
         public string WorkFolder { get; } = Path.Combine(GlobalConfig.AttWorkDir, "MSGID_Report");
 
         public SAPLoginData SAPAccount { get; set; }
-       
+
+
+        public override ScheduleData Copy() {
+            PIITrackData d = new PIITrackData();
+            d.Start = this.Start;
+            d.ExpireDate = this.ExpireDate;
+            d.Interval = this.Interval;
+            d.SAPAccount = this.SAPAccount;
+            return d;
+        }
+
     }
 }

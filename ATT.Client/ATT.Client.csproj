@@ -125,6 +125,12 @@
     <Compile Include="UserControls\DataInput\ExcelDataInput.xaml.cs">
       <DependentUpon>ExcelDataInput.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\LHTrackConfig.xaml.cs">
+      <DependentUpon>LHTrackConfig.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PIITrackConfig.xaml.cs">
+      <DependentUpon>PIITrackConfig.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\GenericConfig\ConfigBase.xaml.cs">
       <DependentUpon>ConfigBase.xaml</DependentUpon>
     </Compile>
@@ -149,9 +155,6 @@
     </Compile>
     <Compile Include="UserControls\ScriptConfig\PIITrack.xaml.cs">
       <DependentUpon>PIITrack.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\Schedule.xaml.cs">
-      <DependentUpon>Schedule.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ScriptConfig\UC_AIFMassUploadSettings.xaml.cs">
       <DependentUpon>UC_AIFMassUploadSettings.xaml</DependentUpon>
@@ -188,6 +191,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\LHTrackConfig.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\PIITrackConfig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\GenericConfig\ConfigBase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -217,10 +228,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ScriptConfig\PIITrack.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\Schedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -34,10 +34,17 @@
 
     <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl>
-            <controls:Flyout x:Name="fy_ATTUploadConfig" Header="Data Configuration" Position="Right" Width="600">
+            <controls:Flyout x:Name="fy_ATTUploadConfig" Header="Data Configuration" Position="Right" Width="600" IsOpen="False">
                 <uc:ATTUploadConfig x:Name="uc_ATTUploadConfig"/>
             </controls:Flyout>
+            <controls:Flyout x:Name="fy_PIITrackConfig" Header="PII Track Configuration" Position="Right" Width="600" IsOpen="False">
+                <uc:PIITrackConfig x:Name="uc_PIITrackConfig"/>
+            </controls:Flyout>
+            <controls:Flyout x:Name="fy_LHTrackConfig" Header="LH Track Configuration" Position="Right" Width="600" IsOpen="False">
+                <uc:LHTrackConfig x:Name="uc_LHTrackConfig"/>
+            </controls:Flyout>
         </controls:FlyoutsControl>
+       
     </controls:MetroWindow.Flyouts>
 
     <controls:MetroWindow.RightWindowCommands>

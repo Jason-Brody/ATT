@@ -38,6 +38,15 @@ namespace ATT.Scripts
 
         public string IDocStatus { get; set; } = "*";
 
+        public override ScheduleData Copy() {
+            LHTrackData d = new LHTrackData();
+            d.Start = this.Start;
+            d.ExpireDate = this.ExpireDate;
+            d.Interval = this.Interval;
+            d.LH4 = this.LH4;
+            return d;
+        }
+
     }
 
 

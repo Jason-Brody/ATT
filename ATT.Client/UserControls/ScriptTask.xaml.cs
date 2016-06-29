@@ -59,19 +59,31 @@ namespace ATT.Client.UserControls
         }
 
         private void _countTimer_Elapsed(object sender, ElapsedEventArgs e) {
-            tbl_Time.Dispatcher.Invoke(() => {
-                tbl_Time.Text = _start.AddMilliseconds(int.Parse(_timer.Interval.ToString())).Subtract(DateTime.Now).ToString(@"hh\:mm\:ss");
-                //tbl_Time.Text = _start.AddHours(_data.Interval).Subtract(DateTime.Now).ToString(@"hh\:mm\:ss");
-            });
 
+            
 
-            //dg_Status.Dispatcher.BeginInvoke(new Action(() => {
-                foreach (var item in _missions) {
-                    if (!item.IsComplete) {
-                        item.TimeUsed = DateTime.Now.Subtract(item.Start).ToString(@"hh\:mm\:ss");
-                    }
+            foreach (var item in _missions) {
+                if (!item.IsComplete) {
+                    item.TimeUsed = DateTime.Now.Subtract(item.Start).ToString(@"hh\:mm\:ss");
                 }
-            //}));
+            }
+
+            if (_timer.Enabled) {
+                tbl_Time.Dispatcher.Invoke(() => {
+                    DateTime dt = _start.AddMilliseconds(int.Parse(_timer.Interval.ToString()));
+                    tbl_Time.Text = dt.Subtract(DateTime.Now).ToString(@"hh\:mm\:ss");
+
+                });
+            }
+
+            
+
+            
+
+
+            
+                
+            
         }
 
         public void SetScript(IScriptEngine<ProgressInfo> Script, ScheduleData Data,Flyout fy) {
@@ -92,13 +104,20 @@ namespace ATT.Client.UserControls
         }
 
         private async void btn_Run_Click(object sender, RoutedEventArgs e) {
-            //_timer.Interval = _data.Interval*3600*1000;
-            _timer.Interval = 30 * 1000;
+            _timer.Interval = _data.Interval*3600*1000;
+            //_timer.Interval = 30 * 1000;
             _timer.Start();
             _countTimer.Start();
             
             btn_Stop.IsEnabled = true;
-            await Task.Run(()=> runTask());
+
+            if (Cb_IsRun.IsChecked == true) {
+                await Task.Run(() => runTask());
+            } else {
+                _start = DateTime.Now;
+            }
+
+            
         }
 
         private void btn_Stop_Click(object sender, RoutedEventArgs e) {
@@ -138,7 +157,6 @@ namespace ATT.Client.UserControls
 
         private void stop() {
             _timer.Stop();
-            _countTimer.Stop();
             btn_Stop.Dispatcher.Invoke(() => btn_Stop.IsEnabled = false);
         }
 
