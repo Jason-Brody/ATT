@@ -46,7 +46,7 @@ namespace ATT.Robot
 
         static void UpdatePayloads(int TaskId) {
             PayloadsUpdateData d = GetConfigData<PayloadsUpdateData>();
-            d.SetTaskId(TaskId);
+            d.TaskId = TaskId;
             ScriptEngine<PayloadsUpdate, PayloadsUpdateData> script = new ScriptEngine<PayloadsUpdate, PayloadsUpdateData>();
             BindingStepInfo(script);
             script.Run(d);
@@ -56,7 +56,7 @@ namespace ATT.Robot
             PayloadsUploaderData d = GetConfigData<PayloadsUploaderData>();
             ScriptEngine<PayloadsUploader, PayloadsUploaderData> script = new ScriptEngine<PayloadsUploader, PayloadsUploaderData>();
             BindingStepInfo(script);
-            d.SetTaskId(TaskId);
+            d.TaskId = TaskId;
             script.StepProgress.ProgressChanged += (s, e) => { Console.WriteLine($"{e.Msg} sent,{e.Current} of {e.Total} finished,TaskId:{TaskId}"); };
             script.Run(d);
         }
@@ -80,7 +80,7 @@ namespace ATT.Robot
         static void DownloadPayloads(int id) {
             PayloadsDownloaderData d = GetConfigData<PayloadsDownloaderData>();
             ScriptEngine<PayloadsDownloader, PayloadsDownloaderData> script = new ScriptEngine<PayloadsDownloader, PayloadsDownloaderData>();
-            d.SetTaskId(id);
+            d.TaskId = id;
             BindingStepInfo(script);
             script.Run(d);
         }

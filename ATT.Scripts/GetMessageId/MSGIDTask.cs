@@ -32,9 +32,14 @@ namespace ATT.Scripts
 
      
 
-        [Step(Id = 1, Name = "Login to LH1")]
+        [Step(Id = 0, Name = "Login to LH1")]
         public void Login() {
             UIHelper.Login(_data.LH1);
+        }
+        
+        [Step(Id =1,Name ="Check User Config")]
+        public void UserConfigCheck() {
+            UIHelper.CheckUserConfig();
         }
 
         [Step(Id = 2, Name = "Get Message Ids")]
@@ -49,13 +54,13 @@ namespace ATT.Scripts
 
 
             // Fill Control/Status Record Search
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-LOW").Text = _data.Start.ToString("MM/dd/yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-LOW").Text = _data.Start.ToString("dd.MM.yyyy");
             //DateTime toDate = _data.Start.AddHours(_data.StartTime + _data.Interval);
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-HIGH").Text = _data.GetEnd().ToString("MM/dd/yyyy");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CREDAT-HIGH").Text = _data.GetEnd().ToString("dd.MM.yyyy");
 
 
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CRETIM-LOW").Text = _data.Start.ToString("HH:mm:ss");
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CRETIM-HIGH").Text = _data.GetEnd().ToString("HH:mm:ss");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_CRETIM-HIGH").Text = _data.End;
 
             SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("S_SNDPRN-LOW").Text = _data.SAPInterface.PartnerNumber;
             SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("S_STAMID-LOW").Text = "*";
@@ -144,10 +149,7 @@ namespace ATT.Scripts
             SAPTestHelper.Current.CloseSession();
         }
 
-        //[Step(Id = 3, Name = "Update Schedule Info")]
-        //public void UpdateSchedule() {
-        //    _data.Start = _data.Start.GetNext(_data.Interval);
-        //}
+       
     }
 
 

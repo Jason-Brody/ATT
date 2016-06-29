@@ -20,6 +20,12 @@ namespace ATT.Scripts
 
         public string DownloadFileLog { get; } = "Download File";
 
-       
+        public PayloadsDownloaderData Copy() {
+            return new PayloadsDownloaderData() {
+                DownloadUrl = DownloadUrl,
+                Password = Password,
+                UserName = UserName
+            };
+        }
     }
 }

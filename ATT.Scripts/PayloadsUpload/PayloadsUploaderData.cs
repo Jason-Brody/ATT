@@ -23,5 +23,16 @@ namespace ATT.Scripts
         public string UploadLog { get; } = "Upload Payload";
 
         public string UpdateMsgLog { get; } ="Update Download Status to DB";
+
+        public PayloadsUploaderData Copy() {
+            return new PayloadsUploaderData() {
+                Host = Host,
+                Port = Port,
+                UserName = UserName,
+                Password = Password,
+                ProxyHost =ProxyHost,
+                ProxyHostPort = ProxyHostPort
+            };
+        }
     }
 }

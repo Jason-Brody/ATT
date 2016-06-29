@@ -164,6 +164,7 @@
     </Compile>
     <Compile Include="ViewModels\AIFInterfaceVM.cs" />
     <Compile Include="ViewModels\InterfaceVM.cs" />
+    <Compile Include="ViewModels\MissionVM.cs" />
     <Compile Include="Windows\MapWin.xaml.cs">
       <DependentUpon>MapWin.xaml</DependentUpon>
     </Compile>

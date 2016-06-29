@@ -17,7 +17,15 @@ namespace ATT.Scripts
 
         public MSGIDTaskData MessageData { get; set; }
 
-        [XmlIgnore]
-        public int Mid { get; set; }
+        public override ScheduleData Copy() {
+            ATTUploadData d = new ATTUploadData();
+            d.Start = this.Start;
+            d.ExpireDate = this.ExpireDate;
+            d.Interval = this.Interval;
+            d.DownloadData = this.DownloadData.Copy();
+            d.UpdateData = this.UpdateData.Copy();
+            d.MessageData = this.MessageData.Copy() as MSGIDTaskData;
+            return d;
+        }
     }
 }

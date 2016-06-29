@@ -91,7 +91,7 @@ namespace ATT.Scripts
                     throw ex;
                 else {
                     RetryCount--;
-                    _log.WriteLog($"Fail to Upload ,Retry left {RetryCount} times", LogType.Fail);
+                    _log.WriteLog($"Fail to Download ,Retry left {RetryCount} times", LogType.Fail);
                 }
                 Task.Delay(3000).Wait();
                 downloadFile(postData, RetryCount);

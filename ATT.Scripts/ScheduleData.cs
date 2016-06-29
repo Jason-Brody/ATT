@@ -10,17 +10,60 @@ namespace ATT.Scripts
 {
     public class ScheduleData 
     {
+        [XmlIgnore]
+        public int Mid { get; set; }
 
-        public DateTime Start { get; set; } = DateTime.Now.AddDays(-1);
+        public ScheduleData() {
+            DateTime now = DateTime.Now;
+            DateTime y = now.AddDays(-1);
+            _start = new DateTime(y.Year, y.Month, y.Day, y.Hour, 0, 0);
+            _expire = new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0);
+        }
 
-        public DateTime ExpireDate { get; set; } = DateTime.Now;
+        private DateTime _start;
+
+        private DateTime _expire;
+
+
+        [XmlIgnore]
+        public DateTime Start {
+            get { return _start; }
+            set { _start = value; }
+        }
+
+
+        [XmlIgnore]
+        public DateTime ExpireDate {
+            get { return _expire; }
+            set { _expire = value; }
+        }
 
         public DateTime GetEnd() {
             return Start.AddHours(Interval);
         }
 
+
+        public string End {
+            get {
+                DateTime dt = Start.AddHours(Interval);
+                if(dt.Hour == 0) {
+                    return "24:00:00";
+                }
+                return dt.ToString("HH:mm:ss");
+            }
+        }
+
+
         public void GetNext() {
             Start = Start.AddHours(Interval);
+        }
+
+        public virtual ScheduleData Copy() {
+            return new ScheduleData() {
+                Start = this.Start,
+                Interval = this.Interval,
+                ExpireDate = this.ExpireDate
+            };
         }
         
         //[XmlIgnore]

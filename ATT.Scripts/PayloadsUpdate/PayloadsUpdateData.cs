@@ -26,6 +26,8 @@ namespace ATT.Scripts
 
         public string TransformLog { get; } = "Transform the XML File";
 
-
+        public PayloadsUpdateData Copy() {
+            return new PayloadsUpdateData();
+        }
     }
 }

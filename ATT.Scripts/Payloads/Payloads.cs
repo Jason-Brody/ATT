@@ -65,13 +65,14 @@ namespace ATT.Scripts
                 //Console.WriteLine("Thread {0} is running task {1}", System.Threading.Thread.CurrentThread.ManagedThreadId, taskId);
                 ScriptEngine<PayloadsDownloader, PayloadsDownloaderData> downloadScript = new ScriptEngine<PayloadsDownloader, PayloadsDownloaderData>();
                 var d = _data.Copy(_data.DownloadData);
-                d.SetTaskId(taskId);
+                d.TaskId = taskId;
+                
                 GlobalConfig.BindingStepInfo(downloadScript);
                 downloadScript.Run(d);
 
                 ScriptEngine<PayloadsUpdate, PayloadsUpdateData> updateScript = new ScriptEngine<PayloadsUpdate, PayloadsUpdateData>();
                 var d1 = _data.Copy(_data.UpdateData);
-                d1.SetTaskId(taskId);
+                d1.TaskId = taskId;
                 GlobalConfig.BindingStepInfo(updateScript);
                 updateScript.Run(d1);
                 

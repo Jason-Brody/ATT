@@ -17,6 +17,9 @@ using ATT.Scripts;
 using System.Timers;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using System.Collections.ObjectModel;
+using ATT.Client.ViewModels;
+using ATT.Data;
 
 namespace ATT.Client.UserControls
 {
@@ -32,6 +35,8 @@ namespace ATT.Client.UserControls
         private Flyout _fy;
         private Timer _countTimer;
         private DateTime _start;
+        private ObservableCollection<MissionVM> _missions;
+        
 
         public string Title {
             get { return (string)GetValue(TitleProperty); }
@@ -49,13 +54,24 @@ namespace ATT.Client.UserControls
             _timer.Elapsed += _timer_Elapsed;
             _countTimer = new Timer(1000);
             _countTimer.Elapsed += _countTimer_Elapsed;
+            _missions = new ObservableCollection<MissionVM>();
+            dg_Status.ItemsSource = _missions;
         }
 
         private void _countTimer_Elapsed(object sender, ElapsedEventArgs e) {
             tbl_Time.Dispatcher.Invoke(() => {
-                tbl_Time.Text = _start.AddHours(_data.Interval).Subtract(DateTime.Now).ToString(@"hh\:mm\:ss");
-               
+                tbl_Time.Text = _start.AddMilliseconds(int.Parse(_timer.Interval.ToString())).Subtract(DateTime.Now).ToString(@"hh\:mm\:ss");
+                //tbl_Time.Text = _start.AddHours(_data.Interval).Subtract(DateTime.Now).ToString(@"hh\:mm\:ss");
             });
+
+
+            //dg_Status.Dispatcher.BeginInvoke(new Action(() => {
+                foreach (var item in _missions) {
+                    if (!item.IsComplete) {
+                        item.TimeUsed = DateTime.Now.Subtract(item.Start).ToString(@"hh\:mm\:ss");
+                    }
+                }
+            //}));
         }
 
         public void SetScript(IScriptEngine<ProgressInfo> Script, ScheduleData Data,Flyout fy) {
@@ -72,20 +88,17 @@ namespace ATT.Client.UserControls
                 stop();
                 return;
             }
-
-
-
             runTask();
-            
         }
 
         private async void btn_Run_Click(object sender, RoutedEventArgs e) {
-            _timer.Interval = _data.Interval*3600*1000;
+            //_timer.Interval = _data.Interval*3600*1000;
+            _timer.Interval = 30 * 1000;
             _timer.Start();
             _countTimer.Start();
             
             btn_Stop.IsEnabled = true;
-            await Task.Run(()=>runTask());
+            await Task.Run(()=> runTask());
         }
 
         private void btn_Stop_Click(object sender, RoutedEventArgs e) {
@@ -93,10 +106,33 @@ namespace ATT.Client.UserControls
         }
 
         private void runTask() {
+
+            var mission = new Missions() {
+                StartDt = _data.Start,
+                StartHour = _data.Start.Hour
+            };
+
+            using (var db = new ATTDbContext()) {
+                db.Missions.Add(mission);
+                db.SaveChanges();
+            }
+
+            _data.Mid = mission.Id;
+
             _start = DateTime.Now;
-            script.Run(_data);
+
+            var data = _data.Copy();
+            data.Mid = mission.Id;
+
+            var newMission = new MissionVM();
+            newMission.Id = mission.Id;
+            newMission.Start = _start;
+            dg_Status.Dispatcher.BeginInvoke(new Action(() => _missions.Add(newMission)));
+           
+            script.Run(data);
             _data.GetNext();
 
+            newMission.IsComplete = true;
         }
 
 

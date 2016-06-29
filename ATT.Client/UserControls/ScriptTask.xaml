@@ -18,6 +18,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid IsEnabled="{Binding ElementName=btn_Run,Path=IsEnabled}">
@@ -66,6 +67,14 @@
                 <TextBlock Text="Next round will start in" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"/>
                 <TextBlock x:Name="tbl_Time" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Foreground="Red"/>
             </StackPanel>
+            <DataGrid Grid.Row="3" x:Name="dg_Status" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Start Time" MinWidth="100" Binding="{Binding Start}"/>
+                    <DataGridCheckBoxColumn Header="IsComplete"  Binding="{Binding IsComplete}"/>
+                    <DataGridTextColumn Header="Time Used" Width="*" Binding="{Binding TimeUsed}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
         
     </GroupBox>

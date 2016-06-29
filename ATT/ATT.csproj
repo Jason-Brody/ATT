@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AIFErrorTrack.cs" />
+    <Compile Include="LockTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaskDataDBConfig.cs" />
@@ -105,6 +106,10 @@
     <ProjectReference Include="..\ATT.Scripts\ATT.Scripts.csproj">
       <Project>{120f9b8f-eb97-44a0-8f30-e6692a65ecb2}</Project>
       <Name>ATT.Scripts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharedLib\SharedLib.csproj">
+      <Project>{fb58c9e4-b0c9-4adc-8d88-75f4f7caba7c}</Project>
+      <Name>SharedLib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

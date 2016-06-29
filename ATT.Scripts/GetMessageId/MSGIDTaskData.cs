@@ -45,16 +45,25 @@ namespace ATT.Scripts
 
         public string EDIKeyPrefix { get; }= "EDIArchiveKey";
 
-        [XmlIgnore]
-        public int TaskId { get; set; }
+        //[XmlIgnore]
+        //public int TaskId { get; set; }
 
-        [XmlIgnore]
-        public int Mid { get; set; }
+       
+      
 
         public string IDocStatus { get; } = "53";
 
         [XmlIgnore]
         public SAPInterfaces SAPInterface { get; set; }
+
+        public override ScheduleData Copy() {
+            MSGIDTaskData d = new MSGIDTaskData();
+            d.Start = this.Start;
+            d.ExpireDate = this.ExpireDate;
+            d.Interval = this.Interval;
+            d.LH1 = this.LH1;
+            return d;
+        }
     }
 
     #region Backup

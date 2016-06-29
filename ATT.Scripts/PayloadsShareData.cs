@@ -10,9 +10,9 @@ namespace ATT.Scripts
 { 
     public class PayloadsShareData
     {
-        protected int taskId;
+      
 
-        public int TaskId { get { return taskId; } }
+        public int TaskId { get; set; }
         public string TaskFolder {
             get { return GlobalConfig.CreateDirectory(Path.Combine(GlobalConfig.AttWorkDir, "Payloads",TaskId.ToString())); }
         }
@@ -21,9 +21,7 @@ namespace ATT.Scripts
             get { return GlobalConfig.CreateDirectory(Path.Combine(GlobalConfig.AttWorkDir, "Payloads")); }
         }
 
-        public void SetTaskId(int TaskId) {
-            this.taskId = TaskId;
-        }
+       
 
 
         

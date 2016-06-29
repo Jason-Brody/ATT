@@ -22,6 +22,7 @@ using System.Diagnostics;
 using System.Xml.Serialization;
 using System.Threading;
 using System.Timers;
+using SharedLib;
 
 namespace ATT
 {
@@ -94,14 +95,19 @@ namespace ATT
         }
 
 
-        //static void loginLH7() {
-        //    SAPLoginData d = new SAPLoginData();
-        //    d.UserName = "21688419";
-        //    d.Password = "1qaz@wsx";
-        //    d.Address = "saplh7.sapnet.hp.com";
-        //    d.Client = "100";
-        //    UIHelper.Login(d);
-        //}
+        static void loginLH7() {
+            SAPLoginData d = new SAPLoginData();
+            d.UserName = "21688419";
+            d.Password = "2wsx#edc";
+            d.Address = "saplh7.sapnet.hp.com";
+            d.Client = "100";
+
+            SAPLogon l = new SAPLogon();
+            l.StartProcess();
+            l.OpenConnection(d.Address);
+            //l.Login(d.UserName, d.Password, d.Client, d.Language);
+            
+        }
 
         static void Test(DateTime dt) {
 
@@ -172,28 +178,35 @@ namespace ATT
         }
 
         public static void Main() {
-            DateTime dt = DateTime.Now;
-            Thread.Sleep(2000);
-            DateTime dt1 = DateTime.Now;
-            Console.WriteLine(dt1 < dt);
+
+            Task[] tasks = new Task[2];
+            tasks[0] = Task.Run(() => loginLH7());
+            //tasks[1] = Task.Run(() => Task.Delay(500).Wait());
+            tasks[1] = Task.Run(() => loginLH7());
+            Task.WaitAll(tasks);
+
+            //DateTime dt = DateTime.Now;
+            //Thread.Sleep(2000);
+            //DateTime dt1 = DateTime.Now;
+            //Console.WriteLine(dt1 < dt);
 
 
-            List<System.Timers.Timer> timers = new List<System.Timers.Timer>();
+            //List<System.Timers.Timer> timers = new List<System.Timers.Timer>();
 
-            for(int i = 0; i < 10; i++) {
-                System.Timers.Timer timer = new System.Timers.Timer(1000);
-                timer.Elapsed += (o, e) => { Console.WriteLine(Thread.CurrentThread.ManagedThreadId);Thread.Sleep(2000); };
-                timers.Add(timer);
-            }
+            //for(int i = 0; i < 10; i++) {
+            //    System.Timers.Timer timer = new System.Timers.Timer(1000);
+            //    timer.Elapsed += (o, e) => { Console.WriteLine(Thread.CurrentThread.ManagedThreadId);Thread.Sleep(2000); };
+            //    timers.Add(timer);
+            //}
 
 
 
-            ThreadPool.SetMinThreads(2, 2);
-            ThreadPool.SetMaxThreads(2, 2);
+            //ThreadPool.SetMinThreads(2, 2);
+            //ThreadPool.SetMaxThreads(2, 2);
 
-            timers.ForEach(t => t.Start());
+            //timers.ForEach(t => t.Start());
 
-            timers.ForEach(t => {  t.Stop(); Thread.Sleep(5000); });
+            //timers.ForEach(t => {  t.Stop(); Thread.Sleep(5000); });
 
             Console.ReadLine();
             //List<Task> t = new List<Task>();
