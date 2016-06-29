@@ -17,8 +17,6 @@ namespace ATT.Scripts
     {
         private ATTDbContext _db;
 
-      
-
         private Task payloadsDownloadTasks;
 
         public ATTUpload() {
@@ -132,6 +130,8 @@ namespace ATT.Scripts
                 //Debug.WriteLine("Thread:{0} is running update task:{1}", Thread.CurrentThread.ManagedThreadId, taskId);
                 updateScript.Run(d1);
                 Debug.WriteLine("Thread:{0} Finished payloads task:{1}", Thread.CurrentThread.ManagedThreadId, taskId);
+
+
             });
         }
 
