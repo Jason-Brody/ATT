@@ -25,6 +25,7 @@ namespace ATT.Scripts
             d.DownloadData = this.DownloadData.Copy();
             d.UpdateData = this.UpdateData.Copy();
             d.MessageData = this.MessageData.Copy() as MSGIDTaskData;
+            d.UploadData = this.UploadData.Copy();
             return d;
         }
     }

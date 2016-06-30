@@ -79,7 +79,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="FluencyCSharp">
-      <HintPath>..\..\FluencyCSharp\FluencyCSharp\FluencyCSharp\FluencyCSharp\bin\Debug\FluencyCSharp.dll</HintPath>
+      <HintPath>..\..\..\FluencyCSharp\FluencyCSharp\FluencyCSharp\bin\Debug\FluencyCSharp.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.3.0.139, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.3.0-ALPHA139\lib\net45\MahApps.Metro.dll</HintPath>
@@ -87,7 +87,7 @@
     </Reference>
     <Reference Include="ScriptRunner.Interface, Version=1.1.1.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ScriptRunner\ScriptRunner\ScriptRunner.Interface\bin\Debug\ScriptRunner.Interface.dll</HintPath>
+      <HintPath>..\..\..\ScriptRunner\ScriptRunner.Interface\bin\Debug\ScriptRunner.Interface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -125,6 +125,9 @@
     <Compile Include="UserControls\LHTrackConfig.xaml.cs">
       <DependentUpon>LHTrackConfig.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\PayloadsLog.xaml.cs">
+      <DependentUpon>PayloadsLog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\PIITrackConfig.xaml.cs">
       <DependentUpon>PIITrackConfig.xaml</DependentUpon>
     </Compile>
@@ -155,6 +158,10 @@
     <Page Include="UserControls\LHTrackConfig.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\PayloadsLog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\PIITrackConfig.xaml">
       <SubType>Designer</SubType>

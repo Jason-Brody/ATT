@@ -10,7 +10,15 @@ namespace ATT.Scripts
 { 
     public class PayloadsShareData
     {
-      
+        public ATTLog GetLog(string Message,LogType tp) {
+            ATTLog l = new ATTLog();
+            l.LogDt = DateTime.Now;
+            l.LogTp = tp;
+            l.FileName = Path.Combine(TaskFolder, $"{TaskId}.txt");
+            l.TaskId = TaskId;
+            l.Description = Message;
+            return l;
+        }
 
         public int TaskId { get; set; }
         public string TaskFolder {

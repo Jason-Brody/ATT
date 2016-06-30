@@ -8,7 +8,7 @@ namespace ATT.Scripts
 {
     public class PayloadsUploaderData:PayloadsShareData
     {
-        public string Host { get; set; } = "pi-itg-01-idoc.sapnet.hpecorp.net";
+        public string Host { get; set; } = "sappii-ent.sapnet.hpecorp.net";
 
         public int Port { get; set; } = 63100;
 

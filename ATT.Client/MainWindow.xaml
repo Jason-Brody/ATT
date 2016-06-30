@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
  xmlns:uc="clr-namespace:ATT.Client.UserControls"
-                      
+                      x:Name="this"
         xmlns:local="clr-namespace:ATT.Client.UserControls"
                       
         mc:Ignorable="d" 
@@ -15,7 +15,7 @@
                       WindowTransitionsEnabled="False"
                       WindowStartupLocation="CenterScreen"
                       MinHeight="500" MinWidth="600"
-        Title="ATT Admin" Height="350" Width="525">
+        Title="ATT Admin" Height="600" Width="1000">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="TextAlignment" Value="Left"/>
@@ -43,13 +43,16 @@
             <controls:Flyout x:Name="fy_LHTrackConfig" Header="LH Track Configuration" Position="Right" Width="600" IsOpen="False">
                 <uc:LHTrackConfig x:Name="uc_LHTrackConfig"/>
             </controls:Flyout>
+            <controls:Flyout x:Name="fy_Log" Header="Payloads Log" Position="Left" Width="{Binding ElementName=this,Path=ActualWidth}" IsOpen="False">
+                <uc:PayloadsLog/>
+            </controls:Flyout>
         </controls:FlyoutsControl>
        
     </controls:MetroWindow.Flyouts>
 
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands ShowLastSeparator="False">
-            <Button Content="Settings"/>
+            <Button Content="Payloads Log" Click="Button_Click"/>
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
     <Grid>

@@ -17,11 +17,10 @@ namespace ATT.Scripts
     [Script("Payloads Download Script")]
     public class PayloadsDownloader : ScriptBase<PayloadsDownloaderData>
     {
-        private ATTLog _log;
+       
 
         public override void Initial(PayloadsDownloaderData data, IProgress<ProgressInfo> StepReporter) {
             base.Initial(data, StepReporter);
-            _log = new ATTLog(_data);
         }
 
        
@@ -30,18 +29,23 @@ namespace ATT.Scripts
         public void Download() {
            
             List<MsgIDs> edikeys = null;
-            _log.WriteLog(_data.GetTaskIdLog, LogType.Normal);
+
+            var log = _data.GetLog(_data.GetTaskIdLog, LogType.Normal);
+            ATTPayLoadsLog.Write(log);
+            
 
             using (var db = new ATTDbContext()) {
                 edikeys = db.MsgIDs.Where(m => m.TaskId == _data.TaskId).ToList();
                 
             }
 
-            _log.WriteLog(_data.GetTaskIdLog, LogType.Success);
+            log = _data.GetLog(_data.GetTaskIdLog, LogType.Success);
+            ATTPayLoadsLog.Write(log);
 
             if (edikeys.Count > 0) {
 
-                _log.WriteLog(_data.DownloadFileLog, LogType.Normal);
+                log = _data.GetLog(_data.DownloadFileLog, LogType.Normal);
+                ATTPayLoadsLog.Write(log);
                 
                 string postData = "msgids=";
 
@@ -52,7 +56,9 @@ namespace ATT.Scripts
                 postData += "&lastVersion=false&fullEnvelope=false";
 
                 downloadFile(postData);
-                _log.WriteLog(_data.DownloadFileLog, LogType.Success);
+
+                ATTPayLoadsLog.Write(_data.GetLog(_data.DownloadFileLog, LogType.Success));
+                
 
             }
 
@@ -91,7 +97,8 @@ namespace ATT.Scripts
                     throw ex;
                 else {
                     RetryCount--;
-                    _log.WriteLog($"Fail to Download ,Retry left {RetryCount} times", LogType.Fail);
+                    ATTPayLoadsLog.Write(_data.GetLog($"Fail to Download ,Retry left {RetryCount} times", LogType.Fail));
+                   
                 }
                 Task.Delay(3000).Wait();
                 downloadFile(postData, RetryCount);
@@ -108,11 +115,13 @@ namespace ATT.Scripts
             }
             catch (Exception ex) {
                 if(RetryCount == 0) {
-                    _log.WriteLog(ex.Message, LogType.Error);
+                    ATTPayLoadsLog.Write(_data.GetLog(ex.Message, LogType.Error));
+                    
                     throw ex;
                 } else {
                     RetryCount--;
-                    _log.WriteLog($"Fail to Download , retry {10-RetryCount}", LogType.Fail);
+                    ATTPayLoadsLog.Write(_data.GetLog($"Fail to Download , retry {10 - RetryCount}", LogType.Fail));
+                    
                 }
                 Task.Delay(1000).Wait();
                 return downloadFile(client, postData,RetryCount);

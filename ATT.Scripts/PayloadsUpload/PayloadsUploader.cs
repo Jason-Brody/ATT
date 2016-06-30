@@ -17,11 +17,11 @@ namespace ATT.Scripts
     [Script("Payloads Upload")]
     public class PayloadsUploader : ScriptBase<PayloadsUploaderData>
     {
-        private ATTLog _log;
+       
 
         public override void Initial(PayloadsUploaderData data, IProgress<ProgressInfo> StepReporter) {
             base.Initial(data, StepReporter);
-            _log = new ATTLog(_data);
+            
         }
        
 
@@ -41,18 +41,23 @@ namespace ATT.Scripts
                 foreach (var item in msgIds) {
                     var senderConfig = senderConfigs.Where(c => c.IDocTypeId == item.IDocTypeId && c.SourceId == item.ProAwsys.SourceId).First();
                     string msg = $"MsgID:{item.MsgId} sent to interface:{senderConfig.senderinterface} component:{senderConfig.itgsendercomponent}";
-                    _log.WriteLog(msg, LogType.Normal);
+                    ATTPayLoadsLog.Write(_data.GetLog(msg, LogType.Normal));
+                    
                     send(item, senderConfig);
                     item.IsSend = true;
                     item.SentDt = DateTime.UtcNow;
                     info.Msg = item.MsgId;
                     _stepReporter.Report(info);
                     info.Current++;
-                    _log.WriteLog(msg, LogType.Success);
+                    ATTPayLoadsLog.Write(_data.GetLog(msg, LogType.Success));
+                  
                 }
-                _log.WriteLog(_data.UpdateMsgLog, LogType.Normal);
+
+                ATTPayLoadsLog.Write(_data.GetLog(_data.UpdateMsgLog, LogType.Normal));
+              
                 db.SaveChanges();
-                _log.WriteLog(_data.UpdateMsgLog, LogType.Success);
+                ATTPayLoadsLog.Write(_data.GetLog(_data.UpdateMsgLog, LogType.Success));
+           
             }
 
         }
@@ -73,7 +78,8 @@ namespace ATT.Scripts
                     throw ex;
                 } else {
                     retryCount--;
-                    _log.WriteLog($"Fail to Upload Message:{item.MsgId},Retry left {retryCount} times", LogType.Fail);
+                    ATTPayLoadsLog.Write(_data.GetLog($"Fail to Upload Message:{item.MsgId},Retry left {retryCount} times,Error:{ex.Message}", LogType.Fail));
+
                 }
                 Task.Delay(3000).Wait();
                 return send(item, senderConfig, retryCount);

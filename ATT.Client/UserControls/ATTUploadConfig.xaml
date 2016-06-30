@@ -8,13 +8,13 @@
              xmlns:myControl="clr-namespace:SharedUserControl;assembly=SharedUserControl"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="500">
-    
+    <ScrollViewer>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition MaxHeight="500"/>
+                <RowDefinition MaxHeight="600"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <GroupBox Header="SAP LH1 Account Configuration">
@@ -88,26 +88,29 @@
                 </Button>
             </StackPanel>
 
-            <DataGrid Grid.Row="3" AutoGenerateColumns="False" x:Name="dg_Interfaces" CanUserAddRows="False" CanUserDeleteRows="False">
-                <DataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem x:Name="mi_Select" Click="mi_Select_Click" Header="Select"></MenuItem>
-                        <MenuItem x:Name="mi_UnSelect" Click="mi_UnSelect_Click" Header="UnSelect"></MenuItem>
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
-                <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Binding="{Binding Source.IsSelected}">
-                        <DataGridCheckBoxColumn.Header>
-                            <CheckBox x:Name="cb_Header" Checked="cb_Header_Checked" Unchecked="cb_Header_Unchecked"/>
-                        </DataGridCheckBoxColumn.Header>
-                    </DataGridCheckBoxColumn>
-                    <DataGridTextColumn IsReadOnly="True" Header="Name"  Binding="{Binding Source.Name}"/>
-                    <DataGridTextColumn IsReadOnly="True" Header="Msg Function" Binding="{Binding Source.MsgFunction}"/>
-                    <DataGridTextColumn IsReadOnly="True" Header="Partner Number" Binding="{Binding Source.PartnerNumber}"/>
-                    <DataGridTextColumn IsReadOnly="True" Header="Company Codes" Binding="{Binding CompanyCodes}"/>
-                    <DataGridTextColumn IsReadOnly="True" Header="Doc Types" Binding="{Binding DocTypes}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            
+                <DataGrid Grid.Row="3" Height="500" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True"
+                      AutoGenerateColumns="False" x:Name="dg_Interfaces" CanUserAddRows="False" CanUserDeleteRows="False">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem x:Name="mi_Select" Click="mi_Select_Click" Header="Select"></MenuItem>
+                            <MenuItem x:Name="mi_UnSelect" Click="mi_UnSelect_Click" Header="UnSelect"></MenuItem>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn Binding="{Binding Source.IsSelected}">
+                            <DataGridCheckBoxColumn.Header>
+                                <CheckBox x:Name="cb_Header" Checked="cb_Header_Checked" Unchecked="cb_Header_Unchecked"/>
+                            </DataGridCheckBoxColumn.Header>
+                        </DataGridCheckBoxColumn>
+                        <DataGridTextColumn IsReadOnly="True" Header="Name"  Binding="{Binding Source.Name}"/>
+                        <DataGridTextColumn IsReadOnly="True" Header="Msg Function" Binding="{Binding Source.MsgFunction}"/>
+                        <DataGridTextColumn IsReadOnly="True" Header="Partner Number" Binding="{Binding Source.PartnerNumber}"/>
+                        <DataGridTextColumn IsReadOnly="True" Header="Company Codes" Binding="{Binding CompanyCodes}"/>
+                        <DataGridTextColumn IsReadOnly="True" Header="Doc Types" Binding="{Binding DocTypes}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            
         </Grid>
-    
+    </ScrollViewer>
 </UserControl>

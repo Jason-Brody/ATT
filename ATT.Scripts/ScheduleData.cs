@@ -58,6 +58,10 @@ namespace ATT.Scripts
             Start = Start.AddHours(Interval);
         }
 
+        public void GetPrevious() {
+            Start = Start.AddHours(Interval * -1);
+        }
+
         public virtual ScheduleData Copy() {
             return new ScheduleData() {
                 Start = this.Start,

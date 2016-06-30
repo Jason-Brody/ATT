@@ -104,11 +104,11 @@ namespace ATT.Client.UserControls
         }
 
         private async void btn_Run_Click(object sender, RoutedEventArgs e) {
-            _timer.Interval = _data.Interval*3600*1000;
-            //_timer.Interval = 30 * 1000;
+            //_timer.Interval = _data.Interval*3600*1000;
+            _timer.Interval = 30 * 1000;
             _timer.Start();
             _countTimer.Start();
-            
+            _data.GetPrevious();
             btn_Stop.IsEnabled = true;
 
             if (Cb_IsRun.IsChecked == true) {
@@ -125,6 +125,8 @@ namespace ATT.Client.UserControls
         }
 
         private void runTask() {
+
+            _data.GetNext();
 
             var mission = new Missions() {
                 StartDt = _data.Start,
@@ -149,7 +151,7 @@ namespace ATT.Client.UserControls
             dg_Status.Dispatcher.BeginInvoke(new Action(() => _missions.Add(newMission)));
            
             script.Run(data);
-            _data.GetNext();
+            
 
             newMission.IsComplete = true;
         }

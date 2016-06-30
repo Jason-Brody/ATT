@@ -46,9 +46,9 @@ namespace ATT.Client
 
         }
 
-       
-
-       
+        private void Button_Click(object sender, RoutedEventArgs e) {
+            fy_Log.IsOpen = !fy_Log.IsOpen;
+        }
     }
 
    

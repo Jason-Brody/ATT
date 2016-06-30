@@ -161,6 +161,7 @@ namespace SharedLib
 
         public static bool Export(this SAPLogon SAP, string outputMenuId, string columnsDivideByComma, string fileName)
         {
+            //var grid = SAP.MainWindow.FindById<GuiGridView>("wnd[0]/usr/cntlGRID1/shellcont/shell");
             var grid = SAP.MainWindow.FindDescendantByProperty<GuiGridView>();
             if (grid.RowCount > 0)
             {

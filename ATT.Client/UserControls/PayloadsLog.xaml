@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="ATT.Client.UserControls.PayloadsLog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ATT.Client.UserControls"
+             mc:Ignorable="d" 
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DataGrid AutoGenerateColumns="False" x:Name="dg_Logs" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Log Date" Binding="{Binding LogDt}"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding LogTp}"/>
+                <DataGridTextColumn Header="Task Id" Binding="{Binding TaskId}"/>
+                <DataGridTextColumn Header="Message" Binding="{Binding Description}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <!--<Button x:Name="btn_Export" Click="btn_Export_Click"  Width="50" Height="50" ToolTip="Export"
+                        Style="{DynamicResource MetroCircleButtonStyle}">
+                <Controls:PackIconMaterial Kind="Export"/>
+            </Button>-->
+            <Button x:Name="btn_Delete" Click="btn_Delete_Click"  Width="50" Height="50" ToolTip="Clean"
+                        Style="{DynamicResource MetroCircleButtonStyle}">
+                <Controls:PackIconModern Kind="Delete"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

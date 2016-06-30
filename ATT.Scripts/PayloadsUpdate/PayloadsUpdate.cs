@@ -26,7 +26,7 @@ namespace ATT.Scripts
 
         private XmlDocument _xDoc;
 
-        private ATTLog _log;
+      
 
         public PayloadsUpdate() {
             _xDoc = new XmlDocument();
@@ -34,7 +34,7 @@ namespace ATT.Scripts
 
         public override void Initial(PayloadsUpdateData data, IProgress<ProgressInfo> StepReporter) {
             base.Initial(data, StepReporter);
-            _log = new ATTLog(_data);
+           
         }
 
        
@@ -45,21 +45,26 @@ namespace ATT.Scripts
             string file = _data.TaskFolder + ".zip";
             FileInfo f = new FileInfo(file);
             _downloadDt = f.CreationTimeUtc;
-            _log.WriteLog(_data.UnzipLog, LogType.Normal);
+            ATTPayLoadsLog.Write(_data.GetLog(_data.UnzipLog, LogType.Normal));
+            
             ZipFile.ExtractToDirectory(file, _data.SourceFolder);
-            _log.WriteLog(_data.UnzipLog, LogType.Success);
+            ATTPayLoadsLog.Write(_data.GetLog(_data.UnzipLog, LogType.Success));
+            
             File.Delete(file);
         }
 
         [Step(Id = 2, Name = "Get EDIKey Info from file")]
         public void GetEDIKeyInfo() {
             dic = new Dictionary<string, EDIKeyTemp>();
-            _log.WriteLog(_data.AnalysisLog, LogType.Normal);
+            ATTPayLoadsLog.Write(_data.GetLog(_data.AnalysisLog, LogType.Normal));
+            
             foreach (var f in Directory.GetFiles(_data.SourceFolder)) {
                 string keyId = FetchFileName(f);
                 dic.Add(keyId, getDocInfo(f));
             }
-            _log.WriteLog(_data.AnalysisLog, LogType.Success);
+
+            ATTPayLoadsLog.Write(_data.GetLog(_data.AnalysisLog, LogType.Success));
+          
         }
 
         [Step(Id = 3, Name = "Update EDIKey Info to DB")]
@@ -68,7 +73,8 @@ namespace ATT.Scripts
             List<IDocTypes> iDocTypes = null;
            
             List<ProAwsys> proAwsys = null;
-            _log.WriteLog(_data.UploadLog, LogType.Normal);
+            ATTPayLoadsLog.Write(_data.GetLog(_data.UploadLog, LogType.Normal));
+            
             using (var db = new ATTDbContext()) {
               
                 iDocTypes = db.IDocTypes.Where(i => i.Name != null).ToList();
@@ -96,7 +102,8 @@ namespace ATT.Scripts
                 }
 
                 db.SaveChanges();
-                _log.WriteLog(_data.UploadLog, LogType.Success);
+                ATTPayLoadsLog.Write(_data.GetLog(_data.UploadLog, LogType.Success));
+                
             }
             #region Hide
             //using (var db = new ATT.Data.AttDbContext()) {
@@ -125,20 +132,22 @@ namespace ATT.Scripts
 
         [Step(Id = 4, Name = "Copy and transform xml")]
         public void CopyAndTransform() {
-            _log.WriteLog(_data.GetXPathConfigLog, LogType.Normal);
+            ATTPayLoadsLog.Write(_data.GetLog(_data.GetXPathConfigLog, LogType.Normal));
+           
             using (var db = new ATTDbContext()) {
 
                 var para = new SqlParameter("TaskId", _data.TaskId);
 
                 var xPathConfigs = db.Database.SqlQuery<ATT.Data.VW_EDITransFormConfig>("exec SP_GetXPathConfig @TaskId", para).ToList();
-                _log.WriteLog(_data.GetXPathConfigLog, LogType.Success);
+                ATTPayLoadsLog.Write(_data.GetLog(_data.GetXPathConfigLog, LogType.Success));
 
-                _log.WriteLog(_data.UpdateTransformConfigLog, LogType.Normal);
+                ATTPayLoadsLog.Write(_data.GetLog(_data.UpdateTransformConfigLog, LogType.Normal));
+               
                 para = new SqlParameter("TaskId", _data.TaskId);
                 db.Database.ExecuteSqlCommand("exec SP_UpdateTransform @TaskId", para);
-                _log.WriteLog(_data.UpdateTransformConfigLog, LogType.Success);
+                ATTPayLoadsLog.Write(_data.GetLog(_data.UpdateTransformConfigLog, LogType.Success));
 
-                _log.WriteLog(_data.TransformLog, LogType.Normal);
+                ATTPayLoadsLog.Write(_data.GetLog(_data.TransformLog, LogType.Normal));
                 var msgIds = db.MsgIDs.Where(m => m.TaskId == _data.TaskId && m.MsgId != null).ToList();
 
                 if (msgIds.Count > 0) {
@@ -148,7 +157,7 @@ namespace ATT.Scripts
                     }
                     db.SaveChanges();
                 }
-                _log.WriteLog(_data.TransformLog,LogType.Success);
+                ATTPayLoadsLog.Write(_data.GetLog(_data.TransformLog, LogType.Success));
 
             }
 
