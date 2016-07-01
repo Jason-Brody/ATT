@@ -18,107 +18,99 @@ namespace ATT.Scripts
     {
         private ATTDbContext _db;
 
-        private Task payloadsDownloadTasks;
+       
 
-        private List<Task> allTasks;
+        private Dictionary<int, List<Task>> allTasks;
 
-        private List<Task> allPayloadsTasks;
+        private Dictionary<int, List<Task>> allPayloadsTasks;
+        private List<Task> runingTasks;
+
+        //private List<Task> allPayloadsTasks;
 
         public ATTUpload() {
             _db = new ATTDbContext();
-            payloadsDownloadTasks = new Task(() => { downloadPayloads(); });
-            allTasks = new List<Task>();
-            allPayloadsTasks = new List<Task>();
+           
+            allTasks = new Dictionary<int, List<Task>>();
+            allPayloadsTasks = new Dictionary<int, List<Task>>();
+            runingTasks = new List<Task>();
         }
 
         [Step(Id = 1, Name = "Run")]
         public void Run() {
 
             var interfaces = _db.SAPInterfaces.Where(s => s.IsSelected == true).ToList();
+            var messageData = _data.MessageData.Copy() as MSGIDTaskData;
+            messageData.Mid = _data.Mid;
+            messageData.Start = _data.Start;
+            messageData.ExpireDate = _data.ExpireDate;
+            messageData.Interval = _data.Interval;
 
-            //var mission = new Missions() {
-            //    StartDt = _data.Start,
-            //    StartHour = _data.Start.Hour
-            //};
+            int mid = _data.Mid;
 
-            //_db.Missions.Add(mission);
-
-            //_db.SaveChanges();
-
-            _data.MessageData.Mid = _data.Mid;
-
-
+            if (!allTasks.ContainsKey(_data.Mid)) {
+                allTasks.Add(_data.Mid, new List<Task>());
+            }
+          
 
 
             foreach (var i in interfaces) {
-                _data.MessageData.SAPInterface = i;
-                _data.MessageData.Start = _data.Start;
-                _data.MessageData.ExpireDate = _data.ExpireDate;
-                _data.MessageData.Interval = _data.Interval;
+                messageData.SAPInterface = i;
                 ScriptEngine<MSGIDTask, MSGIDTaskData> sapScript = new ScriptEngine<MSGIDTask, MSGIDTaskData>();
-                sapScript.Run(_data.MessageData);
+                sapScript.Run(messageData);
 
-                Task.Run(() => downloadPayloads()).AppendTo(allTasks);
+                Task.Run(() => downloadPayloads(mid)).AppendTo(allTasks[mid]);
 
-                //if (payloadsDownloadTasks.Status == TaskStatus.Created) {
-                //    payloadsDownloadTasks.Start();
-                //} else {
-                //    Task.Run(() => downloadPayloads());
-                //}
-                //if (payloadsDownloadTasks.IsCompleted) {
-
-                //    payloadsDownloadTasks = new Task(() => {
-                //        downloadPayloads();
-                //    });
-                //    payloadsDownloadTasks.Start();
-                //}
+                
             }
-            Task.WaitAll(allTasks.ToArray());
+            Task.WaitAll(allTasks[mid].ToArray());
+            allTasks.Remove(mid);
 
-            //if(payloadsDownloadTasks.IsCompleted == false) {
-            //    payloadsDownloadTasks.Wait();
-            //}
-
-            //ScriptEngine<Payloads, PayloadsData> payloadsScript = new ScriptEngine<Payloads, PayloadsData>();
-            //PayloadsData d = new PayloadsData();
-            //d.DownloadData = _data.DownloadData;
-            //d.UpdateData = _data.UpdateData;
-            //d.UploadData = _data.UploadData;
-            //payloadsScript.Run(d);
+           
         }
 
         private object _lockObj = new object();
 
-        private void downloadPayloads() {
-            //List<Task> tasks = new List<Task>();
+        private void downloadPayloads(int mid) {
+            
+
+            
+
 
             lock (_lockObj) {
+
+                if (!allPayloadsTasks.ContainsKey(mid)) {
+                    allPayloadsTasks.Add(mid, new List<Task>());
+                }
+
                 int taskId = 0;
 
                 do {
                     using (var db = new ATTDbContext()) {
-                        SqlParameter para = new SqlParameter("tid", System.Data.SqlDbType.Int);
-                        para.Direction = System.Data.ParameterDirection.Output;
-                        db.Database.ExecuteSqlCommand("exec SP_GetTaskId @tid output", para);
-                        taskId = int.Parse(para.Value.ToString());
+                        SqlParameter para1 = new SqlParameter("mid",mid);
+                        SqlParameter para2 = new SqlParameter("tid", System.Data.SqlDbType.Int);
+                        para2.Direction = System.Data.ParameterDirection.Output;
+                        db.Database.ExecuteSqlCommand("exec SP_GetTaskId @mid, @tid output", para1,para2);
+                        taskId = int.Parse(para2.Value.ToString());
                     }
 
 
                     if (taskId > 0) {
-                        allPayloadsTasks.Add(getPayloadsDownloadTask(taskId));
+                        var t = getPayloadsDownloadTask(taskId);
+                        t.AppendTo(allPayloadsTasks[mid]);
+                        t.AppendTo(runingTasks);
                     }
 
 
-                    if (allPayloadsTasks.Count >= 5) {
-                        int tid = Task.WaitAny(allPayloadsTasks.ToArray());
-                        allPayloadsTasks.RemoveAt(tid);
+                    if (runingTasks.Count >= 5) {
+                        int tid = Task.WaitAny(runingTasks.ToArray());
+                        runingTasks.RemoveAt(tid);
                     }
 
                 }
                 while (taskId > 0);
             }
 
-            Task.WaitAll(allPayloadsTasks.ToArray());
+            Task.WaitAll(allPayloadsTasks[mid].ToArray());
             
 
 

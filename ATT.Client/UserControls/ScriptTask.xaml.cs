@@ -142,15 +142,15 @@ namespace ATT.Client.UserControls
 
             _start = DateTime.Now;
 
-            var data = _data.Copy();
-            data.Mid = mission.Id;
+            _data.Mid = mission.Id;
+            
 
             var newMission = new MissionVM();
             newMission.Id = mission.Id;
             newMission.Start = _start;
             dg_Status.Dispatcher.BeginInvoke(new Action(() => _missions.Add(newMission)));
            
-            script.Run(data);
+            script.Run(_data);
             
 
             newMission.IsComplete = true;
