@@ -35,7 +35,7 @@ namespace ATT.Scripts
             
 
             using (var db = new ATTDbContext()) {
-                edikeys = db.MsgIDs.Where(m => m.TaskId == _data.TaskId).ToList();
+                edikeys = db.MsgIDs.Where(m => m.TaskId == _data.TaskId && m.IsDownload == false).ToList();
                 
             }
 

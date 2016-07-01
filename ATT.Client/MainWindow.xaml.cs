@@ -25,9 +25,7 @@ namespace ATT.Client
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private ScriptEngine<ATTUpload, ATTUploadData> attuploadScript = new ScriptEngine<ATTUpload, ATTUploadData>();
-        private ScriptEngine<PIITrack, PIITrackData> piitrackScript = new ScriptEngine<PIITrack, PIITrackData>();
-        private ScriptEngine<LHTrack, LHTrackData> lhtrackScript = new ScriptEngine<LHTrack, LHTrackData>();
+        
 
         public MainWindow() {
             InitializeComponent();
@@ -36,13 +34,13 @@ namespace ATT.Client
             d1.DownloadData = uc_ATTUploadConfig.PayloadsDownloadData;
             d1.UploadData = uc_ATTUploadConfig.PayloadsUploadData;
             d1.UpdateData = new PayloadsUpdateData();
-            uc_ATTUpload.SetScript(attuploadScript,d1,fy_ATTUploadConfig);
+            uc_ATTUpload.SetScript(()=> new ScriptEngine<ATTUpload, ATTUploadData>(), d1,fy_ATTUploadConfig);
 
             PIITrackData d2 = uc_PIITrackConfig.PII;
-            uc_PIITrack.SetScript(piitrackScript, d2, fy_PIITrackConfig);
+            uc_PIITrack.SetScript(() => new ScriptEngine<PIITrack, PIITrackData>(), d2, fy_PIITrackConfig);
 
             LHTrackData d3 = uc_LHTrackConfig.LH;
-            uc_LHTrack.SetScript(lhtrackScript, d3, fy_LHTrackConfig);
+            uc_LHTrack.SetScript(()=> new ScriptEngine<LHTrack, LHTrackData>(), d3, fy_LHTrackConfig);
 
         }
 

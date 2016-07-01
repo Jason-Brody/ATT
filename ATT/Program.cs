@@ -53,7 +53,7 @@ namespace ATT
 
     public static class TestStatic
     {
-        public static T AppendTo<T>(this T item,ICollection<T> collections) {
+        public static T AppendTo<T>(this T item, ICollection<T> collections) {
             collections.Add(item);
             return item;
         }
@@ -106,7 +106,7 @@ namespace ATT
             l.StartProcess();
             l.OpenConnection(d.Address);
             //l.Login(d.UserName, d.Password, d.Client, d.Language);
-            
+
         }
 
         static void Test(DateTime dt) {
@@ -155,16 +155,16 @@ namespace ATT
             Count++;
         }
 
-       static async void Test(int i) {
-            
-            await Task.Run(()=> { Task.Delay(2000).Wait(); });
+        static async void Test(int i) {
+
+            await Task.Run(() => { Task.Delay(2000).Wait(); });
             Console.WriteLine(i);
-            
-            
+
+
         }
 
         static async Task AsyncTest1(int seconds) {
-            await Task.Delay(new TimeSpan(0,0,seconds));
+            await Task.Delay(new TimeSpan(0, 0, seconds));
             Console.WriteLine($"Delay {seconds}");
         }
 
@@ -177,16 +177,34 @@ namespace ATT
             Console.WriteLine(i);
         }
 
-        public static void Main() {
-            SAPTestHelper.Current.SetSession();
+        static object _lock = new object();
 
+        static Task taskTest(int i) {
+            return Task.Run(() => {
+                Console.WriteLine("Thread:{0} is running task {1}", Thread.CurrentThread.ManagedThreadId, i);
+                //}
+
+                Thread.Sleep(2000);
+            });
+            
+        }
+
+        public static void Main() {
+            //TaskScheduler
+            //Task.Factory.Scheduler
+            //lock(_lock)
+            for (int i = 0; i < 100; i++) {
+                Action a = new Action(() => taskTest(i));
+                
+                
+            }
 
             //Action act = new Action(() => {
             //    ATT.Data.SAPInterfaces i = null;
             //    using(var db = new ATTDbContext()) {
             //        i = db.SAPInterfaces.Include(s=>s.SAPCompanyCodes).Include(s=>s.SAPDocTypes).First();
             //    }
-               
+
 
             //    ScriptEngine<MSGIDTask, MSGIDTaskData> script = new ScriptEngine<MSGIDTask, MSGIDTaskData>();
             //    MSGIDTaskData d = new MSGIDTaskData() { Start = DateTime.Now.AddDays(-1), Interval = 1 };
@@ -203,7 +221,7 @@ namespace ATT
             //Task[] tasks = new Task[2];
             //tasks[0] = Task.Run(act);
             //tasks[1] = Task.Run(act);
-            
+
             ////tasks[1] = Task.Run(()=>Task.Delay(50).Wait());
             //Task.WaitAll(tasks);
 
@@ -243,11 +261,11 @@ namespace ATT
 
             //    }
 
-                
 
 
 
-                
+
+
             //    //tempT.Start();
             //    //Task.Run(()=> { Thread.Sleep(1000); Console.WriteLine(i); }).AppendTo(t);
             //}
@@ -259,7 +277,7 @@ namespace ATT
             //Console.ReadLine();
             //TrackError();
             //  SampleFill();
-           
+
             //var tpp = typeof(int?);
             //var tpp2 = typeof(Nullable<int>);
             //var args = tpp.GenericTypeArguments[0];
@@ -367,6 +385,6 @@ namespace ATT
 
         }
 
-       
+
     }
 }

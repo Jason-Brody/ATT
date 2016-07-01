@@ -20,19 +20,18 @@ namespace ATT.Scripts
 
        
 
-        private Dictionary<int, List<Task>> allTasks;
+        private List<Task> allTasks;
 
-        private Dictionary<int, List<Task>> allPayloadsTasks;
-        private List<Task> runingTasks;
+        private List<Task> allPayloadsTasks;
+    
 
         //private List<Task> allPayloadsTasks;
 
         public ATTUpload() {
             _db = new ATTDbContext();
-           
-            allTasks = new Dictionary<int, List<Task>>();
-            allPayloadsTasks = new Dictionary<int, List<Task>>();
-            runingTasks = new List<Task>();
+            
+            allTasks =new List<Task>();
+            allPayloadsTasks =new List<Task>();
         }
 
         [Step(Id = 1, Name = "Run")]
@@ -47,40 +46,19 @@ namespace ATT.Scripts
 
             int mid = _data.Mid;
 
-            if (!allTasks.ContainsKey(_data.Mid)) {
-                allTasks.Add(_data.Mid, new List<Task>());
-            }
-          
-
-
             foreach (var i in interfaces) {
                 messageData.SAPInterface = i;
                 ScriptEngine<MSGIDTask, MSGIDTaskData> sapScript = new ScriptEngine<MSGIDTask, MSGIDTaskData>();
                 sapScript.Run(messageData);
-
-                Task.Run(() => downloadPayloads(mid)).AppendTo(allTasks[mid]);
-
-                
+                Task.Run(() => downloadPayloads(mid)).AppendTo(allTasks);
             }
-            Task.WaitAll(allTasks[mid].ToArray());
-            allTasks.Remove(mid);
-
-           
+            Task.WaitAll(allTasks.ToArray());
         }
 
         private object _lockObj = new object();
 
         private void downloadPayloads(int mid) {
-            
-
-            
-
-
             lock (_lockObj) {
-
-                if (!allPayloadsTasks.ContainsKey(mid)) {
-                    allPayloadsTasks.Add(mid, new List<Task>());
-                }
 
                 int taskId = 0;
 
@@ -96,25 +74,19 @@ namespace ATT.Scripts
 
                     if (taskId > 0) {
                         var t = getPayloadsDownloadTask(taskId);
-                        t.AppendTo(allPayloadsTasks[mid]);
-                        t.AppendTo(runingTasks);
+                        t.AppendTo(allPayloadsTasks);
                     }
 
 
-                    if (runingTasks.Count >= 5) {
-                        int tid = Task.WaitAny(runingTasks.ToArray());
-                        runingTasks.RemoveAt(tid);
+                    if (allPayloadsTasks.Count >= 5) {
+                        int tid = Task.WaitAny(allPayloadsTasks.ToArray());
                     }
 
                 }
                 while (taskId > 0);
             }
 
-            Task.WaitAll(allPayloadsTasks[mid].ToArray());
-            
-
-
-
+            Task.WaitAll(allPayloadsTasks.ToArray());
         }
 
         private Task getPayloadsDownloadTask(int taskId) {

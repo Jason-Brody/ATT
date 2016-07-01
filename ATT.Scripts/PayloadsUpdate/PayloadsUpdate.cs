@@ -60,7 +60,12 @@ namespace ATT.Scripts
             
             foreach (var f in Directory.GetFiles(_data.SourceFolder)) {
                 string keyId = FetchFileName(f);
-                dic.Add(keyId, getDocInfo(f));
+                try {
+                    dic.Add(keyId, getDocInfo(f));
+                }
+                catch {
+
+                }
             }
 
             ATTPayLoadsLog.Write(_data.GetLog(_data.AnalysisLog, LogType.Success));

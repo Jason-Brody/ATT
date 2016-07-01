@@ -86,8 +86,8 @@ namespace ATT.Client.UserControls
             
         }
 
-        public void SetScript(IScriptEngine<ProgressInfo> Script, ScheduleData Data,Flyout fy) {
-            script = Script;
+        public void SetScript(Func<IScriptEngine<ProgressInfo>>  GetScript, ScheduleData Data,Flyout fy) {
+            script = GetScript();
             _data = Data;
             this.DataContext = _data;
             _fy = fy;
@@ -104,8 +104,8 @@ namespace ATT.Client.UserControls
         }
 
         private async void btn_Run_Click(object sender, RoutedEventArgs e) {
-            //_timer.Interval = _data.Interval*3600*1000;
-            _timer.Interval = 30 * 1000;
+            _timer.Interval = _data.Interval*3600*1000;
+            //_timer.Interval = 30 * 1000;
             _timer.Start();
             _countTimer.Start();
             _data.GetPrevious();
