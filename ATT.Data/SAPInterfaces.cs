@@ -11,6 +11,7 @@ namespace ATT.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SAPInterfaces()
         {
+            ClientInterfaces = new HashSet<ClientInterfaces>();
             MsgIDs = new HashSet<MsgIDs>();
             SAPCompanyCodes = new HashSet<SAPCompanyCodes>();
             SAPDocTypes = new HashSet<SAPDocTypes>();
@@ -28,6 +29,9 @@ namespace ATT.Data
         public string PartnerNumber { get; set; }
 
         public bool? IsSelected { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClientInterfaces> ClientInterfaces { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MsgIDs> MsgIDs { get; set; }

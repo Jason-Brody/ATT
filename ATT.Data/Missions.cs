@@ -14,7 +14,6 @@ namespace ATT.Data
             MsgIDs = new HashSet<MsgIDs>();
         }
 
-     
         public int Id { get; set; }
 
         [Column(TypeName = "date")]
@@ -22,7 +21,7 @@ namespace ATT.Data
 
         public int? StartHour { get; set; }
 
-        public int? MissionId { get; set; }
+        public int? TypeId { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MsgIDs> MsgIDs { get; set; }

@@ -34,6 +34,7 @@ namespace ATT.Client
             d1.DownloadData = uc_ATTUploadConfig.PayloadsDownloadData;
             d1.UploadData = uc_ATTUploadConfig.PayloadsUploadData;
             d1.UpdateData = new PayloadsUpdateData();
+            d1.ClientId = (App.Current as App).ClientId;
             uc_ATTUpload.SetScript(()=> new ScriptEngine<ATTUpload, ATTUploadData>(), d1,fy_ATTUploadConfig);
 
             PIITrackData d2 = uc_PIITrackConfig.PII;

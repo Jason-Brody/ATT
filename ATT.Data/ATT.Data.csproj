@@ -75,6 +75,7 @@
     <Compile Include="ATT\Tasks.cs" />
     <Compile Include="ATT\XNodes.cs" />
     <Compile Include="ATT\XPathConfigs.cs" />
+    <Compile Include="ClientInterfaces.cs" />
     <Compile Include="Entity\TaskDataConfigs.cs" />
     <Compile Include="Entity\IDocNumbers_ITG.cs" />
     <Compile Include="Entity\MsgIDs_ITG.cs" />
@@ -106,7 +107,6 @@
     <Compile Include="SAPInterfaces.cs" />
     <Compile Include="SenderConfigs.cs" />
     <Compile Include="Sources.cs" />
-    <Compile Include="sysdiagrams.cs" />
     <Compile Include="TaskDataConfigs.cs" />
     <Compile Include="Tasks.cs" />
     <Compile Include="VW_EDITransFormConfig.CS" />

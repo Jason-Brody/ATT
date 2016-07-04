@@ -17,6 +17,8 @@ namespace ATT.Scripts
 
         public MSGIDTaskData MessageData { get; set; }
 
+        public int ClientId { get; set; }
+
         public override ScheduleData Copy() {
             ATTUploadData d = new ATTUploadData();
             d.Start = this.Start;

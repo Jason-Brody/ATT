@@ -11,6 +11,7 @@ namespace ATT.Data
             : base("name=ATTDbContext") {
         }
 
+        public virtual DbSet<ClientInterfaces> ClientInterfaces { get; set; }
         public virtual DbSet<IDocNumbers> IDocNumbers { get; set; }
         public virtual DbSet<IDocNumbers_ITG> IDocNumbers_ITG { get; set; }
         public virtual DbSet<IDocTypes> IDocTypes { get; set; }
@@ -26,7 +27,6 @@ namespace ATT.Data
         public virtual DbSet<SAPInterfaces> SAPInterfaces { get; set; }
         public virtual DbSet<SenderConfigs> SenderConfigs { get; set; }
         public virtual DbSet<Sources> Sources { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TaskDataConfigs> TaskDataConfigs { get; set; }
         public virtual DbSet<Tasks> Tasks { get; set; }
         public virtual DbSet<XNodes> XNodes { get; set; }
@@ -62,6 +62,11 @@ namespace ATT.Data
                 .HasMany(e => e.MsgIDs)
                 .WithOptional(e => e.Missions)
                 .HasForeignKey(e => e.Mid);
+
+            modelBuilder.Entity<SAPInterfaces>()
+                .HasMany(e => e.ClientInterfaces)
+                .WithOptional(e => e.SAPInterfaces)
+                .HasForeignKey(e => e.InterfaceId);
 
             modelBuilder.Entity<SAPInterfaces>()
                 .HasMany(e => e.MsgIDs)

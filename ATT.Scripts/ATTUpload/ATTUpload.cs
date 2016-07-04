@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Threading;
 using FluencyCSharp;
+using System.Data.Entity;
 
 namespace ATT.Scripts
 {
@@ -36,8 +37,8 @@ namespace ATT.Scripts
 
         [Step(Id = 1, Name = "Run")]
         public void Run() {
-
-            var interfaces = _db.SAPInterfaces.Where(s => s.IsSelected == true).ToList();
+            
+            var interfaces = _db.ClientInterfaces.Include(c => c.SAPInterfaces).Where(s => s.ClientId == _data.ClientId).Select(s => s.SAPInterfaces).ToList();
             var messageData = _data.MessageData.Copy() as MSGIDTaskData;
             messageData.Mid = _data.Mid;
             messageData.Start = _data.Start;

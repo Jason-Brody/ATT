@@ -16,6 +16,7 @@ using ATT.Scripts;
 using ATT.Data;
 using ATT.Client.ViewModels;
 using FluencyCSharp;
+using System.Data.SqlClient;
 
 namespace ATT.Client.UserControls
 {
@@ -58,7 +59,8 @@ namespace ATT.Client.UserControls
             PayloadsDownloadData.SaveToXml(GlobalConfig.PayloadsDownloaderDataFile);
             PayloadsUploadData.SaveToXml(GlobalConfig.PayloadsUploaderDataFile);
             await _db.SaveChangesAsync();
-            
+            SqlParameter para = new SqlParameter("@cid", ((App)App.Current).ClientId);
+            _db.Database.ExecuteSqlCommand("exec sp_UpdateMissionInterfaces @cid", para);
         }
 
         private void cb_Header_Checked(object sender, RoutedEventArgs e) {
