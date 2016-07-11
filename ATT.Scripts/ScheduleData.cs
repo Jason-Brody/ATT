@@ -1,6 +1,7 @@
 ﻿using SharedLib;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace ATT.Scripts
 {
-    public class ScheduleData 
+    public class ScheduleData : INotifyPropertyChanged
     {
         [XmlIgnore]
         public int Mid { get; set; }
@@ -24,11 +25,18 @@ namespace ATT.Scripts
 
         private DateTime _expire;
 
+        public event PropertyChangedEventHandler PropertyChanged;
 
         [XmlIgnore]
         public DateTime Start {
             get { return _start; }
-            set { _start = value; }
+            set {
+                if(_start != value) {
+                    _start = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Start)));
+                }
+                
+            }
         }
 
 

@@ -105,16 +105,19 @@ namespace ATT.Client.UserControls
 
         private async void btn_Run_Click(object sender, RoutedEventArgs e) {
             _timer.Interval = _data.Interval*3600*1000;
-            //_timer.Interval = 30 * 1000;
+            //_timer.Interval = 15 * 1000;
             _timer.Start();
             _countTimer.Start();
-            _data.GetPrevious();
+            //_data.GetPrevious();
             btn_Stop.IsEnabled = true;
+
+            
 
             if (Cb_IsRun.IsChecked == true) {
                 await Task.Run(() => runTask());
             } else {
                 _start = DateTime.Now;
+                //_data.GetNext();
             }
 
             
