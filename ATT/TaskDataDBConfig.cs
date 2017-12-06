@@ -49,9 +49,9 @@ namespace ATT
         //    AddTask(d,ATTTask.LHTrack);
 
         //    MSGIDTaskData d1= new MSGIDTaskData();
-        //    d1.Address = "saplh1-ent.sapnet.hpecorp.net";
-        //    d1.UserName = "21746957";
-        //    d1.Password = "Ojo@1gat7";
+        //    d1.Address = "";
+        //    d1.UserName = "";
+        //    d1.Password = "";
         //    d1.Client = "100";
         //    d1.Language = "EN";
         //    d1.Start = new ATTDate(2016, 4, 26, 0);
@@ -63,27 +63,27 @@ namespace ATT
         //    AddTask(d2, ATTTask.UpdatePayloads);
 
         //    PayloadsUploaderData d3 = new PayloadsUploaderData();
-        //    d3.UserName = "21746957";
-        //    d3.Password = "Ojo@6gat";
-        //    d3.Host = "pi-itg-01-idoc.sapnet.hpecorp.net";
+        //    d3.UserName = "";
+        //    d3.Password = "";
+        //    d3.Host = "";
         //    d3.Port = 63100;
         //    d3.ProxyHost = "web-proxy.austin.hp.com";
         //    d3.ProxyHostPort = 8080;
         //    AddTask(d3, ATTTask.UploadPayloads);
 
         //    PIITrackData d4 = new PIITrackData();
-        //    d4.Address = "pi-itg-01-idoc.sapnet.hpecorp.net";
-        //    d4.UserName = "21746957";
-        //    d4.Password = "Ojo@6gat";
+        //    d4.Address = "";
+        //    d4.UserName = "";
+        //    d4.Password = "";
         //    d4.Client = "020";
         //    d4.Language = "EN";
         //    d4.Start = new ATTDate(2016, 4, 26, 0);
         //    AddTask(d4, ATTTask.PIITrack);
 
         //    PayloadsDownloaderData d5 = new PayloadsDownloaderData();
-        //    d5.DownloadUrl = "http://sapxip-ent.sapnet.hpecorp.net:50000/hp.com~com.hp.pi.core.web/svc/event/downloadPayloads";
-        //    d5.UserName = "21746957";
-        //    d5.Password = "Ojo@8gat";
+        //    d5.DownloadUrl = "";
+        //    d5.UserName = "";
+        //    d5.Password = "";
         //    AddTask(d5, ATTTask.DownloadPayloads);
 
         //    PayloadsData d6 = new PayloadsData();
